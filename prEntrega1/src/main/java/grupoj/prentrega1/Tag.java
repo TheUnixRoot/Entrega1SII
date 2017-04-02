@@ -11,6 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -25,6 +28,13 @@ public class Tag implements Serializable {
     private Long id;
     @Column(unique=true)
     private String texto;
+    
+    @ManyToMany(mappedBy ="tagged_by")
+    private Evento evento;
+    
+    @ManyToOne
+    @JoinColumn(name = "formulario_fk" , nullable = false)
+    private Formulario form;
 
     public Long getId() {
         return id;

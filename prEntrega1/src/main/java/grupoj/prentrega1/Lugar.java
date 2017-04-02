@@ -6,11 +6,16 @@
 package grupoj.prentrega1;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -30,6 +35,41 @@ public class Lugar implements Serializable {
     private String descripcion;
     private String fotos;
     
+    // Relacion ocurre Bidireccional Evento <-> Lugar
+    @OneToMany(mappedBy = "ocurre_in")
+    private List<Evento> ocurren_at;
+    
+    // Relacion Bidireccional Lugar <-> Geolocalizacion
+    @OneToOne
+    @JoinColumn(name = "tiene_geolocalizacion", nullable = false)
+    private Geolocalizacion geolocalizacion;
+
+    // Relacion Bidireccional Lugar <-> Periodista
+    @ManyToMany(mappedBy = "gestionarLugar")
+    private List<Periodista> gestionadoPor;
+
+    // Relacion recibe Bidireccional Valoracion_lug <-> Lugar
+    @OneToMany(mappedBy = "valoracion_sobre")
+    private List<Valoracion_lug> valoraciones_sobre;
+    
+    
+    
+    
+    public Geolocalizacion getGeolocalizacion() {
+        return geolocalizacion;
+    }
+
+    public void setGeolocalizacion(Geolocalizacion geolocalizacion) {
+        this.geolocalizacion = geolocalizacion;
+    }
+
+    public List<Periodista> getGestionadoPor() {
+        return gestionadoPor;
+    }
+
+    public void setGestionadoPor(List<Periodista> gestionadoPor) {
+        this.gestionadoPor = gestionadoPor;
+    }
     
     public Long getId() {
         return id;

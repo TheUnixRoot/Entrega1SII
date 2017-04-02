@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -23,11 +25,22 @@ public class Valoracion_lug implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(nullable=false)
+    @Column(nullable = false)
     private int calificacion;
     private String comentario;
     private String fotos;
-    
+
+    // Relacion Bidireccional Usuario <-> Valoracion_lug
+    @ManyToOne
+    @JoinColumn(name = "realizado_por_fk", nullable = false)
+    private Usuario realizado_por;
+
+    // Relacion Bidireccional Lugar <-> Valoracion_lug
+    @ManyToOne
+    @JoinColumn(name = "valoracion_sobre_fk", nullable = false)
+    private Lugar valoracion_sobre;
+
+
     public Long getId() {
         return id;
     }

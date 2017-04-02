@@ -7,52 +7,44 @@ package grupoj.prentrega1;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author anaes
  */
 @Entity
-public class Mensaje implements Serializable {
+public class Geolocalizacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String asunto;
-    private String texto;
+    @Column(nullable=false)
+    private String direccion;
     
-    // Relacion Bidireccional Mensaje <-> Usuario
-    @ManyToOne
-    @JoinColumn(name = "envia_mensaje", nullable = false)
-    private Usuario enviadoPor;
+    // Relacion bidireccional Geolocalizacion <-> Usuario
+    @OneToMany (mappedBy="geolocalizacion")
+    private List<Usuario> usuarios;
+    
+    // Relacion bidireccional Geolocalizacion <-> Usuario
+    @OneToOne (mappedBy="geolocalizacion")
+    private Lugar lugar;
 
-    // Relacion Bidireccional Mensaje <-> Administrador
-    @ManyToMany(mappedBy = "recibirMensaje")
-    private List<Administrador> recibidoPor;
-
-    public Usuario getEnviadoPor() {
-        return enviadoPor;
+    public Lugar getLugar() {
+        return lugar;
     }
 
-    public void setEnviadoPor(Usuario enviadoPor) {
-        this.enviadoPor = enviadoPor;
+    public void setLugar(Lugar lugar) {
+        this.lugar = lugar;
     }
-
-    public List<Administrador> getRecibidoPor() {
-        return recibidoPor;
-    }
-
-    public void setRecibidoPor(List<Administrador> recibidoPor) {
-        this.recibidoPor = recibidoPor;
-    }
+    
     
     public Long getId() {
         return id;
@@ -62,20 +54,20 @@ public class Mensaje implements Serializable {
         this.id = id;
     }
 
-    public String getAsunto() {
-        return asunto;
+    public String getDireccion() {
+        return direccion;
     }
 
-    public void setAsunto(String asunto) {
-        this.asunto = asunto;
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
-    public String getTexto() {
-        return texto;
+    public List<Usuario> getUsuarios() {
+        return usuarios;
     }
 
-    public void setTexto(String texto) {
-        this.texto = texto;
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
     
     @Override
@@ -88,10 +80,10 @@ public class Mensaje implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Mensaje)) {
+        if (!(object instanceof Geolocalizacion)) {
             return false;
         }
-        Mensaje other = (Mensaje) object;
+        Geolocalizacion other = (Geolocalizacion) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +92,7 @@ public class Mensaje implements Serializable {
 
     @Override
     public String toString() {
-        return "grupoj.prentrega1.Mensaje[ id=" + id + " ]";
+        return "grupoj.prentrega1.Geolocalizacion[ id=" + id + " ]";
     }
     
 }

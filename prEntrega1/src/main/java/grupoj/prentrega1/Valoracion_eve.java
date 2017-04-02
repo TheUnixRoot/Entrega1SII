@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -27,6 +29,16 @@ public class Valoracion_eve implements Serializable {
     private int calificacion;
     private String comentario;
     private String fotos;
+    
+    // Relacion Bidireccional Usuario <-> Valoracion_eve
+    @ManyToOne
+    @JoinColumn(name="realizado_por_fk", nullable=false)
+    private Usuario realizado_por;
+ 
+    // Relacion Bidireccional Evento <-> Valoracion_eve
+    @ManyToOne
+    @JoinColumn(name="valoracion_sobre_fk", nullable=false)
+    private Evento valoracion_sobre;
     
     public Long getId() {
         return id;

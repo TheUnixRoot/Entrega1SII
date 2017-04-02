@@ -6,11 +6,16 @@
 package grupoj.prentrega1;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -19,12 +24,44 @@ import javax.persistence.Id;
 @Entity
 public class Administrador extends Periodista {
 
-    private static final long serialVersionUID = 1L;
-
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column( name = "identificador", nullable = false)
     private Long identificador;
 
+    // Relacion "recibir" de la entidad Administrador con la entidad Mensaje
+    @ManyToMany
+    @JoinTable(name = "jnd_recibir_mensaje",
+            joinColumns = @JoinColumn(name = "administrador_fk"),
+            inverseJoinColumns = @JoinColumn(name = "mensaje_fk"))
+    private List<Mensaje> recibirMensaje;
+    
+    // Relacion "recibir" de la entidad Administrador con la entidad Usuario
+    @ManyToMany
+    @JoinTable(name = "jnd_es_gestionado",
+            joinColumns = @JoinColumn(name = "administrador_fk"),
+            inverseJoinColumns = @JoinColumn(name = "usuario_fk"))
+    private List<Usuario> esGestionado;
+
+    @OneToMany(mappedBy = "admin")
+    private List<Anuncio> anuncios_by;
+    
+    public List<Mensaje> getRecibirMensaje() {
+        return recibirMensaje;
+    }
+
+    public void setRecibirMensaje(List<Mensaje> recibirMensaje) {
+        this.recibirMensaje = recibirMensaje;
+    }
+
+    public List<Usuario> getEsGestionado() {
+        return esGestionado;
+    }
+
+    public void setEsGestionado(List<Usuario> esGestionado) {
+        this.esGestionado = esGestionado;
+    }
+    
+    
+    
     public Long getIdentificador() {
         return identificador;
     }
