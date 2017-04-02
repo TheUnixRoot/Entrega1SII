@@ -3,6 +3,7 @@
   <persistence-unit name="grupoj_prEntrega1_jar_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>grupoj.prentrega1.Anuncio</class>
+    <class>grupoj.prentrega1.Tag</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/sample"/>
       <property name="javax.persistence.jdbc.user" value="app"/>
