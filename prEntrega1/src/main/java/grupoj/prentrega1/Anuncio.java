@@ -28,7 +28,7 @@ public class Anuncio implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
-    private Administrador user;
+    private Administrador admin;
     private String dimensiones;
     private String empresa;
     private int prioridad;
