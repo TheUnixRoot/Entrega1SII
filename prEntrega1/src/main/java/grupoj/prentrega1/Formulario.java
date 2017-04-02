@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -46,8 +47,33 @@ public class Formulario implements Serializable {
     private List<Tag> form_tags;
     
     // Relacion "sobre" de la entidad Formulario con la entidad Notificacion
-    @ManyToMany(mappedBy = "sobre_src")
-    private List<Notificacion> sobre_by;
+    @ManyToOne
+    @JoinColumn(name = "notificacion_fk" , nullable = false)
+    private Notificacion sobre_by;
+
+    public void setForm_tags(List<Tag> form_tags) {
+        this.form_tags = form_tags;
+    }
+
+    
+    
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public List<Tag> getForm_tags() {
+        return form_tags;
+    }
+
+    public Notificacion getSobre_by() {
+        return sobre_by;
+    }
+
+    public void setSobre_by(Notificacion sobre_by) {
+        this.sobre_by = sobre_by;
+    }
+
+   
     
     public List<Evento> getHistorialEventos() {
         return historialEventos;

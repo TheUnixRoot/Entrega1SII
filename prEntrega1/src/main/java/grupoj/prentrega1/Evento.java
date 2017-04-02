@@ -85,6 +85,11 @@ public class Evento implements Serializable {
     
     // ||||||||||| GETTERS Y SETTERS --------------------
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    
     public Long getId() {
         return id;
     }

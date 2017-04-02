@@ -51,6 +51,26 @@ public class Lugar implements Serializable {
     // Relacion recibe Bidireccional Valoracion_lug <-> Lugar
     @OneToMany(mappedBy = "valoracion_sobre")
     private List<Valoracion_lug> valoraciones_sobre;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public List<Evento> getOcurren_at() {
+        return ocurren_at;
+    }
+
+    public List<Valoracion_lug> getValoraciones_sobre() {
+        return valoraciones_sobre;
+    }
+
+    public void setOcurren_at(List<Evento> ocurren_at) {
+        this.ocurren_at = ocurren_at;
+    }
+
+    public void setValoraciones_sobre(List<Valoracion_lug> valoraciones_sobre) {
+        this.valoraciones_sobre = valoraciones_sobre;
+    }
     
     
     

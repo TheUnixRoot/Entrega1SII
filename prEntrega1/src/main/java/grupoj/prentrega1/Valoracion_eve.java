@@ -39,6 +39,28 @@ public class Valoracion_eve implements Serializable {
     @ManyToOne
     @JoinColumn(name="valoracion_sobre_fk", nullable=false)
     private Evento valoracion_sobre;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Usuario getRealizado_por() {
+        return realizado_por;
+    }
+
+    public Evento getValoracion_sobre() {
+        return valoracion_sobre;
+    }
+
+    public void setRealizado_por(Usuario realizado_por) {
+        this.realizado_por = realizado_por;
+    }
+
+    public void setValoracion_sobre(Evento valoracion_sobre) {
+        this.valoracion_sobre = valoracion_sobre;
+    }
+    
+    
     
     public Long getId() {
         return id;

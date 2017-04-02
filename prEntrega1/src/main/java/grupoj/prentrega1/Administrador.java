@@ -39,6 +39,17 @@ public class Administrador extends Periodista {
 
     @OneToMany(mappedBy = "admin")
     private List<Anuncio> anuncios_by;
+
+
+
+
+    public List<Anuncio> getAnuncios_by() {
+        return anuncios_by;
+    }
+
+    public void setAnuncios_by(List<Anuncio> anuncios_by) {
+        this.anuncios_by = anuncios_by;
+    }
     
     public List<Mensaje> getRecibirMensaje() {
         return recibirMensaje;

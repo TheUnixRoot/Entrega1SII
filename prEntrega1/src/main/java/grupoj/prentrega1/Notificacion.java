@@ -34,11 +34,9 @@ public class Notificacion implements Serializable {
     private String contenido;
     
     @ManyToMany(mappedBy = "notificaciones")
-    @Column(nullable=false)
     private List<Usuario> usuarios;
     
     @ManyToMany(mappedBy = "gestionarNotificacion")
-    @Column(nullable=false)
     private List<Periodista> periodistas;
     
     @Column(nullable=false)
@@ -48,9 +46,22 @@ public class Notificacion implements Serializable {
     @Column(nullable=false)
     private String formato;
 
-    @OneToMany
-    @JoinColumn(name = "formulario_fk" , nullable = false)
+    @OneToMany(mappedBy = "sobre_by")
     private List<Formulario> sobre_src;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public List<Formulario> getSobre_src() {
+        return sobre_src;
+    }
+
+    public void setSobre_src(List<Formulario> sobre_src) {
+        this.sobre_src = sobre_src;
+    }
+    
+    
     
     public List<Usuario> getUsuarios() {
         return usuarios;

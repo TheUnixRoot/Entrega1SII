@@ -40,6 +40,28 @@ public class Valoracion_lug implements Serializable {
     @JoinColumn(name = "valoracion_sobre_fk", nullable = false)
     private Lugar valoracion_sobre;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Usuario getRealizado_por() {
+        return realizado_por;
+    }
+
+    public Lugar getValoracion_sobre() {
+        return valoracion_sobre;
+    }
+
+    public void setRealizado_por(Usuario realizado_por) {
+        this.realizado_por = realizado_por;
+    }
+
+    public void setValoracion_sobre(Lugar valoracion_sobre) {
+        this.valoracion_sobre = valoracion_sobre;
+    }
+
+    
+    
 
     public Long getId() {
         return id;

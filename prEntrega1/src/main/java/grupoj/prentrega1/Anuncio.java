@@ -44,6 +44,21 @@ public class Anuncio implements Serializable {
     @Column(nullable = false)
     private String multimedia;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    
+    
+    
+    public Administrador getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Administrador admin) {
+        this.admin = admin;
+    }
+
     public Long getId() {
         return id;
     }

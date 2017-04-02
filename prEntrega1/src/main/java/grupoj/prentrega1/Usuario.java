@@ -99,6 +99,26 @@ public class Usuario implements Serializable {
     // Relacion "enviar" de la entidad Usuario con la entidad Mensaje
     @OneToMany(mappedBy = "enviadoPor")
     private List<Mensaje> msg_send;
+
+    public void setGeolocalizacion(Geolocalizacion geolocalizacion) {
+        this.geolocalizacion = geolocalizacion;
+    }
+
+    public void setVal_eve(List<Valoracion_eve> val_eve) {
+        this.val_eve = val_eve;
+    }
+
+    public void setVal_lug(List<Valoracion_lug> val_lug) {
+        this.val_lug = val_lug;
+    }
+
+    public void setForm(Formulario form) {
+        this.form = form;
+    }
+
+    public void setMsg_send(List<Mensaje> msg_send) {
+        this.msg_send = msg_send;
+    }
     
 
     
@@ -108,6 +128,26 @@ public class Usuario implements Serializable {
 
     public void setSubidas(List<Evento> subidas) {
         this.subidas = subidas;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public List<Valoracion_eve> getVal_eve() {
+        return val_eve;
+    }
+
+    public List<Valoracion_lug> getVal_lug() {
+        return val_lug;
+    }
+
+    public Formulario getForm() {
+        return form;
+    }
+
+    public List<Mensaje> getMsg_send() {
+        return msg_send;
     }
     
 

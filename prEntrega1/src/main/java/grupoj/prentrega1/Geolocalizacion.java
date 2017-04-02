@@ -37,6 +37,12 @@ public class Geolocalizacion implements Serializable {
     @OneToOne (mappedBy="geolocalizacion")
     private Lugar lugar;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    
+    
     public Lugar getLugar() {
         return lugar;
     }

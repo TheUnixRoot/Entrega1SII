@@ -38,6 +38,12 @@ public class Mensaje implements Serializable {
     @ManyToMany(mappedBy = "recibirMensaje")
     private List<Administrador> recibidoPor;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    
+    
     public Usuario getEnviadoPor() {
         return enviadoPor;
     }

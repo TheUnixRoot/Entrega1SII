@@ -6,6 +6,7 @@
 package grupoj.prentrega1;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,11 +31,43 @@ public class Tag implements Serializable {
     private String texto;
     
     @ManyToMany(mappedBy ="tagged_by")
-    private Evento evento;
+    private List<Evento> eventos;
     
     @ManyToOne
     @JoinColumn(name = "formulario_fk" , nullable = false)
     private Formulario form;
+
+    public List<Evento> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(List<Evento> eventos) {
+        this.eventos = eventos;
+    }
+
+    
+    
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    
+    
+    public String getTexto() {
+        return texto;
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
+
+    public Formulario getForm() {
+        return form;
+    }
+
+    public void setForm(Formulario form) {
+        this.form = form;
+    }
 
     public Long getId() {
         return id;

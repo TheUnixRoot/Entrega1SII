@@ -47,6 +47,32 @@ public class Periodista extends Usuario {
             joinColumns = @JoinColumn(name = "periodista_fk"),
             inverseJoinColumns = @JoinColumn(name = "evento_fk"))
     private List<Evento> gestionarEvento;
+
+    public List<Notificacion> getGestionarNotificacion() {
+        return gestionarNotificacion;
+    }
+
+    public List<Lugar> getGestionarLugar() {
+        return gestionarLugar;
+    }
+
+    public List<Evento> getGestionarEvento() {
+        return gestionarEvento;
+    }
+
+    public void setGestionarNotificacion(List<Notificacion> gestionarNotificacion) {
+        this.gestionarNotificacion = gestionarNotificacion;
+    }
+
+    public void setGestionarLugar(List<Lugar> gestionarLugar) {
+        this.gestionarLugar = gestionarLugar;
+    }
+
+    public void setGestionarEvento(List<Evento> gestionarEvento) {
+        this.gestionarEvento = gestionarEvento;
+    }
+    
+    
     
     public String getSeccion() {
         return seccion;
