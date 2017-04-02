@@ -4,6 +4,9 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>grupoj.prentrega1.Administrador</class>
     <class>grupoj.prentrega1.Anuncio</class>
+    <class>grupoj.prentrega1.Evento</class>
+    <class>grupoj.prentrega1.Formulario</class>
+    <class>grupoj.prentrega1.Geolocalizacion</class>
     <class>grupoj.prentrega1.Lugar</class>
     <class>grupoj.prentrega1.Mensaje</class>
     <class>grupoj.prentrega1.Notificacion</class>
