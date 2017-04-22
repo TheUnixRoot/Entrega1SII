@@ -9,15 +9,15 @@
     <ui:composition template="Layout.xhtml">
         <ui:define name="cuerpo">
         <section id="cuerpo">
-        <h:form>               
+        <h:form>      
+            <p:panel id = "contacto">
             <h3>Contactar con el administrador</h3>
             <p:inputTextarea id ="mensaje" rows="10" cols="50" counter="display" maxlength="500" counterTemplate="{0} characters remaining." autoResize="false" />
             <p:watermark for="mensaje" value="Escribe aqui tu mensaje" /> 
             <br></br>
-            <p:commandButton value="Enviar" update="display" icon="ui-icon-check" />
-            <br></br>
-            <p:commandButton value="Enviar" id="enviar" update="display" actionListener="#{contactoAdminBean.buttonAction}" styleClass="ui-priority-primary" />
+            <p:commandButton value="Enviar" update="display" />
             <h:outputText id="display" />
+            </p:panel>
         </h:form>
         </section>
         </ui:define>

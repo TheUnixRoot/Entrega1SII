@@ -18,6 +18,7 @@ import javax.faces.event.ActionEvent;
  */
 @Named(value = "contactoAdminBean")
 @Dependent
+@ManagedBean
 public class contactoAdminBean {
 
     /**
@@ -26,12 +27,12 @@ public class contactoAdminBean {
     public contactoAdminBean() {
     }
     
-    public void buttonAction(ActionEvent actionEvent) {
+    /*public void buttonAction(ActionEvent actionEvent) {
         addMessage("¡Mensaje enviado!");
     }
      
     public void addMessage(String summary) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
         FacesContext.getCurrentInstance().addMessage(null, message);
-    }
+    }*/
 }
