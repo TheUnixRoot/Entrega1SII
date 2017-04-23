@@ -30,16 +30,6 @@ public class printBean {
      * Creates a new instance of printBean
      */
     public printBean() {
-        ev = persistencia.getListaEventos().get(0);
-        pdf = new PdfCreator(ev);
-    }
-
-    public PdfCreator getPdf() {
-        return pdf;
-    }
-
-    public void setPdf(PdfCreator pdf) {
-        this.pdf = pdf;
     }
 
     public Evento getEv() {
@@ -48,6 +38,7 @@ public class printBean {
 
     public void setEv(Evento ev) {
         this.ev = ev;
+        pdf = new PdfCreator(this.ev);
     }
     
     public String generar() {
