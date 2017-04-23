@@ -5,6 +5,8 @@
  */
 package mockingBeans;
 
+import grupoj.prentrega1.Administrador;
+import grupoj.prentrega1.Periodista;
 import grupoj.prentrega1.TipoNotificacion;
 import grupoj.prentrega1.Usuario;
 import javax.inject.Named;
@@ -35,6 +37,24 @@ public class PersistenceMock implements Serializable {
         usr.setPassword("usuario");
         usr.setBorrado(false);
         usr.setNombre("normalito");
+        usr.setMultimedia("none");
+        
+        listaUsuarios.add(usr);
+        usr = new Periodista();
+        usr.setEmail("usuario@periodista.com");
+        usr.setTipoNotificacionesRecibir(TipoNotificacion.Ambos);
+        usr.setPassword("periodista");
+        usr.setBorrado(false);
+        usr.setNombre("periodisto");
+        usr.setMultimedia("none");
+        listaUsuarios.add(usr);
+        
+        usr = new Administrador();
+        usr.setEmail("usuario@administrdor.com");
+        usr.setTipoNotificacionesRecibir(TipoNotificacion.Ambos);
+        usr.setPassword("administrador");
+        usr.setBorrado(false);
+        usr.setNombre("administradorcito");
         usr.setMultimedia("none");
         listaUsuarios.add(usr);
     }

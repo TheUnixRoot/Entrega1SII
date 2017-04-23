@@ -21,6 +21,8 @@ public class Crud_usuariosBean {
 
     private PersistenceMock persistencia;
     private Iterable<Usuario> usuarios;
+    private Iterable<Usuario> periodistas;
+    private Iterable<Usuario> administradores;
     
     /**
      * Creates a new instance of Crud_usuariosBean
@@ -36,6 +38,22 @@ public class Crud_usuariosBean {
 
     public void setUsuarios(Iterable<Usuario> usuarios) {
         this.usuarios = usuarios;
+    }
+
+    public Iterable<Usuario> getPeriodistas() {
+        return periodistas;
+    }
+
+    public void setPeriodistas(Iterable<Usuario> periodistas) {
+        this.periodistas = periodistas;
+    }
+
+    public Iterable<Usuario> getAdministradores() {
+        return administradores;
+    }
+
+    public void setAdministradores(Iterable<Usuario> administradores) {
+        this.administradores = administradores;
     }
     
     
