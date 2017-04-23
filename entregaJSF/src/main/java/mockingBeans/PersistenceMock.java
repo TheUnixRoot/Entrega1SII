@@ -14,7 +14,6 @@ import grupoj.prentrega1.TipoNotificacion;
 import grupoj.prentrega1.Usuario;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

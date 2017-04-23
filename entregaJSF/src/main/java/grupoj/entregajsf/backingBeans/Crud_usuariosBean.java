@@ -19,6 +19,7 @@ import mockingBeans.PersistenceMock;
 @RequestScoped
 public class Crud_usuariosBean {
 
+    @Inject
     private PersistenceMock persistencia;
     private Iterable<Usuario> usuarios;
     private Iterable<Usuario> periodistas;
@@ -28,7 +29,6 @@ public class Crud_usuariosBean {
      * Creates a new instance of Crud_usuariosBean
      */
     public Crud_usuariosBean() {
-        persistencia = new PersistenceMock();
         usuarios = persistencia.getListaUsuarios();
     }
 
