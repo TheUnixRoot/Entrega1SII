@@ -6,8 +6,9 @@
 package grupoj.entregajsf.backingBeans;
 
 import grupoj.prentrega1.Anuncio;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
 
@@ -16,7 +17,7 @@ import mockingBeans.PersistenceMock;
  * @author juanp
  */
 @Named(value = "crud_anunciosBean")
-@Dependent
+@RequestScoped
 public class Crud_anunciosBean {
 
     @Inject
@@ -25,7 +26,8 @@ public class Crud_anunciosBean {
     /**
      * Creates a new instance of Crud_anunciosBean
      */
-    public Crud_anunciosBean() {
+    @PostConstruct
+    public void init() {
         anuncios = persistencia.getListaAnuncios();
     }
 
