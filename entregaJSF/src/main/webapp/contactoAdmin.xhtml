@@ -13,9 +13,9 @@
             <p:panel id = "contacto">
             <h3>Contactar con el administrador</h3>
             
-            <p:inputText id="asunto" value="#{contactoAdminBean.asunto}" />
+            <p:inputText id="asunto"  />
             <p:watermark for="asunto" value="Asunto" /> 
-            <p:inputTextarea id ="mensaje" value="#{contactoAdminBean.texto}" rows="10" cols="50" counter="display" maxlength="500" counterTemplate="{0} characters remaining." autoResize="false" />
+            <p:inputTextarea id ="mensaje" rows="10" cols="50" counter="display" maxlength="500" counterTemplate="{0} characters remaining." autoResize="false" />
             <p:watermark for="mensaje" value="Escribe aqui tu mensaje" /> 
             <br></br>
             <p:commandButton value="Enviar" update="display" />
