@@ -57,10 +57,5 @@ public class Crud_usuariosBean {
     public void setAdministradores(Iterable<Usuario> administradores) {
         this.administradores = administradores;
     }
-
-    public void setPersistencia(PersistenceMock persistencia) {
-        this.persistencia = persistencia;
-    }
-    
     
 }
