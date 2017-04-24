@@ -6,6 +6,7 @@
 package grupoj.entregajsf.backingBeans;
 
 import grupoj.prentrega1.Usuario;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -18,7 +19,7 @@ import mockingBeans.PersistenceMock;
 @Named(value = "crud_usuariosBean")
 @RequestScoped
 public class Crud_usuariosBean {
-
+    
     @Inject
     private PersistenceMock persistencia;
     private Iterable<Usuario> usuarios;
@@ -28,7 +29,8 @@ public class Crud_usuariosBean {
     /**
      * Creates a new instance of Crud_usuariosBean
      */
-    public Crud_usuariosBean() {
+    @PostConstruct
+    public void init() {
         usuarios = persistencia.getListaUsuarios();
     }
 
@@ -54,6 +56,10 @@ public class Crud_usuariosBean {
 
     public void setAdministradores(Iterable<Usuario> administradores) {
         this.administradores = administradores;
+    }
+
+    public void setPersistencia(PersistenceMock persistencia) {
+        this.persistencia = persistencia;
     }
     
     
