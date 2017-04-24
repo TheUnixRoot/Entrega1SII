@@ -11,6 +11,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import grupoj.prentrega1.Mensaje;
+import grupoj.prentrega1.Usuario;
+import mockingBeans.PersistenceMock;
 
 /**
  *
@@ -21,10 +24,16 @@ import javax.faces.event.ActionEvent;
 @ManagedBean
 public class contactoAdminBean {
 
+    private PersistenceMock persistencia;
+    private Mensaje msg;
+    private String texto;
+    private String asunto;
+    private Usuario user;
     /**
      * Creates a new instance of contactoAdminBean
      */
     public contactoAdminBean() {
+        persistencia = new PersistenceMock();
     }
     
     /*public void buttonAction(ActionEvent actionEvent) {
