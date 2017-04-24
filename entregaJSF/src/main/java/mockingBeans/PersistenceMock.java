@@ -5,6 +5,7 @@
  */
 package mockingBeans;
 
+import grupoj.prentrega1.Mensaje;
 import grupoj.prentrega1.TipoNotificacion;
 import grupoj.prentrega1.Usuario;
 import javax.inject.Named;
@@ -22,13 +23,25 @@ import javax.enterprise.context.RequestScoped;
 public class PersistenceMock implements Serializable {
     
     private List<Usuario> listaUsuarios;
+    private List<Mensaje> listaMensajes;
     
+    public List<Mensaje> getListaMensajes() {
+        return listaMensajes;
+    }
+
+    public void setListaMensajes(List<Mensaje> listaMensajes) {
+        this.listaMensajes = listaMensajes;
+    }
+    public void addMessage(Mensaje msg){
+        listaMensajes.add(msg);
+    }
     
     /**
      * Creates a new instance of PersistenceMock
      */
     public PersistenceMock() {
         listaUsuarios = new ArrayList<>();
+        listaMensajes = new ArrayList<>();
         Usuario usr = new Usuario();
         usr.setEmail("usuario@normal.com");
         usr.setTipoNotificacionesRecibir(TipoNotificacion.Ambos);

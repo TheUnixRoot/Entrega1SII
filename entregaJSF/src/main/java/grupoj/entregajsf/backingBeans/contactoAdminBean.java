@@ -6,42 +6,66 @@
 package grupoj.entregajsf.backingBeans;
 
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import grupoj.prentrega1.Mensaje;
-import grupoj.prentrega1.Usuario;
+import javax.enterprise.context.RequestScoped;
 import mockingBeans.PersistenceMock;
 
 /**
  *
  * @author JesusAlberto
  */
+@RequestScoped
 @Named(value = "contactoAdminBean")
-@Dependent
-@ManagedBean
 public class contactoAdminBean {
 
     private PersistenceMock persistencia;
-    private Mensaje msg;
+    private Mensaje message;
     private String texto;
     private String asunto;
-    private Usuario user;
+    //private Usuario user;
     /**
      * Creates a new instance of contactoAdminBean
      */
     public contactoAdminBean() {
         persistencia = new PersistenceMock();
     }
-    
-    /*public void buttonAction(ActionEvent actionEvent) {
-        addMessage("¡Mensaje enviado!");
+
+    public Mensaje getMessage() {
+        return message;
     }
+
+    public void setMessage(Mensaje message) {
+        this.message = message;
+    }
+
+    public String getTexto() {
+        return texto;
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
+
+    public String getAsunto() {
+        return asunto;
+    }
+
+    public void setAsunto(String asunto) {
+        this.asunto = asunto;
+    }
+    
+    
+    
+     public void crearMensaje() {
+       
+        message = new Mensaje();
+        message.setTexto(this.texto);
+        message.setAsunto(this.asunto);
+        persistencia.addMessage(message);       
      
-    public void addMessage(String summary) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }*/
+    }
+ 
+ 
 }
