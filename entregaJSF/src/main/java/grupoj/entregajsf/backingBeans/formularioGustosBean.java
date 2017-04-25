@@ -8,44 +8,32 @@ package grupoj.entregajsf.backingBeans;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.model.SelectItem;
-import javax.faces.model.SelectItemGroup;
+import javax.faces.bean.ManagedBean;
+
 
 /**
  *
  * @author JesusAlberto
  */
-@Named(value = "formularioGustosBean")
-@RequestScoped
+
+@ManagedBean
 public class formularioGustosBean {
 
-    /**
-     * Creates a new instance of formularioGustosBean
-     */
-    public formularioGustosBean() {
-    }
-    
-    
+       
     private String[] selectedGustos;
     private List<String> gustos;
  
- 
     @PostConstruct
     public void init() {
-        gustos = new ArrayList<String>();
-        gustos.add("Musica");
-        gustos.add("Teatro");
-        gustos.add("Cine");
-        gustos.add("Opera");
-        gustos.add("Deportes");
-        
- 
+       gustos = new ArrayList<>();
+       gustos.add("Musica");
+       gustos.add("Teatro");
+       gustos.add("Opera");
+       gustos.add("Cine");
+       gustos.add("Arte");
+       gustos.add("Deportes");
     }
- 
- 
+
     public String[] getSelectedGustos() {
         return selectedGustos;
     }
@@ -54,14 +42,7 @@ public class formularioGustosBean {
         this.selectedGustos = selectedGustos;
     }
  
-   
-    
- 
     public List<String> getGustos() {
-        //System.out.println(selectedGustos[0]);
         return gustos;
     }
- 
-   
-    
 }

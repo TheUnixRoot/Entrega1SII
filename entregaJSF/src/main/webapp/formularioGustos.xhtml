@@ -10,16 +10,23 @@
         <ui:define name="cuerpo">
         <section id="cuerpo">
         <h:form>    
-            <p:panelGrid id="panel" columns="2" layout="grid">
-                <h3>Responsive</h3>
-                <br></br>
-                <p:selectManyCheckbox id="grid2" value="#{formularioGustosBean.selectedGustos}" layout="responsive" columns="3">
-                    <f:selectItems value="#{formularioGustosBean.gustos}" var="city" itemLabel="#{city}" itemValue="#{city}" />
-                </p:selectManyCheckbox>   
-            </p:panelGrid>
-            <p:commandButton value="Submit" update="display" action="#{formularioGustosBean.getGustos()}" />
-            <h:outputText id="display" />
-            
+            <h3>Formulario sobre gustos</h3>
+            <p:selectManyCheckbox id="grid" value="#{formularioGustosBean.selectedGustos}" layout="responsive" columns="3">
+                <f:selectItems value="#{formularioGustosBean.gustos}" var="gusto" itemLabel="#{gusto}" itemValue="#{gusto}" />
+            </p:selectManyCheckbox>
+
+            <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" icon="ui-icon-check" />
+
+            <p:dialog header="Datos enviados correctamente" modal="true" showEffect="clip" widgetVar="dlg" resizable="false">
+                <p:outputPanel id="display">
+                    <p:dataList value="#{formularioGustosBean.selectedGustos}" var="gusto">
+                        <f:facet name="header">
+                            Gustos
+                        </f:facet>
+                        #{gusto}
+                    </p:dataList>
+                </p:outputPanel>
+            </p:dialog>
         </h:form>
         </section>
         </ui:define>
