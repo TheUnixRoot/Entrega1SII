@@ -11,6 +11,11 @@
         <section id="cuerpo">
         <ui:repeat value="" var="evento">
             <article>
+                <h:form>
+                    <p:commandButton value="Generar pdf" ajax="false">
+                        <p:fileDownload value="#{printBean.file}"/>
+                    </p:commandButton>
+                </h:form>
             </article>
         </ui:repeat>
         </section>

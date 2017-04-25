@@ -6,9 +6,11 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition template="verEvento.xhtml">
     <ui:define name="printButton">
-        <form>
-            <p:commandButton action="#{printBean.generar()}" value="Generar pdf"/>
-        </form>
+        <h:form>
+            <p:commandButton value="Generar pdf" ajax="false">
+                <p:fileDownload value="#{printBean.file}"/>
+            </p:commandButton>
+        </h:form>
     </ui:define>
     </ui:composition>
 </html>
