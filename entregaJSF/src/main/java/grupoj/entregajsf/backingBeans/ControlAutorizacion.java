@@ -10,7 +10,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.faces.context.FacesContext;
-
+import grupoj.prentrega1.Usuario;
 /**
  *
  * @author anaes
@@ -49,7 +49,7 @@ public class ControlAutorizacion implements Serializable {
             }
         }*/
         
-        return "login.xhtml";
+        return "index.xhtml";
         
     }
     

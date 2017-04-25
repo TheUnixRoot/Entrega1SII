@@ -10,23 +10,31 @@
         <ui:define name="cuerpo">
         <section id="cuerpo">
         <h:form id="login">
-                    <table>
-                        <tr>
-                            <h:outputText value="Usuario: " />
-                            <p:keyboard id="usuario" value="#{login.setUsuario}" />
-                        </tr>
-                        <tr>
-                            <h:outputText value="Contrasenia: " />
-                            <p:password id="contrasenia" value="#{login.setContrasenia}" />
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <h:commandButton value="Aceptar" action="#{login.autenticar()}"/>   
-                                <!-- ¿Boton cancelar? -->
-                            </td>
-                        </tr>
-                    </table>
-                </h:form>
+            <h3>Login:</h3>
+            <p:panelGrid columns="2" layout="grid">
+            <table>
+                <tr>
+                    <td>
+                    <h:outputText value="Email: " />
+                    </td><td>
+                        <p:inputText value="#{login.email}"/>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <h:outputText value="Contraseña: " />
+                    </td><td>
+                    <p:password id="contrasenia" value="#{login.contrasenia}" />
+                    </td>
+                </tr>                   
+            </table>
+            </p:panelGrid>    
+            <br><br></br></br>
+            <h:commandButton value="Aceptar" action="#{login.autenticar()}"/>   
+            <!-- ¿Boton cancelar? -->
+            
+        </h:form>
         </section>
         </ui:define>
     </ui:composition>

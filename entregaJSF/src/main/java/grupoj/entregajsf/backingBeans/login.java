@@ -13,6 +13,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import grupoj.prentrega1.Usuario;
+import mockingBeans.PersistenceMock;
 
 /**
  *
@@ -22,9 +24,10 @@ import javax.inject.Inject;
 @RequestScoped
 public class login {
 
-    private String usuario;
+    private String email;
     private String contrasenia;
     private List<Usuario> usuarios;
+    private PersistenceMock persistencia = new PersistenceMock();
     
     @Inject
     private ControlAutorizacion ctrl;
@@ -33,20 +36,22 @@ public class login {
      * Creates a new instance of Login
      */
     public login() {
+        persistencia = new PersistenceMock();
+        usuarios = persistencia.getListaUsuarios();
        /* usuarios = new ArrayList<Usuario>();
         usuarios.add(new Usuario("pepe", "asdf", Rol.NORMAL));
         usuarios.add(new Usuario("manolo", "qwer", Rol.ADMINISTRADOR));*/
     }
-    public String getUsuario() {
-        return usuario;
+    public String getEmail() {
+        return email;
     }
 
     public String getContrasenia() {
         return contrasenia;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setEmail(String email) {
+        this.email= email;
     }
 
     public void setContrasenia(String contrasenia) {
@@ -54,23 +59,26 @@ public class login {
     }
 
     public String autenticar() {
+        Usuario usu = new Usuario();
+        usu.setEmail(email);
+        usu.setPassword(contrasenia);
+        usuarios = persistencia.getListaUsuarios();
         FacesContext ctx = FacesContext.getCurrentInstance();
-        Usuario usu = null;
+        Boolean encontrado = false;
         for(Usuario u : usuarios){
-            if(u.getUsuario().equals(this.getUsuario()) && u.getContrasenia().equals(this.getContrasenia())){
-                usu=u;
+            if(u.getEmail().equals(usu.getEmail()) && u.getPassword().equals(usu.getPassword())){
+                encontrado = true;
                 ctrl.setUsuario(u);
             }
         }
         
-        if(usu != null){
-            return ctrl.home();
+        if(encontrado == true){
+            return "index.xhtml";
         }
         ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario/contraseña incorrectos", "Usuario/contraseña incorrectos"));
-    
-            return null;
-            
-        }
+         
+        return null;
+    }
     
     
     
