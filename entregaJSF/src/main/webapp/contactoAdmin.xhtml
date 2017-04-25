@@ -9,16 +9,26 @@
     <ui:composition template="Layout.xhtml">
         <ui:define name="cuerpo">
         <section id="cuerpo">
-        <h:form>      
-            <h3>Contactar con el administrador</h3>
-            <p:inputText id="asunto"  value="#{contactoAdminBean.asunto}"  />
-            <p:watermark for="asunto" value="Asunto" /> 
-            <br></br>
-            <p:inputTextarea id ="mensaje" value="#{contactoAdminBean.texto}" rows="10" cols="50" counter="display" maxlength="500" counterTemplate="{0} characters remaining." autoResize="false" />
-            <p:watermark for="mensaje" value="Escribe aqui tu mensaje" /> 
-            <br></br>
-            <p:commandButton value="Enviar" action="#{contactoAdminBean.crearMensaje()}"/>
-            <h:outputText id="display" />
+        <h:form>    
+            <p:panelGrid id="panel" columns="2" layout="grid">
+                <h3>Contactar con el administrador</h3>
+                <table id="tabla">
+                    <tr>
+                        <p:inputText id="asunto"  value="#{contactoAdminBean.asunto}"  />
+                        <p:watermark for="asunto" value="Asunto" /> 
+                       
+                    </tr>
+                    <tr>
+                        <p:inputTextarea id ="mensaje" value="#{contactoAdminBean.texto}" rows="10" cols="50" counter="display" maxlength="500" counterTemplate="{0} characters remaining." autoResize="true" />
+                        <p:watermark for="mensaje" value="Escribe aqui tu mensaje" /> 
+                        
+                    </tr>
+                    <tr>
+                        <p:commandButton value="Enviar" action="#{contactoAdminBean.crearMensaje()}"/>
+                        <h:outputText id="display" />
+                    </tr>
+                </table>
+            </p:panelGrid>
         </h:form>
         </section>
         </ui:define>

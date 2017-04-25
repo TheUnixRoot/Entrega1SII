@@ -63,8 +63,10 @@ public class contactoAdminBean {
         message = new Mensaje();
         message.setTexto(this.texto);
         message.setAsunto(this.asunto);
-        persistencia.addMessage(message);       
-     
+        persistencia.addMessage(message);    
+        String msg = persistencia.getListaMensajes().get(0).getTexto();
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
     }
  
  
