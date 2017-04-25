@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -103,8 +104,10 @@ public class PersistenceMock implements Serializable {
         adv.setAdmin(adm);
         adv.setFecha_public(new Date());
         adv.setDias_contratados(100);
-        adv.setMultimedia("/media/adverts/patata.png");
+        adv.setMultimedia("media/adverts/patata.png");
         listaAnuncios.add(adv);
+        System.out.println(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
+    
     }
 
     public List<Usuario> getListaUsuarios() {

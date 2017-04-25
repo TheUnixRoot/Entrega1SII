@@ -6,11 +6,19 @@
 package grupoj.entregajsf.backingBeans;
 
 import grupoj.prentrega1.Anuncio;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -29,6 +37,7 @@ public class Crud_anunciosBean {
     @PostConstruct
     public void init() {
         anuncios = persistencia.getListaAnuncios();
+        System.out.println(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
     }
 
     public Iterable<Anuncio> getAnuncios() {
@@ -39,4 +48,21 @@ public class Crud_anunciosBean {
         this.anuncios = anuncios;
     }
     
+    public StreamedContent getImage(Anuncio adv) {
+        StreamedContent result = null;
+        try (FileInputStream fstr = new FileInputStream(genPath(adv.getMultimedia()))) {
+            result = new DefaultStreamedContent(fstr, "image/png");
+        } catch(FileNotFoundException fe) {
+        } catch (IOException ex) {
+            Logger.getLogger(Crud_anunciosBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;
+    }
+    
+    public String genPath(String path) {
+        String newPath = FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath() + "/resources/" + path;
+        System.out.println(newPath);
+        return newPath;
+    }
 }
