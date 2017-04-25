@@ -91,6 +91,7 @@ public class PersistenceMock implements Serializable {
         geo.setLugar(lug);
         
         Evento ev = new Evento();
+        ev.setId(1L);
         ev.setNombre("Evento 1");
         ev.setBorrado(false);
         ev.setValidado(true);

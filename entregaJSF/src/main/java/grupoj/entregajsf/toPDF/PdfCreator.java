@@ -12,6 +12,7 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import grupoj.prentrega1.Evento;
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
@@ -30,18 +31,17 @@ public class PdfCreator {
     private static Font subFont = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD);
     private static Font smallBold = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
 
-    private String path;
+    private ByteArrayOutputStream baosPdf;
     
     public PdfCreator(Evento ev) {
         Document doc = new Document();
-        path = "/temp/docs/" 
-                    + (new SimpleDateFormat("ddMMyyyy_HHmmss")).format(new Date());
         try {
-            PdfWriter.getInstance(doc, new FileOutputStream(path));
+            baosPdf = new ByteArrayOutputStream();
+            PdfWriter.getInstance(doc, baosPdf);
             doc.open();
             addEvent(doc, ev);
             doc.close();
-        } catch (FileNotFoundException | DocumentException ex) {
+        } catch (DocumentException ex) {
             Logger.getLogger(PdfCreator.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -53,12 +53,14 @@ public class PdfCreator {
         evento.add(new Paragraph(" "));
         evento.add(new Paragraph(ev.getDescripcion(), subFont));
         evento.add(new Paragraph(" "));
+        evento.add(new Paragraph(new SimpleDateFormat("dd/MM/yyyy-HH:mm").format(ev.getFecha()), subFont));
+        evento.add(new Paragraph(" "));
         evento.add(new Paragraph(ev.getDonde_comprar(), smallBold));
         evento.add(new Paragraph(" "));
         doc.add(evento);
     }
     
-    public String getPath() {
-        return path;
+    public byte[] getStream() {
+        return baosPdf.toByteArray();
     }
 }
