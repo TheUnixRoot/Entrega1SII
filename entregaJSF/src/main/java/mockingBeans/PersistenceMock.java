@@ -24,6 +24,17 @@ public class PersistenceMock implements Serializable {
     
     private List<Usuario> listaUsuarios;
     private List<Mensaje> listaMensajes;
+    private List<String> listaGustos;
+
+    public List<String> getListaGustos() {
+        return listaGustos;
+    }
+
+    public void setListaGustos(List<String> listaGustos) {
+        this.listaGustos = listaGustos;
+    }
+    
+    
     
     public List<Mensaje> getListaMensajes() {
         return listaMensajes;
@@ -42,6 +53,7 @@ public class PersistenceMock implements Serializable {
     public PersistenceMock() {
         listaUsuarios = new ArrayList<>();
         listaMensajes = new ArrayList<>();
+        listaGustos = new ArrayList<>();
         Usuario usr = new Usuario();
         usr.setEmail("usuario@normal.com");
         usr.setTipoNotificacionesRecibir(TipoNotificacion.Ambos);

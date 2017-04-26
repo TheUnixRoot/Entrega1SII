@@ -6,9 +6,11 @@
 package grupoj.entregajsf.backingBeans;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import mockingBeans.PersistenceMock;
 
 
 /**
@@ -19,7 +21,7 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean
 public class formularioGustosBean {
 
-       
+    private PersistenceMock persistencia;
     private String[] selectedGustos;
     private List<String> gustos;
  
@@ -44,5 +46,19 @@ public class formularioGustosBean {
  
     public List<String> getGustos() {
         return gustos;
+    }
+    
+    public void saveGustos(){
+        List<String> l = new ArrayList<>();
+         System.out.println(this.selectedGustos[0]);
+  
+        int i = 0;
+        while(this.selectedGustos[i] != null){
+            l.add(this.selectedGustos[i]);
+            i++;
+        }
+      
+        persistencia.setListaGustos(l);
+        System.out.println("Todo bien todo correcto y yo que me alegro");
     }
 }
