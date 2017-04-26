@@ -11,11 +11,11 @@
         <section id="cuerpo">
         <h:form>    
             <h3>Formulario sobre gustos</h3>
-            <p:selectManyCheckbox id="grid" value="#{formularioGustosBean.selectedGustos}" layout="responsive" columns="3">
+            <p:selectManyCheckbox id="grid" value="#{formularioGustosBean.selectedGustos}" layout="responsive" columns="2">
                 <f:selectItems value="#{formularioGustosBean.gustos}" var="gusto" itemLabel="#{gusto}" itemValue="#{gusto}" />
             </p:selectManyCheckbox>
 
-            <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" icon="ui-icon-check" action="#{formularioGustosBean.saveGustos}" />
+            <p:commandButton value="Enviar" update="display" oncomplete="PF('dlg').show()" icon="ui-icon-check" />
 
             <p:dialog header="Datos enviados correctamente" modal="true" showEffect="clip" widgetVar="dlg" resizable="false">
                 <p:outputPanel id="display">
