@@ -9,7 +9,6 @@ import grupoj.entregajsf.toPDF.PdfCreator;
 import grupoj.prentrega1.Evento;
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.inject.Inject;
@@ -29,15 +28,7 @@ public class PrintBean implements Serializable {
     private PersistenceMock persistencia;
     private PdfCreator pdf;
     private Evento ev;
-    
-    /**
-     * Creates a new instance of printBean
-     */
-    @PostConstruct
-    public void init() {
-        ev = null;
-    }
-
+  
     public Evento getEv() {
         return ev;
     }
