@@ -7,16 +7,11 @@ package grupoj.entregajsf.backingBeans;
 
 import grupoj.entregajsf.toPDF.PdfCreator;
 import grupoj.prentrega1.Evento;
-import java.io.ByteArrayInputStream;
-import java.io.Serializable;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
+import java.util.Iterator;
 import javax.inject.Named;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -24,7 +19,7 @@ import org.primefaces.model.StreamedContent;
  */
 @Named(value = "printBean")
 @RequestScoped
-public class PrintBean implements Serializable {
+public class printBean {
 
     @Inject
     private PersistenceMock persistencia;
@@ -34,9 +29,7 @@ public class PrintBean implements Serializable {
     /**
      * Creates a new instance of printBean
      */
-    @PostConstruct
-    public void init() {
-        ev = null;
+    public printBean() {
     }
 
     public Evento getEv() {
@@ -45,32 +38,11 @@ public class PrintBean implements Serializable {
 
     public void setEv(Evento ev) {
         this.ev = ev;
-    }
-    
-    public PersistenceMock getPersistencia() {
-        return persistencia;
-    }
-
-    public void setPersistencia(PersistenceMock persistencia) {
-        this.persistencia = persistencia;
-    }
-
-    public PdfCreator getPdf() {
-        return pdf;
-    }
-
-    public void setPdf(PdfCreator pdf) {
-        this.pdf = pdf;
-    }
-    
-    public StreamedContent getFile() {
-        setEv(persistencia.getListaEventos().get(0));
         pdf = new PdfCreator(this.ev);
-        
-        StreamedContent stc = new DefaultStreamedContent(
-                new ByteArrayInputStream(pdf.getStream()), 
-                "application/pdf", ev.getNombre() + ".pdf");
-        return stc;
+    }
+    
+    public String generar() {
+        return pdf.getPath();
     }
     
 }
