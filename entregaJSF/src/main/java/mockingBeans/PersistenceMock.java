@@ -22,7 +22,9 @@ import javax.enterprise.context.RequestScoped;
 public class PersistenceMock implements Serializable {
     
     private List<Usuario> listaUsuarios;
-    
+    /*
+    Crear lista de notificaciones magicamente y haces magia con ella
+    */
     
     /**
      * Creates a new instance of PersistenceMock

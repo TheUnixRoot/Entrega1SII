@@ -17,11 +17,20 @@ and open the template in the editor.
             <h:form>
                 <p:panelGrid columns="2" layout="grid">
                     <p:outputLabel value="Activar notifiaciones : " />
-                    <!-- Crear variable activar -->
-                    <p:selectOneRadio id="Notificaciones" value="#{configurarNotificaciones.activar}">
+                    <!-- Marcar la opción que tenga el usuario anteriormente, si no por defecto activar -->
+                    <p:selectOneRadio id="Notificaciones" layout="responsive" value="#{configurarNotificaciones.notificacionesActivas}">
                         <f:selectItem itemLabel="Si" itemValue="true" />
                         <f:selectItem itemLabel="No" itemValue="false" />
                     </p:selectOneRadio>
+                    
+                    
+                    <p:outputLabel value="Como recibir notifiaciones : " />
+                    <p:selectOneMenu id="TipoNotificaciones" value="#{configurarNotificaciones.tipoNotificaciones}" style="width:125px">
+                        <f:selectItem itemLabel="Selecciona" itemValue="" />
+                        <f:selectItem itemLabel="Email" itemValue="Email" />
+                        <f:selectItem itemLabel="Cuenta" itemValue="Cuenta" />
+                        <f:selectItem itemLabel="Ambas" itemValue="Ambas" />
+                    </p:selectOneMenu>
                 </p:panelGrid>
             </h:form>
         </section>
