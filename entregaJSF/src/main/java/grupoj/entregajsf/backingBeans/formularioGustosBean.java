@@ -79,4 +79,8 @@ public class formularioGustosBean {
         persistencia.setFormulario(this.formulario);
         //System.out.println("Todo bien todo correcto y yo que me alegro");
     }
+    
+    public String goIndex(){
+        return "index.xhtml";
+    }
 }
