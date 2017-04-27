@@ -5,6 +5,10 @@
  */
 package grupoj.entregajsf.backingBeans;
 
+import grupoj.prentrega1.Formulario;
+import grupoj.prentrega1.Tag;
+import grupoj.prentrega1.TipoNotificacion;
+import grupoj.prentrega1.Usuario;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +28,9 @@ public class formularioGustosBean {
     private PersistenceMock persistencia;
     private String[] selectedGustos;
     private List<String> gustos;
+    private Usuario user;
+    private List<Tag> tags;
+    private Formulario formulario;
  
     @PostConstruct
     public void init() {
@@ -49,16 +56,43 @@ public class formularioGustosBean {
     }
     
     public void saveGustos(){
-        List<String> l = new ArrayList<>();
-         System.out.println(this.selectedGustos[0]);
-  
-        int i = 0;
-        while(this.selectedGustos[i] != null){
-            l.add(this.selectedGustos[i]);
+        this.user = new Usuario();
+      
+       user.setEmail("usuario@normal.com");
+       user.setTipoNotificacionesRecibir(TipoNotificacion.Ambos);
+       user.setPassword("usuario");
+       user.setBorrado(false);
+       user.setNombre("normalito");
+       user.setMultimedia("none");
+       
+        List<Tag> l = new ArrayList<>();
+        System.out.println(this.selectedGustos[0]);
+        this.formulario = new Formulario();
+        this.formulario.setId(Long.MIN_VALUE);
+        formulario.setUsuario(this.user);
+        long i = 0;
+       /* while(this.selectedGustos[i] != null){
+            Tag tag= new Tag();
+            tag.setTexto(this.selectedGustos[i]);
+            tag.setForm(this.formulario);
+            l.add(tag);
+            i++;
+        }*/
+       
+        for(String gusto : this.selectedGustos){
+            Tag tag= new Tag();
+            tag.setId(i);
+            tag.setTexto(gusto);
+            tag.setForm(this.formulario);
+            System.out.println(tag.getTexto());
+            l.add(tag);
             i++;
         }
-      
-        persistencia.setListaGustos(l);
+        System.out.println(l);
+        this.formulario.setForm_tags(l);
+        System.out.println(this.formulario);
+        System.out.println(this.formulario.getForm_tags().get(0).getTexto());
+        persistencia.setFormulario(this.formulario);
         System.out.println("Todo bien todo correcto y yo que me alegro");
     }
 }
