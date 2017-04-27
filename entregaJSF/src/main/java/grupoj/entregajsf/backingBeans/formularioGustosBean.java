@@ -28,7 +28,7 @@ public class formularioGustosBean {
     private PersistenceMock persistencia = new PersistenceMock();
     private String[] selectedGustos;
     private List<String> gustos;
-    private Usuario user = persistencia.getListaUsuarios().get(0);
+    private Usuario user = persistencia.getListaUsuarios().get(0);//usuario de prueba
     private List<Tag> tags;
     private Formulario formulario;
  
