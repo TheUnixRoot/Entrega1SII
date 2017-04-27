@@ -3,13 +3,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:bnu="http://bootsfaces.net/ui">
     <ui:composition template="Layout.xhtml">
+        <ui:define name="navBar">
+            <bnu:navBar fluid="false" position="inline" sticky="false" brand="Gestion Usuarios">
+                <bnu:navbarLinks>
+                    <bnu:navLink>Holi</bnu:navLink>
+                </bnu:navbarLinks>
+            </bnu:navBar>
+        </ui:define>
         <ui:define name="cuerpo">
         <section id="cuerpo">
             <ui:repeat value="#{crud_usuariosBean.usuarios}" var="usr">
             <article id="#{usr.nombre}">
-                <p:panelGrid columns="2">
+                <p:panelGrid columns="2" layout="grid">
                     <p:commandButton icon="#{usr.multimedia}" action="null"/>
                     <p:commandLink value="#{usr.email}" action="null"/>
                     <p:outputLabel style="display: none"/>
