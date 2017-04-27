@@ -14,62 +14,86 @@
         
     </h:head>
     <h:body>
-        <header>
-            <!-- Esto es la cabecera de la pagina -->
-            <div name="formularioBusqueda" id="divBusqueda">
-                <h:form id="formBusqueda">
-                    <h:inputText id="textoABuscar"/>
-                    <p:watermark for="textoABuscar" value="Buscar eventos" id="watermarkForTextoABuscar"/> 
-                    <h:button id="botonBuscar" style="display: none"/>
-                </h:form>
-            </div>
-            <div name="imagenCabecera" id="divImagen">
-                <h:button image="" outcome="index.xhtml"/> 
-            </div>
-            <!-- Boton de inciar sesion/notificacion -->
-            <div id="divInitSesion">
-                
-            </div>
-            <div name="anuncioArribaDerecha" id="divAnunAD">
-
-            </div>
-            <nav name="enlacesNegro" id="navNegro">
-                <ul>
-                    <!-- Elementos de la lista negra de arriba -->
-                    <ui:repeat value="#{navBlack.items}" var="it">
-                        <li>
-                            <h:link value="#{it.nombre}" outcome="#{it.enlace}"/>
-                        </li>
-                    </ui:repeat>
-                </ul>
-            </nav>
-            <nav name="enlacesRojo" id="navRojo">
-                <ul>
-                    <!-- Elementos de la lista roja de arriba -->
-                    <ui:repeat value="#{navRed.items}" var="it">
-                        <li>
-                            <h:link value="#{it.nombre}" outcome="#{it.enlace}"/>
-                        </li>
-                    </ui:repeat>
-                </ul>
-            </nav>
-            <div name="anuncioArribaTocho" id="divAnunAT">
-
-            </div>
-        </header>
-        <aside id="asideNavBar">
-            <ui:insert name="navBar" />
+        <p:layout fullPage="true">
             
-            <div name="anuncioAbajoIzquierda" id="divAnunAI">
+            <p:layoutUnit position="north" closable="false" collapsible="false" resizable="false" >
+            
+                <header>
+                    <!-- Esto es la cabecera de la pagina -->
+                    <div name="formularioBusqueda" id="divBusqueda">
+                        <h:form id="formBusqueda">
+                            <h:inputText id="textoABuscar"/>
+                            <p:watermark for="textoABuscar" value="Buscar eventos" id="watermarkForTextoABuscar"/> 
+                            <h:button id="botonBuscar" style="display: none"/>
+                        </h:form>
+                    </div>
+                <div name="imagenCabecera" id="divImagen">
+                    <h:button image="" outcome="index.xhtml"/> 
+                </div>
+                <!-- Boton de inciar sesion/notificacion -->
+                <div id="divInitSesion">
 
-            </div>
-        </aside>
-        <ui:insert name="cuerpo">
-            Default section
-        </ui:insert>
-        <footer id="footer">
+                </div>
+                <bnu:navBar fluid="true" sticky="true" >
+                    <bnu:navbarLinks>
+                        <bnu:navLink value="patata" action="#"/>
+                        <bnu:navLink value="patata" action="#"/>
+                        <bnu:navLink value="patata" action="#"/>
+                    </bnu:navbarLinks>
+                </bnu:navBar>
+                <nav name="enlacesNegro" id="navNegro">
+                    <ul>
+                        <!-- Elementos de la lista negra de arriba -->
+                        <ui:repeat value="#{navBlack.items}" var="it">
+                            <li>
+                                <h:link value="#{it.nombre}" outcome="#{it.enlace}"/>
+                            </li>
+                        </ui:repeat>
+                    </ul>
+                </nav>
+                <nav name="enlacesRojo" id="navRojo">
+                    <ul>
+                        <!-- Elementos de la lista roja de arriba -->
+                        <ui:repeat value="#{navRed.items}" var="it">
+                            <li>
+                                <h:link value="#{it.nombre}" outcome="#{it.enlace}"/>
+                            </li>
+                        </ui:repeat>
+                    </ul>
+                </nav>
+                <div name="anuncioArribaTocho" id="divAnunAT">
+
+                </div>
+            </header>
+            
+            </p:layoutUnit>
+            
+            
+            <p:layoutUnit position="west" closable="false" collapsible="false" resizable="false" >
+            
+                <aside id="asideNavBar">
+                    <ui:insert name="navBar" />
+
+                    <div name="anuncioAbajoIzquierda" id="divAnunAI">
+
+                    </div>
+                </aside>
+            
+            </p:layoutUnit>
+            
+            
+            <p:layoutUnit position="center">
+            
+                <ui:insert name="cuerpo">
+                    Default section
+                </ui:insert>
+            
+            </p:layoutUnit>
+            
+            <footer id="footer">
             <!-- esto es el pie de pagina -->
         </footer>
+        </p:layout>
     </h:body>
 </html>
 

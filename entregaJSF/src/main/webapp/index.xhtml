@@ -5,8 +5,16 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:bnu="http://bootsfaces.net/ui">
     <ui:composition template="Layout.xhtml">
+        <ui:define name="navBar">
+            <h:form>
+                <p:menu>
+                    <p:menuitem action="#" value="Holi"/>
+                </p:menu>
+            </h:form>
+        </ui:define>
         <ui:define name="cuerpo">
         <section id="cuerpo">
         <ui:repeat value="" var="evento">
