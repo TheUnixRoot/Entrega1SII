@@ -7,11 +7,13 @@
       xmlns:bnu="http://bootsfaces.net/ui">
     <ui:composition template="Layout.xhtml">
         <ui:define name="navBar">
-            <bnu:navBar fluid="false" position="inline" sticky="false" brand="Gestion Usuarios" style="">
-                <bnu:navbarLinks>
-                    <bnu:navLink>Holi</bnu:navLink>
-                </bnu:navbarLinks>
-            </bnu:navBar>
+            <h:form>
+                <p:menu>
+                    <p:submenu label="Gestion de usuarios" expanded="true">
+                        <p:menuitem action="#" value="Holi"/>
+                    </p:submenu>
+                </p:menu>
+            </h:form>
         </ui:define>
         <ui:define name="cuerpo">
         <section id="cuerpo">

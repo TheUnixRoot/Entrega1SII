@@ -8,6 +8,14 @@
     <packaging>war</packaging>
 
     <name>entregaJSF</name>
+    
+    <repositories>
+        <repository>
+		<id>prime-repo</id>
+		<name>Prime Repo</name>
+		<url>http://repository.primefaces.org</url>
+	</repository>
+    </repositories>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -80,6 +88,11 @@
             <version>2.6.2</version>
         </dependency>
         
+        <dependency>  
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>blitzer</artifactId>  
+            <version>1.0.10</version>  
+        </dependency> 
         
         
     </dependencies>
