@@ -58,4 +58,8 @@ public class Crud_usuariosBean {
         this.administradores = administradores;
     }
     
+    public String viajar(long id) {
+        
+        return "mod_usuario.xhtml?id="+id;
+    }
 }

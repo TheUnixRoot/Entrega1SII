@@ -21,13 +21,9 @@
             <article id="#{usr.nombre}">
                 <p:panelGrid columns="2" layout="grid">
                     <p:commandButton icon="#{usr.multimedia}" action="null"/>
-                    <p:commandLink value="#{usr.email}" action="null">
-                        
-                    </p:commandLink>
+                    <p:link value="#{usr.email}" href="#{crud_usuariosBean.viajar(usr.id)}"/>
                     <p:outputLabel style="display: none"/>
-                    <p>
-                        #{usr.nombre}
-                    </p>
+                    <p:outputLabel value="#{usr.nombre}"/>
                 </p:panelGrid>
             </article>
             </ui:repeat>

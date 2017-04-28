@@ -6,7 +6,8 @@
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:bnu="http://bootsfaces.net/ui">
+      xmlns:bnu="http://bootsfaces.net/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Agenda Diario SUR</title>
         <meta charset="utf-8"/>
@@ -19,6 +20,14 @@
             <p:layoutUnit position="north" closable="false" collapsible="false" resizable="false" >
             
                 <header>
+                    <c:choose>
+                        <c:when test="${controlAutorizacion.usuario == null}" >
+                            <p:outputLabel value="NOt loggEd" />
+                        </c:when>
+                        <c:otherwise>
+                            <p:outputLabel value="LOGGGIINNN" />
+                        </c:otherwise>
+                    </c:choose>
                     <!-- Esto es la cabecera de la pagina -->
                     <div name="formularioBusqueda" id="divBusqueda">
                         <h:form id="formBusqueda">

@@ -80,7 +80,7 @@ public class PersistenceMock implements Serializable {
         adm.setIdentificador(1L);
         adm.setSeccion("Cultura");
         adm.setPuesto("Administrador");
-        adm.setEmail("usuario@administrdor.com");
+        adm.setEmail("usuario@administrador.com");
         adm.setTipoNotificacionesRecibir(TipoNotificacion.Ambos);
         adm.setPassword("administrador");
         adm.setBorrado(false);

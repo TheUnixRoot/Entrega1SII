@@ -21,7 +21,8 @@ import javax.faces.context.FacesContext;
 public class ControlAutorizacion implements Serializable {
 
     private Usuario usuario;
-    private final Semaphore mutex = new Semaphore(1);
+    private Semaphore mutex = new Semaphore(1);
+    
     public void setUsuario(Usuario usuario) throws InterruptedException {
         mutex.acquire();
         this.usuario = usuario;

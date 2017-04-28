@@ -3,12 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="Layout.xhtml">
         <ui:define name="navBar">
             <h:form>
                 <p:menu>
-                    <p:submenu label="Gestion de usuarios" expanded="true">
+                    <p:submenu label="Ver usuario" expanded="true">
                         <p:menuitem action="#" value="Holi"/>
                     </p:submenu>
                 </p:menu>
@@ -16,7 +17,10 @@
         </ui:define>
         <ui:define name="cuerpo">
         <section id="cuerpo">
-            #{mod_usuariosBean.initial()}
+            <f:metadata>
+                <f:viewParam name="id" value="#{mod_usuariosBean.id}" />
+                <f:event type="preRenderView" listener="#{mod_usuariosBean.init()}" />
+            </f:metadata>
             <article id="#{mod_usuariosBean.usr.nombre}">
                 <p:layout fullPage="false">
                     <p:layoutUnit position="west" closable="false" collapsible="false" resizable="false">
@@ -27,11 +31,13 @@
                     <p:layoutUnit position="center" closable="false" collapsible="false" resizable="false">
                         <p:panelGrid columns="1">
                             <p:outputLabel value="Nombre" style="font-size: large" />
+                            <p:outputLabel value="#{mod_usuariosBean.usr.nombre}" style="font-size: large" />
                         </p:panelGrid>
                         <p:panelGrid columns="2">
                             <p:outputLabel value="Apellidos" style="font-size: large" />
-                            <p:outputLabel value="Usuario" style="font-size: large" />
+                            <p:outputLabel value="#{mod_usuariosBean.usr.apellidos}" style="font-size: large" />
                             <p:outputLabel value="Email" style="font-size: large" />
+                            <p:outputLabel value="#{mod_usuariosBean.usr.email}" style="font-size: large" />
                             <p:outputLabel value="Teléfono" style="font-size: large" />
                             <p:outputLabel value="#{mod_usuariosBean.usr.telefono}" style="font-size: large" />
                         </p:panelGrid>
