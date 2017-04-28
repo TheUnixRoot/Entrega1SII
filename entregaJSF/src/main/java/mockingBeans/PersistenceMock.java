@@ -31,7 +31,7 @@ public class PersistenceMock implements Serializable {
     
     private List<Usuario> listaUsuarios;
     private List<Evento> listaEventos;
-    private Lugar lugar1;
+    private List<Lugar> listaLugares;
     private List<Tag> listaTags;
     private List<Anuncio> listaAnuncios;
     
@@ -42,57 +42,31 @@ public class PersistenceMock implements Serializable {
         listaUsuarios = new ArrayList<>();
         listaEventos = new ArrayList<>();
         listaAnuncios = new ArrayList<>();
+        listaLugares = new ArrayList<>();
+        listaTags = new ArrayList<>();
+        
+        Tag tag1 = new Tag();
+        tag1.setTexto("Música");
+        listaTags.add(tag1);
+        
+        Tag tag2 = new Tag();
+        tag2.setTexto("Teatro");
+        listaTags.add(tag2);
         
         Usuario usr = new Usuario();
-        
+        usr.setId(1L);
         usr.setEmail("usuario@normal.com");
         usr.setTipoNotificacionesRecibir(TipoNotificacion.Ambos);
         usr.setPassword("usuario");
         usr.setBorrado(false);
         usr.setNombre("normalito");
-<<<<<<< HEAD
-        usr.setMultimedia(null);
-        listaUsuarios.add(usr);
-        
-        
-        Geolocalizacion geo = new Geolocalizacion();
-        geo.setDireccion("NombreCalle");
-        geo.setLugar(lugar1);
-        
-        lugar1 = new Lugar();
-        lugar1.setNombre("Recinto ferial");
-        lugar1.setGeolocalizacion(geo);
-        
-        Tag tag1 = new Tag();
-        tag1.setTexto("Música");
-        Tag tag2 = new Tag();
-        tag2.setTexto("Teatro");
-        listaTags = new ArrayList<Tag>();
-        listaTags.add(tag1);
-        listaTags.add(tag2);
-        
-        listaEventos = new ArrayList<>();
-        Evento e = new Evento();
-        e.setNombre("Feria Málaga");
-        
-        e.setBorrado(false);
-        e.setValidado(true);
-        e.setDescripcion("Feria de malaga 2017");
-        e.setPrecio(20);
-        e.setDonde_comprar("www.malaga.com");
-        e.setTagged_by(listaTags);
-        e.setOcurre_in(lugar1);
-        listaEventos.add(e);
-        
-=======
         usr.setMultimedia("none");
-        
         listaUsuarios.add(usr);
+       
         Periodista per = new Periodista();
-        
+        per.setId(2L);
         per.setSeccion("Cultura");
         per.setPuesto("Freelance");
-        
         per.setEmail("usuario@periodista.com");
         per.setTipoNotificacionesRecibir(TipoNotificacion.Ambos);
         per.setPassword("periodista");
@@ -102,12 +76,10 @@ public class PersistenceMock implements Serializable {
         listaUsuarios.add(per);
         
         Administrador adm = new Administrador();
-        
+        adm.setId(3L);
         adm.setIdentificador(1L);
-        
         adm.setSeccion("Cultura");
         adm.setPuesto("Administrador");
-        
         adm.setEmail("usuario@administrdor.com");
         adm.setTipoNotificacionesRecibir(TipoNotificacion.Ambos);
         adm.setPassword("administrador");
@@ -116,16 +88,34 @@ public class PersistenceMock implements Serializable {
         adm.setMultimedia("none");
         listaUsuarios.add(adm);
         
-        Lugar lug = new Lugar();
         Geolocalizacion geo = new Geolocalizacion();
+        Lugar lug = new Lugar();
         
-        geo.setDireccion("Bulevar Luis Pasteur, 35, campus de Teatinos, 29071, Malaga");
-        
+        geo.setDireccion("NombreCalle");
+        lug.setNombre("Recinto ferial");
         lug.setBorrado(false);
-        lug.setNombre("ETSI Informatica");
-        lug.setGeolocalizacion(geo);
-        lug.setGeolocalizacion(geo);
         geo.setLugar(lug);
+        lug.setGeolocalizacion(geo);
+        
+        Evento e = new Evento();
+        e.setNombre("Feria Málaga");
+        e.setBorrado(false);
+        e.setValidado(true);
+        e.setDescripcion("Feria de malaga 2017");
+        e.setPrecio(20);
+        e.setDonde_comprar("www.malaga.com");
+        e.setTagged_by(listaTags);
+        e.setOcurre_in(lug);
+        listaEventos.add(e);
+        
+        Geolocalizacion geo1 = new Geolocalizacion();
+        Lugar lug1 = new Lugar();
+        
+        geo1.setDireccion("Bulevar Luis Pasteur, 35, campus de Teatinos, 29071, Malaga");
+        lug1.setBorrado(false);
+        lug1.setNombre("ETSI Informatica");
+        lug1.setGeolocalizacion(geo1);
+        geo1.setLugar(lug1);
         
         Evento ev = new Evento();
         ev.setId(1L);
@@ -134,7 +124,6 @@ public class PersistenceMock implements Serializable {
         ev.setValidado(true);
         ev.setFecha(new Date());
         ev.setOcurre_in(lug);
-        
         listaEventos.add(ev);
         
         Anuncio adv = new Anuncio();
@@ -144,9 +133,8 @@ public class PersistenceMock implements Serializable {
         adv.setDias_contratados(100);
         adv.setMultimedia("media/adverts/patata.png");
         listaAnuncios.add(adv);
+        
         System.out.println(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
-    
->>>>>>> master
     }
 
     public List<Usuario> getListaUsuarios() {
@@ -156,20 +144,9 @@ public class PersistenceMock implements Serializable {
     public void setListaUsuarios(List<Usuario> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> master
     public List<Evento> getListaEventos() {
         return listaEventos;
-    }
-
-<<<<<<< HEAD
-    public void setListaEventos(List<Evento> listaeventos) {
-        this.listaEventos = listaeventos;
-=======
-    public void setListaEventos(List<Evento> listaEventos) {
-        this.listaEventos = listaEventos;
     }
 
     public List<Anuncio> getListaAnuncios() {
@@ -178,7 +155,22 @@ public class PersistenceMock implements Serializable {
 
     public void setListaAnuncios(List<Anuncio> listaAnuncios) {
         this.listaAnuncios = listaAnuncios;
->>>>>>> master
+    }
+
+    public List<Lugar> getListaLugares() {
+        return listaLugares;
+    }
+
+    public void setListaLugares(List<Lugar> listaLugares) {
+        this.listaLugares = listaLugares;
+    }
+
+    public List<Tag> getListaTags() {
+        return listaTags;
+    }
+
+    public void setListaTags(List<Tag> listaTags) {
+        this.listaTags = listaTags;
     }
     
 }
