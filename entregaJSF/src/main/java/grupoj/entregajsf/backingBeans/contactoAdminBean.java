@@ -5,10 +5,13 @@
  */
 package grupoj.entregajsf.backingBeans;
 
+import grupoj.prentrega1.Administrador;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import grupoj.prentrega1.Mensaje;
+import grupoj.prentrega1.Usuario;
+import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import mockingBeans.PersistenceMock;
 
@@ -20,11 +23,12 @@ import mockingBeans.PersistenceMock;
 @Named(value = "contactoAdminBean")
 public class contactoAdminBean {
 
-    private PersistenceMock persistencia;
+    private PersistenceMock persistencia = new PersistenceMock();
     private Mensaje message;
     private String texto;
     private String asunto;
-    //private Usuario user;
+    private Usuario user = persistencia.getListaUsuarios().get(0);
+    private List<Administrador> admins;
     /**
      * Creates a new instance of contactoAdminBean
      */
@@ -63,11 +67,17 @@ public class contactoAdminBean {
         message = new Mensaje();
         message.setTexto(this.texto);
         message.setAsunto(this.asunto);
+        message.setEnviadoPor(user);
+       // message.setRecibidoPor(admins);
         persistencia.addMessage(message);    
         String msg = persistencia.getListaMensajes().get(0).getTexto();
+        System.out.println(msg);
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
     }
  
+      public String goIndex(){
+        return "index.xhtml";
+    }
  
 }
