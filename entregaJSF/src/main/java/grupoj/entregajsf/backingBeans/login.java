@@ -6,7 +6,7 @@ package grupoj.entregajsf.backingBeans;
  * and open the template in the editor.
  */
 
-import java.util.ArrayList;
+import grupoj.entregajsf.controlSesion.ControlAutorizacion;
 import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -58,7 +58,7 @@ public class login {
         this.contrasenia = contrasenia;
     }
 
-    public String autenticar() {
+    public String autenticar() throws InterruptedException {
         Usuario usu = new Usuario();
         usu.setEmail(email);
         usu.setPassword(contrasenia);

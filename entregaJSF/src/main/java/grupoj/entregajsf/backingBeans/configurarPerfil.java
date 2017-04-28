@@ -13,10 +13,9 @@ import grupoj.prentrega1.*;
 import java.awt.Image;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
+import grupoj.entregajsf.controlSesion.ControlAutorizacion;
 
 /**
  *

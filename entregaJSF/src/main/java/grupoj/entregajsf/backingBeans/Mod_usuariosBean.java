@@ -7,10 +7,10 @@ package grupoj.entregajsf.backingBeans;
 
 import grupoj.prentrega1.Usuario;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
+import grupoj.entregajsf.controlSesion.ControlAutorizacion;
 
 /**
  *
