@@ -5,10 +5,12 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:bnu="http://bootsfaces.net/ui">
     <h:head>
         <title>Agenda Diario SUR</title>
         <meta charset="utf-8"/>
+        <link href="#{resource['/css/anuncios.css']}" rel="stylesheet" type="text/css"/>
         
     </h:head>
     <h:body>
@@ -56,18 +58,8 @@
             </div>
         </header>
         <aside id="asideNavBar">
-            <a href="#">
-                <h2 name="whereAmI">
-
-                </h2>
-            </a>
-            <nav class="navbar" id="navLateral">
-                <ul>
-                    <li>
-                        <!-- Opciones de los eventos (requisitos) -->
-                    </li>
-                </ul>
-            </nav>
+            <ui:insert name="navBar" />
+            
             <div name="anuncioAbajoIzquierda" id="divAnunAI">
 
             </div>
