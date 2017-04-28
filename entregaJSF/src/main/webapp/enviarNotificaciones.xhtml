@@ -10,13 +10,49 @@
         <ui:define name="cuerpo">
         <section id="cuerpo">
         <h:form>    
-            <p:panelGrid id="panel" columns="2" layout="grid">
+            
                 <h3>Enviar notificaciones</h3>
                 <!--panel con un checkbox para buscar eventos segun criterios
                 de los enventos otengo los megusta y los tags y de los tags los formularios
                 de hay obtengo los usuarios relacionados con el evento y les asocio una notificacion
                 -->
-            </p:panelGrid>
+                
+                
+                
+
+                <h3>Filtrar por fecha</h3>
+                <p:selectManyCheckbox id="fecha" value="#{enviarNotificacionesBean.selectedFecha}" layout="responsive" columns="3">
+                    <f:selectItems value="#{enviarNotificacionesBean.fechas}" var="fecha" itemLabel="#{fecha}" itemValue="#{fecha}" />
+                </p:selectManyCheckbox>
+
+               <h3>Filtrar por tag</h3>
+                <p:selectManyCheckbox id="tag" value="#{enviarNotificacionesBean.selectedGustos}" layout="responsive" columns="3">
+                    <f:selectItems value="#{enviarNotificacionesBean.gustos}" var="gusto" itemLabel="#{gusto}" itemValue="#{gusto}" />
+                </p:selectManyCheckbox>
+
+                <p:separator />
+
+                <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" icon="ui-icon-check" />
+
+                <p:dialog header="Values" modal="true" showEffect="clip" widgetVar="dlg" resizable="false">
+                    <p:outputPanel id="display">
+                        
+                         <p:dataList value="#{enviarNotificacionesBean.selectedFecha}" var="fecha">
+                            <f:facet name="header">
+                                Grid
+                            </f:facet>
+                            #{fecha}
+                        </p:dataList>
+                        <p:dataList value="#{enviarNotificacionesBean.selectedGustos}" var="gusto">
+                            <f:facet name="header">
+                                Grid
+                            </f:facet>
+                            #{gusto}
+                        </p:dataList>
+                    </p:outputPanel>   
+                </p:dialog>
+                
+            
         </h:form>
         </section>
         </ui:define>
