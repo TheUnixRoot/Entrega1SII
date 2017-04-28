@@ -5,8 +5,14 @@
  */
 package grupoj.entregajsf.backingBeans;
 
+import grupoj.prentrega1.TipoNotificacion;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+import mockingBeans.PersistenceMock;
 
 /**
  *
@@ -18,10 +24,20 @@ import javax.enterprise.context.Dependent;
 @Named(value = "configurarNotificaciones")
 @Dependent
 public class configurarNotificaciones {
-
+    @Inject
+    private PersistenceMock persistencia;
     private boolean notificacionesActivas;
-    private String tipoNotificaciones;
-    
+    private TipoNotificacion tipoNotUsuario;
+    private List<String> ListaNotif;
+
+    public PersistenceMock getPersistencia() {
+        return persistencia;
+    }
+
+    public void setPersistencia(PersistenceMock persistencia) {
+        this.persistencia = persistencia;
+    }
+
     public boolean isNotificacionesActivas() {
         return notificacionesActivas;
     }
@@ -30,12 +46,58 @@ public class configurarNotificaciones {
         this.notificacionesActivas = notificacionesActivas;
     }
 
-    public String getTipoNotificaciones() {
-        return tipoNotificaciones;
+    public TipoNotificacion getTipoNotUsuario() {
+        return tipoNotUsuario;
     }
 
-    public void setTipoNotificaciones(String tipoNotificaciones) {
-        this.tipoNotificaciones = tipoNotificaciones;
+    public void setTipoNotUsuario(TipoNotificacion tipoNotUsuario) {
+        this.tipoNotUsuario = tipoNotUsuario;
+    }
+
+    public List<String> getListaNotif() {
+        return ListaNotif;
+    }
+
+    public void setListaNotif(List<String> ListaNotif) {
+        this.ListaNotif = ListaNotif;
+    }
+    
+    @PostConstruct
+    public void init() {
+        tipoNotUsuario = persistencia.getTipoNotUsuario();
+        ListaNotif = new ArrayList<>();
+        rellenaLista();
+    }
+
+    private void insertaLista(TipoNotificacion n) {
+        switch(n) {
+            case Email: 
+                ListaNotif.add("Email");
+                break;
+                
+            case Cuenta: 
+                ListaNotif.add("Cuenta");
+                break; 
+                
+            case Ambos: 
+                ListaNotif.add("Ambos");
+                break;
+        }
+    }
+    
+    private void rellenaLista () {
+        insertaLista(tipoNotUsuario);
+        if (tipoNotUsuario != TipoNotificacion.Email) {
+            insertaLista(TipoNotificacion.Email);
+        }
+        
+        if (tipoNotUsuario != TipoNotificacion.Cuenta) {
+            insertaLista(TipoNotificacion.Cuenta);
+        }
+        
+        if (tipoNotUsuario != TipoNotificacion.Ambos) {
+            insertaLista(TipoNotificacion.Ambos);
+        }
     }
     
 }

@@ -5,7 +5,9 @@
  */
 package mockingBeans;
 
+import grupoj.prentrega1.Formulario;
 import grupoj.prentrega1.TipoNotificacion;
+import grupoj.prentrega1.Notificacion;
 import grupoj.prentrega1.Usuario;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -22,11 +24,14 @@ import javax.enterprise.context.RequestScoped;
 public class PersistenceMock implements Serializable {
     
     private List<Usuario> listaUsuarios;
+    private List<Notificacion> listaNotificaciones;
+    private List<Formulario> listaFormularios;
+    private TipoNotificacion tipoNotUsuario;
     /*
     Crear lista de notificaciones magicamente y haces magia con ella
     */
     
-    /**
+    /** 
      * Creates a new instance of PersistenceMock
      */
     public PersistenceMock() {
@@ -39,6 +44,38 @@ public class PersistenceMock implements Serializable {
         usr.setNombre("normalito");
         usr.setMultimedia("none");
         listaUsuarios.add(usr);
+        
+        //listaNotificaciones = new ArrayList<>();
+        //Notificacion ntf = new Notificacion();
+        //NPI
+        
+        // Tipo de notificacion
+        tipoNotUsuario = usr.getTipoNotificacionesRecibir();
+        
+    }
+
+    public List<Notificacion> getListaNotificaciones() {
+        return listaNotificaciones;
+    }
+
+    public void setListaNotificaciones(List<Notificacion> listaNotificaciones) {
+        this.listaNotificaciones = listaNotificaciones;
+    }
+
+    public List<Formulario> getListaFormularios() {
+        return listaFormularios;
+    }
+
+    public void setListaFormularios(List<Formulario> listaFormularios) {
+        this.listaFormularios = listaFormularios;
+    }
+
+    public TipoNotificacion getTipoNotUsuario() {
+        return tipoNotUsuario;
+    }
+
+    public void setTipoNotUsuario (TipoNotificacion tipoNotUsuario) {
+        this.tipoNotUsuario = tipoNotUsuario;
     }
 
     public List<Usuario> getListaUsuarios() {

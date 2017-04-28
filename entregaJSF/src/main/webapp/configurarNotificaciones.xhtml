@@ -14,25 +14,30 @@ and open the template in the editor.
     <ui:composition template="Layout.xhtml">
         <ui:define name="cuerpo">
         <section id="cuerpo">
-            <h:form>
-                <p:panelGrid columns="2" layout="grid">
-                    <p:outputLabel value="Activar notifiaciones : " />
-                    <!-- Marcar la opción que tenga el usuario anteriormente, si no por defecto activar -->
-                    <p:selectOneRadio id="Notificaciones" layout="responsive" value="#{configurarNotificaciones.notificacionesActivas}">
-                        <f:selectItem itemLabel="Si" itemValue="true" />
-                        <f:selectItem itemLabel="No" itemValue="false" />
-                    </p:selectOneRadio>
+            <article>
+                <h:form>
+                    
+                    <p:panelGrid columns="2" layout="grid">
+                        <p:outputLabel value="Activar notifiaciones : " />
+                        <p:selectOneRadio id="Notificaciones" value="">
+                            <f:selectItem itemLabel="Si" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        
+                        <p:outputLabel value="Como recibir notifiaciones : " />
+                        <p:selectOneMenu id="TipoNotificaciones" value="" style="width:125px">
+                            <f:selectItems value="#{configurarNotificaciones.listaNotif}" var="Cadena" itemLabel="#{Cadena}"/>
+                        </p:selectOneMenu>
+ 
+                        <p:commandButton value="Guardar" />
+                        
+                    </p:panelGrid>
                     
                     
-                    <p:outputLabel value="Como recibir notifiaciones : " />
-                    <p:selectOneMenu id="TipoNotificaciones" value="#{configurarNotificaciones.tipoNotificaciones}" style="width:125px">
-                        <f:selectItem itemLabel="Selecciona" itemValue="" />
-                        <f:selectItem itemLabel="Email" itemValue="Email" />
-                        <f:selectItem itemLabel="Cuenta" itemValue="Cuenta" />
-                        <f:selectItem itemLabel="Ambas" itemValue="Ambas" />
-                    </p:selectOneMenu>
-                </p:panelGrid>
-            </h:form>
+
+                </h:form>
+            </article>
         </section>
         </ui:define>
     </ui:composition>
