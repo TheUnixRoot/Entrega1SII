@@ -66,7 +66,7 @@ public class login {
         FacesContext ctx = FacesContext.getCurrentInstance();
         Boolean encontrado = false;
         for(Usuario u : usuarios){
-            if(u.getEmail().equals(usu.getEmail()) && u.getPassword().equals(usu.getPassword())){
+            if(u.getEmail().equalsIgnoreCase(usu.getEmail()) && u.getPassword().equals(usu.getPassword())){
                 encontrado = true;
                 ctrl.setUsuario(u);
             }
@@ -76,7 +76,7 @@ public class login {
             return "index.xhtml";
         }
         ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario/contraseña incorrectos", "Usuario/contraseña incorrectos"));
-         
+         //id de autenticar en null
         return null;
     }
     
