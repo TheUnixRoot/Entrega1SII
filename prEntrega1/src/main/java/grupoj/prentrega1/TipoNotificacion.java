@@ -13,5 +13,7 @@ public enum TipoNotificacion {
     
     Email,
     Cuenta,
-    Ambos
+    Ambos,
+    Desactivado
+    
 }

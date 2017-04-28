@@ -82,10 +82,18 @@ public class configurarNotificaciones {
             case Ambos: 
                 ListaNotif.add("Ambos");
                 break;
+            
+                
         }
     }
     
     private void rellenaLista () {
+        if (tipoNotUsuario == TipoNotificacion.Desactivado) {
+            notificacionesActivas = false;
+        } else {
+            notificacionesActivas = true;
+        }
+        
         insertaLista(tipoNotUsuario);
         if (tipoNotUsuario != TipoNotificacion.Email) {
             insertaLista(TipoNotificacion.Email);

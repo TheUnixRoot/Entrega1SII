@@ -38,7 +38,7 @@ public class PersistenceMock implements Serializable {
         listaUsuarios = new ArrayList<>();
         Usuario usr = new Usuario();
         usr.setEmail("usuario@normal.com");
-        usr.setTipoNotificacionesRecibir(TipoNotificacion.Ambos);
+        usr.setTipoNotificacionesRecibir(TipoNotificacion.Desactivado);
         usr.setPassword("usuario");
         usr.setBorrado(false);
         usr.setNombre("normalito");

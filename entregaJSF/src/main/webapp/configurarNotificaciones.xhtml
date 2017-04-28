@@ -19,7 +19,7 @@ and open the template in the editor.
                     
                     <p:panelGrid columns="2" layout="grid">
                         <p:outputLabel value="Activar notifiaciones : " />
-                        <p:selectOneRadio id="Notificaciones" value="">
+                        <p:selectOneRadio id="Notificaciones" value="#{configurarNotificaciones.notificacionesActivas}">
                             <f:selectItem itemLabel="Si" itemValue="true" />
                             <f:selectItem itemLabel="No" itemValue="false" />
                         </p:selectOneRadio>
