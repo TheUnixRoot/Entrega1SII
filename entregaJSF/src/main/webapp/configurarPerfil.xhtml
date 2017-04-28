@@ -12,6 +12,10 @@
         <h:form>
         <p:panelGrid columns="2" layout="grid">
 
+        <p:graphicImage value="#{configurarPerfil.foto}" />    
+        <p:fileUpload value="#{configurarPerfil.foto}" mode="simple" skinSimple="true"/>
+    
+    
         <p:outputLabel value="Nombre:" for="nombre" />
         <p:autoComplete id="nombre" value="#{configurarPerfil.nombre}" completeMethod="#{configurarPerfil.nombre}" />
       
@@ -30,7 +34,15 @@
         <p:outputLabel for="fechaNacimiento" value="Fecha de nacimiento:" />
         <p:calendar id="fechaNacimiento" value="#{configurarPerfil.fechaNacimiento}" showOn="button" />    
         
+        <p:link outcome="formularioGustos.xhtml" value="Rellena un formulario sobre tus gustos">
+        <f:param name="productId" value="formularioGustos.xhtml" />
+        </p:link>
+        
+        
+        
         <h:commandButton value="Guardar" action="#{configurarPerfil.configurar()}"/>  
+             
+        
         </p:panelGrid>    
             
         </h:form>  

@@ -10,7 +10,12 @@ import java.util.Date;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import grupoj.prentrega1.*;
+import java.awt.Image;
 import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
 
 /**
@@ -20,8 +25,13 @@ import mockingBeans.PersistenceMock;
 @Named(value = "configurarPerfil")
 @RequestScoped
 public class configurarPerfil {
-    private PersistenceMock persistencia = new PersistenceMock();
+    @Inject
+    private ControlAutorizacion control;
+    
+    @Inject
+    private PersistenceMock persistencia;
     private List<Usuario> listaUsuario;
+    private Image foto;
     private Usuario usuario;
     private String nombre;
     private String apellidos;
@@ -33,9 +43,11 @@ public class configurarPerfil {
     /**
      * Creates a new instance of configurarPerfil
      */
-    public configurarPerfil() {
+    @PostConstruct
+    public void init() {
         listaUsuario = persistencia.getListaUsuarios();
-        usuario = listaUsuario.get(0);
+        usuario = control.getUsuario();
+        //foto = usuario.getMultimedia();
         nombre = usuario.getNombre();
         apellidos = usuario.getApellidos();
         email = usuario.getEmail();
@@ -45,6 +57,15 @@ public class configurarPerfil {
                 
     }
 
+    public Image getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Image foto) {
+        this.foto = foto;
+    }
+    
+    
     public String getNombre() {
         return nombre;
     }
@@ -97,6 +118,7 @@ public class configurarPerfil {
     }
     
     public String configurar(){
+        //usuario.setMultimedia(foto);
         usuario.setNombre(nombre);
         usuario.setApellidos(apellidos);
         usuario.setEmail(email);
@@ -109,5 +131,6 @@ public class configurarPerfil {
         
         return "index.html";
     }
+    
     
 }

@@ -37,7 +37,7 @@ public class PersistenceMock implements Serializable {
         usr.setPassword("usuario");
         usr.setBorrado(false);
         usr.setNombre("normalito");
-        usr.setMultimedia("none");
+        usr.setMultimedia(null);
         listaUsuarios.add(usr);
         
         
