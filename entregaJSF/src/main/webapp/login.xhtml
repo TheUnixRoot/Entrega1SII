@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="Layout.xhtml">
+        <ui:define name="cuerpo">
+        <section id="cuerpo">
+        <h:form id="login">
+            <h3>Login:</h3>
+            <p:panelGrid columns="2" layout="grid">
+            <table>
+                <tr>
+                    <td>
+                    <h:outputText value="Email: " />
+                    </td><td>
+                        <p:inputText value="#{login.email}"/>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <h:outputText value="Contraseña: " />
+                    </td><td>
+                    <p:password id="contrasenia" value="#{login.contrasenia}" />
+                    </td>
+                </tr>                   
+            </table>
+            </p:panelGrid>    
+            <br><br></br></br>
+            <h:commandButton value="Aceptar" action="#{login.autenticar()}"/>   
+            <!-- ¿Boton cancelar? -->
+            
+        </h:form>
+        </section>
+        </ui:define>
+    </ui:composition>
+    
+</html>
+
