@@ -4,30 +4,30 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:bnu="http://bootsfaces.net/ui">
+      xmlns:bnu="http://bootsfaces.net/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="Layout.xhtml">
-        <ui:define name="navBar">
-            <h:form>
-                <p:menu>
-                    <p:submenu label="Gestion de usuarios" expanded="true">
-                        <p:menuitem action="#" value="Holi"/>
-                    </p:submenu>
-                </p:menu>
-            </h:form>
+        <ui:define name="navBarName">
+            <ui:param name="nombrePagina" value="Gestion de usuarios" />
         </ui:define>
         <ui:define name="cuerpo">
-        <section id="cuerpo">
-            <ui:repeat value="#{crud_usuariosBean.usuarios}" var="usr">
-            <article id="#{usr.nombre}">
-                <p:panelGrid columns="2" layout="grid">
-                    <p:commandButton icon="#{usr.multimedia}" action="null"/>
-                    <p:link value="#{usr.email}" href="#{crud_usuariosBean.viajar(usr.id)}"/>
-                    <p:outputLabel style="display: none"/>
-                    <p:outputLabel value="#{usr.nombre}"/>
-                </p:panelGrid>
-            </article>
-            </ui:repeat>
-        </section>
+            <c:if test="${controlAutorizacion.administrador}" >
+                <section id="cuerpo">
+                    <ui:repeat value="#{crud_usuariosBean.usuarios}" var="usr">
+                    <article id="#{usr.nombre}">
+                        <p:panelGrid columns="2" layout="grid">
+                            <p:commandButton icon="#{usr.multimedia}" action="null"/>
+                            <p:link value="#{usr.email}" href="#{crud_usuariosBean.viajar(usr.id, false)}"/>
+                            <p:link value="Editar usuario" href="#{crud_usuariosBean.viajar(usr.id, true)}"/>
+                            <p:outputLabel value="#{usr.nombre}"/>
+                        </p:panelGrid>
+                    </article>
+                    </ui:repeat>
+                </section>
+            </c:if>
+            <c:if test="${!controlAutorizacion.administrador}">
+                <p:outputLabel value="403 Forbidden"/>
+            </c:if>
         </ui:define>
     </ui:composition>
 </html>

@@ -6,9 +6,14 @@
 package grupoj.entregajsf.backingBeans;
 
 import grupoj.prentrega1.Usuario;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
 
@@ -58,8 +63,7 @@ public class Crud_usuariosBean {
         this.administradores = administradores;
     }
     
-    public String viajar(long id) {
-        
-        return "mod_usuario.xhtml?id="+id;
+    public String viajar(long id, boolean editar) {
+        return editar ?("edit_usuario.xhtml?id=" + id) : ("read_usuario.xhtml?id=" + id);
     }
 }

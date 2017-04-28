@@ -6,22 +6,19 @@
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:bnu="http://bootsfaces.net/ui">
+      xmlns:bnu="http://bootsfaces.net/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="Layout.xhtml">
-        <ui:define name="navBar">
-            <h:form>
-                <p:menu>
-                    <p:menuitem action="#" value="Holi"/>
-                </p:menu>
-            </h:form>
+        <ui:define name="navBarName">
+            <ui:param name="nombrePagina" value="Agenda Diario SUR" />
         </ui:define>
         <ui:define name="cuerpo">
-        <section id="cuerpo">
-        <ui:repeat value="" var="evento">
-            <article>
-            </article>
-        </ui:repeat>
-        </section>
+            <section id="cuerpo">
+                <ui:repeat value="" var="evento">
+                    <article>
+                    </article>
+                </ui:repeat>
+            </section>
         </ui:define>
     </ui:composition>
     

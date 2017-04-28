@@ -14,6 +14,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import grupoj.prentrega1.Usuario;
+import javax.annotation.PostConstruct;
 import mockingBeans.PersistenceMock;
 
 /**
@@ -27,7 +28,8 @@ public class login {
     private String email;
     private String contrasenia;
     private List<Usuario> usuarios;
-    private PersistenceMock persistencia = new PersistenceMock();
+    @Inject
+    private PersistenceMock persistencia;
     
     @Inject
     private ControlAutorizacion ctrl;
@@ -35,8 +37,8 @@ public class login {
     /**
      * Creates a new instance of Login
      */
-    public login() {
-        persistencia = new PersistenceMock();
+    @PostConstruct
+    public void init() {
         usuarios = persistencia.getListaUsuarios();
        /* usuarios = new ArrayList<Usuario>();
         usuarios.add(new Usuario("pepe", "asdf", Rol.NORMAL));
@@ -63,19 +65,18 @@ public class login {
         usu.setEmail(email);
         usu.setPassword(contrasenia);
         usuarios = persistencia.getListaUsuarios();
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        Boolean encontrado = false;
+        boolean encontrado = false;
         for(Usuario u : usuarios){
-            if(u.getEmail().equals(usu.getEmail()) && u.getPassword().equals(usu.getPassword())){
+            if(u.getEmail().equalsIgnoreCase(usu.getEmail()) && u.getPassword().equals(usu.getPassword())){
                 encontrado = true;
                 ctrl.setUsuario(u);
             }
         }
         
-        if(encontrado == true){
+        if(encontrado){
             return "index.xhtml";
         }
-        ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario/contraseña incorrectos", "Usuario/contraseña incorrectos"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario/contraseña incorrectos", "Usuario/contraseña incorrectos"));
          
         return null;
     }

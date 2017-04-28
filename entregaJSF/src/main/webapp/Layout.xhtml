@@ -20,14 +20,6 @@
             <p:layoutUnit position="north" closable="false" collapsible="false" resizable="false" >
             
                 <header>
-                    <c:choose>
-                        <c:when test="${controlAutorizacion.usuario == null}" >
-                            <p:outputLabel value="NOt loggEd" />
-                        </c:when>
-                        <c:otherwise>
-                            <p:outputLabel value="LOGGGIINNN" />
-                        </c:otherwise>
-                    </c:choose>
                     <!-- Esto es la cabecera de la pagina -->
                     <div name="formularioBusqueda" id="divBusqueda">
                         <h:form id="formBusqueda">
@@ -45,7 +37,8 @@
                 </div>
                 <bnu:navBar fluid="true" sticky="true" >
                     <bnu:navbarLinks>
-                        <bnu:navLink value="patata" action="#"/>
+                        <bnu:navLink value="Index" href="index.xhtml"/>
+                        <bnu:navLink value="Login" href="login.xhtml"/>
                         <bnu:navLink value="patata" action="#"/>
                         <bnu:navLink value="patata" action="#"/>
                     </bnu:navbarLinks>
@@ -81,7 +74,16 @@
             <p:layoutUnit position="west" closable="false" collapsible="false" resizable="false" >
             
                 <aside id="asideNavBar">
-                    <ui:insert name="navBar" />
+                    <ui:insert name="navBarName" />
+                    <h:form>
+                        <p:menu>
+                            <p:submenu label="#{nombrePagina}" expanded="true">
+                                <p:menuitem value="Gestion de usuarios" action="gestion_usuarios.xhtml" rendered="${controlAutorizacion.administrador}"/>
+                                <p:menuitem value="Gestion de anuncios" action="gestion_anuncios.xhtml" rendered="${controlAutorizacion.administrador}"/>
+                            </p:submenu>
+                        </p:menu>
+                    </h:form>
+                    
 
                     <div name="anuncioAbajoIzquierda" id="divAnunAI">
 

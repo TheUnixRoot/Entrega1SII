@@ -5,6 +5,8 @@
 package grupoj.entregajsf.controlSesion;
 
 
+import grupoj.prentrega1.Administrador;
+import grupoj.prentrega1.Periodista;
 import grupoj.prentrega1.Usuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -49,5 +51,13 @@ public class ControlAutorizacion implements Serializable {
      * Creates a new instance of ControlAutorizacion
      */
     public ControlAutorizacion() {
+    }
+    
+    public boolean isAdministrador() {
+        return this.usuario instanceof Administrador;
+    }
+    
+    public boolean isPeriodista() {
+        return this.usuario instanceof Periodista;
     }
 }

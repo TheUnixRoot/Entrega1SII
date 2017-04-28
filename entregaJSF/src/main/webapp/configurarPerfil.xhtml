@@ -8,46 +8,46 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="Layout.xhtml">
         <ui:define name="cuerpo">
-        <section id="cuerpo">
-        <h:form>
-        <p:panelGrid columns="2" layout="grid">
+            <section id="cuerpo">
+                <h:form>
+                    <p:panelGrid columns="2" layout="grid">
 
-        <p:graphicImage value="#{configurarPerfil.foto}" />    
-        <p:fileUpload value="#{configurarPerfil.foto}" mode="simple" skinSimple="true"/>
-    
-    
-        <p:outputLabel value="Nombre:" for="nombre" />
-        <p:autoComplete id="nombre" value="#{configurarPerfil.nombre}" completeMethod="#{configurarPerfil.nombre}" />
-      
-        <p:outputLabel value="Apellidos:" for="apellidos" />
-        <p:autoComplete id="apellidos" value="#{configurarPerfil.apellidos}" completeMethod="#{configurarPerfil.apellidos}" />
+                        <p:graphicImage value="#{configurarPerfil.foto}" />    
+                        <p:fileUpload value="#{configurarPerfil.foto}" mode="simple" skinSimple="true"/>
 
-        <p:outputLabel value="Email:" for="email" />
-        <p:autoComplete id="email" value="#{configurarPerfil.email}" completeMethod="#{configurarPerfil.email}" />
- 
-        <p:outputLabel value="Contraseña:" for="contrasenia" />
-        <p:autoComplete id="contrasenia" value="#{configurarPerfil.contrasenia}" completeMethod="#{configurarPerfil.contrasenia}" />
-        
-        <p:outputLabel value="Telefono:" for="telefono" />
-        <p:autoComplete id="telefono" value="#{configurarPerfil.telefono}" completeMethod="#{configurarPerfil.telefono}" />
-            
-        <p:outputLabel for="fechaNacimiento" value="Fecha de nacimiento:" />
-        <p:calendar id="fechaNacimiento" value="#{configurarPerfil.fechaNacimiento}" showOn="button" />    
-        
-        <p:link outcome="formularioGustos.xhtml" value="Rellena un formulario sobre tus gustos">
-        <f:param name="productId" value="formularioGustos.xhtml" />
-        </p:link>
-        
-        
-        
-        <h:commandButton value="Guardar" action="#{configurarPerfil.configurar()}"/>  
-             
-        
-        </p:panelGrid>    
-            
-        </h:form>  
-            
-        </section>
+
+                        <p:outputLabel value="Nombre:" for="nombre" />
+                        <p:autoComplete id="nombre" value="#{configurarPerfil.nombre}" completeMethod="#{configurarPerfil.nombre}" />
+
+                        <p:outputLabel value="Apellidos:" for="apellidos" />
+                        <p:autoComplete id="apellidos" value="#{configurarPerfil.apellidos}" completeMethod="#{configurarPerfil.apellidos}" />
+
+                        <p:outputLabel value="Email:" for="email" />
+                        <p:autoComplete id="email" value="#{configurarPerfil.email}" completeMethod="#{configurarPerfil.email}" />
+
+                        <p:outputLabel value="Contraseña:" for="contrasenia" />
+                        <p:autoComplete id="contrasenia" value="#{configurarPerfil.contrasenia}" completeMethod="#{configurarPerfil.contrasenia}" />
+
+                        <p:outputLabel value="Telefono:" for="telefono" />
+                        <p:autoComplete id="telefono" value="#{configurarPerfil.telefono}" completeMethod="#{configurarPerfil.telefono}" />
+
+                        <p:outputLabel for="fechaNacimiento" value="Fecha de nacimiento:" />
+                        <p:calendar id="fechaNacimiento" value="#{configurarPerfil.fechaNacimiento}" showOn="button" />    
+
+                        <p:link outcome="formularioGustos.xhtml" value="Rellena un formulario sobre tus gustos">
+                        <f:param name="productId" value="formularioGustos.xhtml" />
+                        </p:link>
+
+
+
+                        <h:commandButton value="Guardar" action="#{configurarPerfil.configurar()}"/>  
+
+
+                    </p:panelGrid>    
+
+                </h:form>  
+
+            </section>
         </ui:define>
     </ui:composition>
     

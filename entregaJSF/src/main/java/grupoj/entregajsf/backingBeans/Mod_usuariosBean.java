@@ -7,19 +7,22 @@ package grupoj.entregajsf.backingBeans;
 
 import grupoj.prentrega1.Usuario;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
 import grupoj.entregajsf.controlSesion.ControlAutorizacion;
+import java.io.Serializable;
+import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
+import org.omnifaces.cdi.ViewScoped;
 
 /**
  *
  * @author juanp
  */
 @Named(value = "mod_usuariosBean")
-@RequestScoped
-public class Mod_usuariosBean {
+@ViewScoped
+public class Mod_usuariosBean implements Serializable {
 
     @Inject
     PersistenceMock persistencia;
@@ -27,23 +30,27 @@ public class Mod_usuariosBean {
     ControlAutorizacion controlAutorizacion;
     Usuario usr;
     long id;
+    boolean editar;
     /**
      * Creates a new instance of Mod_usuariosBean
      */
+    @PostConstruct
     public void init() {
+        Map<String, String> req = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        this.setId(Long.parseLong(req.get("id")));
+        this.setEditar(Boolean.getBoolean(req.get("edit")));
+        System.out.println(editar);
         Usuario uuu = new Usuario();
         uuu.setId(id);
         System.out.println(id);
-        if ( this.persistencia.getListaUsuarios().contains(uuu) ) {
+        if ( this.persistencia.getListaUsuarios().contains(uuu) ) 
             this.usr = this.persistencia.getListaUsuarios()
                     .get(
                             this.persistencia.getListaUsuarios().indexOf(uuu)
                     );
-            System.out.println("Hay useeer");
-        } else
+        else
             this.usr = null;
-        System.out.println("NO HAY useeer");
-       
+        uuu = null;
     }
 
     public PersistenceMock getPersistencia() {
@@ -77,4 +84,14 @@ public class Mod_usuariosBean {
     public void setId(long id) {
         this.id = id;
     }
+
+    public boolean isEditar() {
+        return editar;
+    }
+
+    public void setEditar(boolean editar) {
+        this.editar = editar;
+    }
+    
+    
 }
