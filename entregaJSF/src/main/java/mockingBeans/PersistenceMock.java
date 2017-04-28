@@ -12,7 +12,7 @@ import grupoj.prentrega1.Geolocalizacion;
 import grupoj.prentrega1.Lugar;
 import grupoj.prentrega1.Periodista;
 import grupoj.prentrega1.TipoNotificacion;
-import grupoj.prentrega1.Usuario;
+import grupoj.prentrega1.*;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,6 +31,8 @@ public class PersistenceMock implements Serializable {
     
     private List<Usuario> listaUsuarios;
     private List<Evento> listaEventos;
+    private Lugar lugar1;
+    private List<Tag> listaTags;
     private List<Anuncio> listaAnuncios;
     
     /**
@@ -48,6 +50,41 @@ public class PersistenceMock implements Serializable {
         usr.setPassword("usuario");
         usr.setBorrado(false);
         usr.setNombre("normalito");
+<<<<<<< HEAD
+        usr.setMultimedia(null);
+        listaUsuarios.add(usr);
+        
+        
+        Geolocalizacion geo = new Geolocalizacion();
+        geo.setDireccion("NombreCalle");
+        geo.setLugar(lugar1);
+        
+        lugar1 = new Lugar();
+        lugar1.setNombre("Recinto ferial");
+        lugar1.setGeolocalizacion(geo);
+        
+        Tag tag1 = new Tag();
+        tag1.setTexto("Música");
+        Tag tag2 = new Tag();
+        tag2.setTexto("Teatro");
+        listaTags = new ArrayList<Tag>();
+        listaTags.add(tag1);
+        listaTags.add(tag2);
+        
+        listaEventos = new ArrayList<>();
+        Evento e = new Evento();
+        e.setNombre("Feria Málaga");
+        
+        e.setBorrado(false);
+        e.setValidado(true);
+        e.setDescripcion("Feria de malaga 2017");
+        e.setPrecio(20);
+        e.setDonde_comprar("www.malaga.com");
+        e.setTagged_by(listaTags);
+        e.setOcurre_in(lugar1);
+        listaEventos.add(e);
+        
+=======
         usr.setMultimedia("none");
         
         listaUsuarios.add(usr);
@@ -109,6 +146,7 @@ public class PersistenceMock implements Serializable {
         listaAnuncios.add(adv);
         System.out.println(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
     
+>>>>>>> master
     }
 
     public List<Usuario> getListaUsuarios() {
@@ -118,11 +156,18 @@ public class PersistenceMock implements Serializable {
     public void setListaUsuarios(List<Usuario> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
     }
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
     public List<Evento> getListaEventos() {
         return listaEventos;
     }
 
+<<<<<<< HEAD
+    public void setListaEventos(List<Evento> listaeventos) {
+        this.listaEventos = listaeventos;
+=======
     public void setListaEventos(List<Evento> listaEventos) {
         this.listaEventos = listaEventos;
     }
@@ -133,6 +178,7 @@ public class PersistenceMock implements Serializable {
 
     public void setListaAnuncios(List<Anuncio> listaAnuncios) {
         this.listaAnuncios = listaAnuncios;
+>>>>>>> master
     }
     
 }
