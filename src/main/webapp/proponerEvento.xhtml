@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:bnu="http://bootsfaces.net/ui">
+    <ui:composition template="Layout.xhtml">
+        <ui:define name="cuerpo">
+        <section id="cuerpo">
+         <article>
+             
+                <!-- falta validar, quien sube evento-->
+                <h:form id="proponerEvento">
+                    
+                    <p:panelGrid columns="2" layout="grid">
+                        <p:outputLabel value="Nombre:"/>
+                        <p:inputText value="#{proponerEventoBean.nombre}"/>
+                        <p:outputLabel value="Precio:"/>
+                        <p:inputNumber value="#{proponerEventoBean.precio}"/>
+                        <p:outputLabel value="Donde comprar entradas:"/>
+                        <p:inputText value="#{proponerEventoBean.donde_comprar}"/>
+                        <p:outputLabel value="Lugar:"/>
+                        
+                        <p:selectOneMenu value="#{proponerEventoBean.ocurre_in}" >
+                            <f:selectItems  value="#{proponerEventoBean.lugares}"  var="lgr" itemLabel="#{lgr.nombre}" itemValue="#{lgr.nombre}" />
+                        </p:selectOneMenu>
+                       
+                        <p:outputLabel value="Descripcion:"/>
+                        <p:inputTextarea value="#{proponerEventoBean.descripcion}"/>
+                        <p:outputLabel value="fecha:"/>
+                        <p:calendar  mode="inline" id="calendario" value="#{proponerEventoBean.fecha}"/>
+                        <p:outputLabel for="time" value="Hora:" />
+                        <p:calendar id="time" value="#{proponerEventoBean.hora}" pattern="HH:mm" timeOnly="true"  />
+                        
+                        
+                        <p:commandButton value="Enviar" action="#{proponerEventoBean.insertarEvento()}"/>
+                    </p:panelGrid>
+                    </h:form>
+            </article>
+        
+        </section>
+        </ui:define>
+    </ui:composition>
+</html>
