@@ -5,7 +5,9 @@
  */
 package mockingBeans;
 
+import grupoj.prentrega1.Formulario;
 import grupoj.prentrega1.Mensaje;
+import grupoj.prentrega1.Tag;
 import grupoj.prentrega1.TipoNotificacion;
 import grupoj.prentrega1.Usuario;
 import javax.inject.Named;
@@ -24,17 +26,9 @@ public class PersistenceMock implements Serializable {
     
     private List<Usuario> listaUsuarios;
     private List<Mensaje> listaMensajes;
-    
-    public List<Mensaje> getListaMensajes() {
-        return listaMensajes;
-    }
+    private Formulario formulario;
 
-    public void setListaMensajes(List<Mensaje> listaMensajes) {
-        this.listaMensajes = listaMensajes;
-    }
-    public void addMessage(Mensaje msg){
-        listaMensajes.add(msg);
-    }
+    
     
     /**
      * Creates a new instance of PersistenceMock
@@ -42,6 +36,7 @@ public class PersistenceMock implements Serializable {
     public PersistenceMock() {
         listaUsuarios = new ArrayList<>();
         listaMensajes = new ArrayList<>();
+        formulario = new Formulario();
         Usuario usr = new Usuario();
         usr.setEmail("usuario@normal.com");
         usr.setTipoNotificacionesRecibir(TipoNotificacion.Ambos);
@@ -60,4 +55,23 @@ public class PersistenceMock implements Serializable {
         this.listaUsuarios = listaUsuarios;
     }
     
+    public Formulario getFormulario() {
+        return formulario;
+    }
+
+    public void setFormulario(Formulario formulario) {
+        this.formulario = formulario;
+    }
+    
+    
+    public List<Mensaje> getListaMensajes() {
+        return listaMensajes;
+    }
+
+    public void setListaMensajes(List<Mensaje> listaMensajes) {
+        this.listaMensajes = listaMensajes;
+    }
+    public void addMessage(Mensaje msg){
+        listaMensajes.add(msg);
+    }
 }

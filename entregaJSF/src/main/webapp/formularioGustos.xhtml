@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="Layout.xhtml">
+        <ui:define name="cuerpo">
+        <section id="cuerpo">
+        <h:form>    
+            <h3>Formulario sobre gustos</h3>
+            <p:selectManyCheckbox id="grid" value="#{formularioGustosBean.selectedGustos}" layout="responsive" columns="2">
+                <f:selectItems value="#{formularioGustosBean.gustos}" var="gusto" itemLabel="#{gusto}" itemValue="#{gusto}" />
+            </p:selectManyCheckbox>
+
+            <p:commandButton value="Enviar" update="display" oncomplete="PF('dlg').show()" icon="ui-icon-check" action="#{formularioGustosBean.saveGustos()}" />
+
+            <p:dialog header="Datos enviados correctamente" modal="true" showEffect="clip" widgetVar="dlg" resizable="false">
+                <p:outputPanel id="display">
+                    <p:dataList value="#{formularioGustosBean.selectedGustos}" var="gusto">
+                        <f:facet name="header">
+                            Gustos
+                        </f:facet>
+                        #{gusto}
+                    </p:dataList>
+                    <p:commandButton value="OK" update="display" icon="ui-icon-check" action="#{formularioGustosBean.goIndex()}" />
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+        </section>
+        </ui:define>
+    </ui:composition>
+</html>
