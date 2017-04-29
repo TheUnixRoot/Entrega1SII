@@ -5,37 +5,43 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:bnu="http://bootsfaces.net/ui">
     <ui:composition template="Layout.xhtml">
+        <ui:define name="navBarName">
+            <ui:param name="nombrePagina" value="Login" />
+        </ui:define>
+        
         <ui:define name="cuerpo">
+        <c:choose>
+        <c:when test="${controlAutorizacion.usuario == null}" >
         <section id="cuerpo">
         <h:form id="login">
-            <h3>Login:</h3>
+            <p:outputLabel value="Login" style="font-size: large"/>
             <p:panelGrid columns="2" layout="grid">
-            <table>
-                <tr>
-                    <td>
-                    <h:outputText value="Email: " />
-                    </td><td>
-                        <p:inputText value="#{login.email}"/>
-                    </td>
-                </tr>
-                
-                <tr>
-                    <td>
-                    <h:outputText value="Contraseña: " />
-                    </td><td>
-                    <p:password id="contrasenia" value="#{login.contrasenia}" />
-                    </td>
-                </tr>                   
-            </table>
+                <p:outputLabel value="Email: " />           
+                <p:inputText value="#{login.email}"/>
+                   
+                <p:outputLabel value="Contraseña: " />
+                <p:password id="contrasenia" value="#{login.contrasenia}" />
+                <h:messages/>        
             </p:panelGrid>    
-            <br><br></br></br>
-            <h:commandButton value="Aceptar" action="#{login.autenticar()}"/>   
-            <!-- ¿Boton cancelar? -->
+            <br></br>
             
+            <p:commandButton value="Aceptar" update="login" action="#{login.autenticar()}" />
         </h:form>
         </section>
+        </c:when>
+        <c:otherwise>
+            <p:outputLabel value="Sesion ya iniciada" />
+            <h:form>
+            <p:commandButton value="Logout" action="#{controlAutorizacion.logout()}" />
+            </h:form>
+        </c:otherwise>
+        </c:choose>
+        
+        
         </ui:define>
     </ui:composition>
     

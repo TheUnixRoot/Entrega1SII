@@ -6,7 +6,6 @@ package grupoj.entregajsf.backingBeans;
  * and open the template in the editor.
  */
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -38,9 +37,6 @@ public class login {
     public login() {
         persistencia = new PersistenceMock();
         usuarios = persistencia.getListaUsuarios();
-       /* usuarios = new ArrayList<Usuario>();
-        usuarios.add(new Usuario("pepe", "asdf", Rol.NORMAL));
-        usuarios.add(new Usuario("manolo", "qwer", Rol.ADMINISTRADOR));*/
     }
     public String getEmail() {
         return email;
@@ -76,7 +72,7 @@ public class login {
             return "index.xhtml";
         }
         ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario/contraseña incorrectos", "Usuario/contraseña incorrectos"));
-         //id de autenticar en null
+        
         return null;
     }
     
