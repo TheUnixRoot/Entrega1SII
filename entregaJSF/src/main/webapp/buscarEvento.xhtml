@@ -7,45 +7,46 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="Layout.xhtml">
+        <ui:define name="navBarName">
+            <ui:param name="nombrePagina" value="Búsqueda avanzada" />
+        </ui:define>
         <ui:define name="cuerpo">
         <section id="cuerpo">
-        <h:form>
-        <h3>Tipo de evento</h3>
-        <p:selectManyCheckbox id="grid" value="#{buscarEvento.selectedTipoEvento}" layout="responsive" columns="3">
+        <h:form id="buscarEvento">
+            
+        
+        <p:outputLabel value="Tipo de evento" style="font-size: large"/>
+        <p:selectManyCheckbox id="grid" value="#{buscarEvento.selectedTipoEvento}" layout="responsive" columns="2">
         <f:selectItems value="#{buscarEvento.tiposEvento}" var="tipoEvento" itemLabel="#{tipoEvento}" itemValue="#{tipoEvento}" />
         </p:selectManyCheckbox>
-
+        <br></br>
         
-        <h:panelGrid columns="2" cellpadding="5">
+        <h:panelGrid columns="1" cellpadding="5">
         
- 
-        <h:outputLabel for="multiple"/>
+        <p:outputLabel value="Ciudad" style="font-size: large"/>
         <p:selectCheckboxMenu id="multiple" value="#{buscarEvento.selectedLugares}" label="Ciudades" filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
             <f:selectItems value="#{buscarEvento.lugares}" />
         </p:selectCheckboxMenu>
-        </h:panelGrid>
- 
-        <table>
-            <tr>
-                <td><p:outputLabel for="button1" value="Desde:" /></td>
-                <td><p:calendar id="button1" value="#{buscarEvento.fecha1}" showOn="button" /></td>
-            </tr>
-            <br></br>
-            <tr>
-                <td><p:outputLabel for="button2" value="Hasta:" /></td>
-                <td><p:calendar id="button2" value="#{buscarEvento.fecha2}" showOn="button" /></td>
-            </tr>
-        </table>
+        <br></br>
         
-        
+        <p:outputLabel value="Fecha" style="font-size: large"/>
+        <p:outputLabel value="Desde" style="font-size: medium"/>
+        <p:calendar id="button1" value="#{buscarEvento.fecha1}" showOn="button" />
+        <p:outputLabel value="Hasta" style="font-size: medium"/>
+        <p:calendar id="button2" value="#{buscarEvento.fecha2}" showOn="button" />
+        <br></br>
+
+        <p:outputLabel value="Precio" style="font-size: large"/>
         <h:outputText id="displayRange" value="Entre #{sliderView.number6}€ - #{sliderView.number7}€" />
         <p:slider for="txt6,txt7" display="displayRange" style="width: 400px" range="true" displayTemplate="Entre {min}€ - {max}€" />
         
         <h:inputHidden id="txt6" value="#{buscarEvento.precio1}" />
         <h:inputHidden id="txt7" value="#{buscarEvento.precio2}" />
         <br></br>
-    
-        <h:commandButton value="Aceptar" action="#{buscarEvento.buscar()}"/>
+        
+        
+        <p:commandButton value="Aceptar"  action="#{buscarEvento.buscar()}"/>
+        </h:panelGrid>
         </h:form>
         
         </section>

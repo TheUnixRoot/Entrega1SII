@@ -28,19 +28,22 @@ public class buscarEvento {
         selectedLugares = null;
         fecha1 = null;
         fecha2 = null;
+        precio1 = 0;
+        precio2 = 0;
     }
     
        
-    private String[] selectedTipoEvento;
+    private String[] selectedTipoEvento = new String[50];
     private List<String> tiposEvento;
     private List<String> lugares;
     private Date fecha1;
     private Date fecha2;
     private int precio1;
     private int precio2;
-    private String[] selectedLugares;
+    private String[] selectedLugares= new String[50];
     private PersistenceMock persistencia = new PersistenceMock();
     private List<Evento> listaEventos;
+    private List<Evento> listaCoincidencias = new ArrayList<Evento>();
     
     @PostConstruct
     public void init() {
@@ -112,14 +115,72 @@ public class buscarEvento {
     public void setPrecio2(int precio2) {
         this.precio2 = precio2;
     }
+
+    public List<Evento> getListaCoincidencias() {
+        return listaCoincidencias;
+    }
+
+    public void setListaCoincidencias(List<Evento> listaCoincidencias) {
+        this.listaCoincidencias = listaCoincidencias;
+    }
     
     public String buscar(){
         listaEventos = persistencia.getListaEventos();
-        List<Evento> listaCoincidencias = new ArrayList<Evento>();
+        boolean coincide = false;
+        boolean tip=false, lug=false, f1=false,f2=false,p2=false;
+        if(selectedTipoEvento[0] != null) tip=true;     
+        if(selectedLugares[0] != null) lug=true;
+        if(fecha1!=null) f1=true;
+        if(fecha2!=null) f2=true;
+        if(precio2 !=0) p2=true;
+        
         for(Evento e : listaEventos){
-            
+            coincide = false;
+            if(tip){
+                for(String s : selectedTipoEvento){
+                    for(Tag t : e.getTagged_by()){
+                        if(t.getTexto().equals(s)){
+                            coincide = true;
+                        }
+                    }
+                }
+            }else{
+                coincide=true;
+            }
+            if(coincide){
+                coincide = false;
+                if(lug){
+                    for(String s : selectedLugares){               
+                        if(e.getOcurre_in().getNombre().equals(s)){
+                            coincide = true;
+                        }
+                    }
+                }else{
+                    coincide=true;
+                }
+                
+                if(coincide){
+                    coincide=false;
+                    if(f1 && f2){
+                        if(e.getFecha().after(fecha1)&&e.getFecha().before(fecha2)){
+                           coincide=true;
+                        }
+                    }else{
+                        coincide=true;
+                    }
+                    if(coincide){
+                        if(p2){
+                            if((e.getPrecio()>=precio1) && (e.getPrecio() <=precio2)){
+                            listaCoincidencias.add(e);
+                            }
+                        }else{
+                            listaCoincidencias.add(e);
+                        }
+                    }
+                }
+            }
         }
         
-        return "index.html";
+        return "resultadoBuscarEvento.xhtml";
     }
 }

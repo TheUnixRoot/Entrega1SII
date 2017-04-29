@@ -8,27 +8,23 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="Layout.xhtml">
         <ui:define name="navBarName">
-            <ui:param name="nombrePagina" value="Gestion de usuarios" />
+            <ui:param name="nombrePagina" value="Resultado búsqueda avanzada" />
         </ui:define>
         <ui:define name="cuerpo">
-            <c:if test="${controlAutorizacion.administrador}" >
+            
                 <section id="cuerpo">
-                    <ui:repeat value="#{crud_usuariosBean.usuarios}" var="usr">
-                    <article id="#{usr.nombre}">
+                    <ui:repeat value="#{buscarEvento.listaCoincidencias}" var="evento">
+                        <article id="#{evento.nombre}">
                         <p:panelGrid columns="2" layout="grid">
-                            <p:commandButton icon="#{usr.multimedia}" action="null"/>
-                            <p:link value="#{usr.email}" href="#{crud_usuariosBean.viajar(usr.id, false)}"/>
-                            <p:link value="Editar usuario" href="#{crud_usuariosBean.viajar(usr.id, true)}"/>
-                            <p:outputLabel value="#{usr.nombre}"/>
+                            <p:commandButton icon="#{evento.descripcion}" action="null"/>
+                            
+                            <p:outputLabel value="#{evento.nombre}"/>
                         </p:panelGrid>
                     </article>
                     </ui:repeat>
                 </section>
-            </c:if>
-            <c:if test="${!controlAutorizacion.administrador}">
-                <p:outputLabel value="403 Forbidden"/>
-            </c:if>
+            
+            
         </ui:define>
     </ui:composition>
 </html>
-
