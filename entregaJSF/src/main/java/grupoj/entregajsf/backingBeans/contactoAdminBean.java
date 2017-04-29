@@ -13,6 +13,8 @@ import grupoj.prentrega1.Mensaje;
 import grupoj.prentrega1.Usuario;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import mockingBeans.PersistenceMock;
 
@@ -46,6 +48,25 @@ public class contactoAdminBean {
             }
         }
     }
+    
+   /* @PostConstruct
+    public void init() {
+        Map<String, String> req = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        long id = Long.parseLong(req.get("id"));
+        //this.setEditar(Boolean.getBoolean(req.get("edit")));
+        //System.out.println(editar);
+        Usuario uuu = new Usuario();
+        uuu.setId(id);
+        System.out.println(id);
+        if ( this.persistencia.getListaUsuarios().contains(uuu) ) 
+            this.user = this.persistencia.getListaUsuarios()
+                    .get(
+                            this.persistencia.getListaUsuarios().indexOf(uuu)
+                    );
+        else
+            this.user = null;
+        uuu = null;
+    }*/
 
     public Mensaje getMessage() {
         return message;
