@@ -80,6 +80,8 @@
                             <p:submenu label="#{nombrePagina}" expanded="true">
                                 <p:menuitem value="Gestion de usuarios" action="gestion_usuarios.xhtml" rendered="${controlAutorizacion.administrador}"/>
                                 <p:menuitem value="Gestion de anuncios" action="gestion_anuncios.xhtml" rendered="${controlAutorizacion.administrador}"/>
+                                <p:menuitem value="Contactar con administrador" action="contactoAdmin.xhtml"/>
+                                <p:menuitem value="Enviar notificaciones" action="enviarNotificaciones.xhtml" rendered="${controlAutorizacion.administrador}"/>
                             </p:submenu>
                         </p:menu>
                     </h:form>

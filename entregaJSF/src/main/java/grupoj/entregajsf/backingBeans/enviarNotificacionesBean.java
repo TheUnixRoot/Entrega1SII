@@ -5,11 +5,18 @@
  */
 package grupoj.entregajsf.backingBeans;
 
+import grupoj.prentrega1.Evento;
+import grupoj.prentrega1.Formulario;
+import grupoj.prentrega1.Notificacion;
+import grupoj.prentrega1.Tag;
+import grupoj.prentrega1.Usuario;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.ListIterator;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import mockingBeans.PersistenceMock;
 
 
 /**
@@ -26,13 +33,21 @@ public class enviarNotificacionesBean {
     public enviarNotificacionesBean() {
     }
     
+     private PersistenceMock persistencia = new PersistenceMock();
     
     private String[] selectedGustos;
     private List<String> gustos;
 
     private String[] selectedFecha;
-    private List<Date> dates;
+    //private List<Date> dates;
     private List<String> fechas;
+    
+    private List<Evento> eventos;
+    private Evento selectedEvento;
+    
+    private List<Usuario> selectedUsuarios = new ArrayList();
+    private Notificacion notificacion;
+    
     @PostConstruct
     public void init() {
        gustos = new ArrayList<>();
@@ -82,6 +97,48 @@ public class enviarNotificacionesBean {
     public void setGustos(List<String> gustos) {
         this.gustos = gustos;
     }
- 
+    
+    public void notificacion(){
+        //Obtenemos los usuarios interesados en el evento y los tags asociados al mismo
+        List<Tag> tags = this.selectedEvento.getTagged_by();
+        List<Usuario> interesados = this.selectedEvento.getInteresados_at();
+        
+        //Obtenemos la lista completa de usuarios
+        List<Usuario> usuarios = persistencia.getListaUsuarios();
+        
+        for(Usuario u : usuarios){
+            //Para cada usuario obtenemos su formulario y de ahi sus gustos
+            Formulario form = u.getForm();
+            List<Tag> tagsU = form.getForm_tags();
+            
+            //Dados los gustos del usuario los comparamos con los tags del evento: posible interesado
+            ListIterator<Tag> it = tags.listIterator();
+            ListIterator<Tag> it2 = tagsU.listIterator();
+            boolean encontrado = false;
+   
+            while(it.hasNext() && !encontrado){
+                 Tag t = it.next();
+                while(it2.hasNext() && !encontrado){
+                    Tag t2 = it2.next();
+                    if(t.getTexto().equals(t2.getTexto())){
+                        //Si coincide algun tag añadimos el usuario a la lista y cortamos los bucles
+                        selectedUsuarios.add(u);
+                        encontrado = true;
+                    }
+                } 
+            }
+            //Añadimos directamente a todos los interesados en dicho evento
+            for(Usuario interesado : interesados){
+                selectedUsuarios.add(interesado);
+            }
+        }
+        
+        notificacion = new Notificacion();
+        //falta añadir cosas a la notificacion
+        
+        for(Usuario selected : selectedUsuarios){
+            selected.getNotificaciones().add(notificacion);
+        }
+    }
      
 }

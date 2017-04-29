@@ -6,7 +6,7 @@
 package mockingBeans;
 
 //<<<<<<< HEAD
-import grupoj.prentrega1.Formulario;
+/*import grupoj.prentrega1.Formulario;
 import grupoj.prentrega1.Mensaje;
 import grupoj.prentrega1.Tag;
 //=======
@@ -17,7 +17,7 @@ import grupoj.prentrega1.Geolocalizacion;
 import grupoj.prentrega1.Lugar;
 import grupoj.prentrega1.Periodista;
 //>>>>>>> master
-import grupoj.prentrega1.TipoNotificacion;
+import grupoj.prentrega1.TipoNotificacion;*/
 import grupoj.prentrega1.*;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -79,6 +79,7 @@ public class PersistenceMock implements Serializable {
         usr.setBorrado(false);
         usr.setNombre("normalito");
         usr.setMultimedia("none");
+        usr.setForm(this.formulario);
         listaUsuarios.add(usr);
        
         Periodista per = new Periodista();
