@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="Layout.xhtml">
+        <ui:define name="cuerpo">
+        <section id="cuerpo">
+        <h:form>
+        <h3>Tipo de evento</h3>
+        <p:selectManyCheckbox id="grid" value="#{buscarEvento.selectedTipoEvento}" layout="responsive" columns="3">
+        <f:selectItems value="#{buscarEvento.tiposEvento}" var="tipoEvento" itemLabel="#{tipoEvento}" itemValue="#{tipoEvento}" />
+        </p:selectManyCheckbox>
+
+        
+        <h:panelGrid columns="2" cellpadding="5">
+        
+ 
+        <h:outputLabel for="multiple"/>
+        <p:selectCheckboxMenu id="multiple" value="#{buscarEvento.selectedLugares}" label="Ciudades" filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItems value="#{buscarEvento.lugares}" />
+        </p:selectCheckboxMenu>
+        </h:panelGrid>
+ 
+        <table>
+            <tr>
+                <td><p:outputLabel for="button1" value="Desde:" /></td>
+                <td><p:calendar id="button1" value="#{buscarEvento.fecha1}" showOn="button" /></td>
+            </tr>
+            <br></br>
+            <tr>
+                <td><p:outputLabel for="button2" value="Hasta:" /></td>
+                <td><p:calendar id="button2" value="#{buscarEvento.fecha2}" showOn="button" /></td>
+            </tr>
+        </table>
+        
+        
+        <h:outputText id="displayRange" value="Entre #{sliderView.number6}€ - #{sliderView.number7}€" />
+        <p:slider for="txt6,txt7" display="displayRange" style="width: 400px" range="true" displayTemplate="Entre {min}€ - {max}€" />
+        
+        <h:inputHidden id="txt6" value="#{buscarEvento.precio1}" />
+        <h:inputHidden id="txt7" value="#{buscarEvento.precio2}" />
+        <br></br>
+    
+        <h:commandButton value="Aceptar" action="#{buscarEvento.buscar()}"/>
+        </h:form>
+        
+        </section>
+        </ui:define>
+    </ui:composition>
+    
+</html>
