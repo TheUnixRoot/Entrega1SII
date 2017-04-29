@@ -11,6 +11,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import grupoj.prentrega1.Mensaje;
 import grupoj.prentrega1.Usuario;
+import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import mockingBeans.PersistenceMock;
@@ -23,17 +24,27 @@ import mockingBeans.PersistenceMock;
 @Named(value = "contactoAdminBean")
 public class contactoAdminBean {
 
-    private PersistenceMock persistencia = new PersistenceMock();
+    private PersistenceMock persistencia;
     private Mensaje message;
     private String texto;
     private String asunto;
-    private Usuario user = persistencia.getListaUsuarios().get(0);
+    private Usuario user ;
+    private List<Usuario> listUsers;
     private List<Administrador> admins;
     /**
      * Creates a new instance of contactoAdminBean
      */
     public contactoAdminBean() {
         persistencia = new PersistenceMock();
+        listUsers = persistencia.getListaUsuarios();
+        user = listUsers.get(0);
+        message = new Mensaje();
+        admins = new ArrayList();
+        for(Usuario u : listUsers){
+            if(u.getClass().equals(Administrador.class)){
+                admins.add((Administrador) u);
+            }
+        }
     }
 
     public Mensaje getMessage() {
@@ -64,7 +75,7 @@ public class contactoAdminBean {
     
      public void crearMensaje() {
        
-        message = new Mensaje();
+        
         message.setTexto(this.texto);
         message.setAsunto(this.asunto);
         message.setEnviadoPor(user);
