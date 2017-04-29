@@ -68,7 +68,11 @@ public class contactoAdminBean {
         message.setTexto(this.texto);
         message.setAsunto(this.asunto);
         message.setEnviadoPor(user);
-       // message.setRecibidoPor(admins);
+        message.setRecibidoPor(admins);
+        for(Administrador admin : admins){
+            admin.getRecibirMensaje().add(message);
+        }
+        user.getMsg_send().add(message);
         persistencia.addMessage(message);    
         String msg = persistencia.getListaMensajes().get(0).getTexto();
         System.out.println(msg);
