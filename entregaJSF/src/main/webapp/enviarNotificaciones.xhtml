@@ -5,7 +5,8 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="Layout.xhtml">
         <ui:define name="navBarName">
             <ui:param name="nombrePagina" value="Enviar notificaciones" />
@@ -37,16 +38,20 @@
 
                 <p:commandButton value="Submit" update="display"  icon="ui-icon-check" action="#{enviarNotificacionesBean.filtrar()}"/>
 
-                
-                <ui:repeat value="#{enviarNotificacionesBean.listaCoincidencias}" var="evento">
+                <c:choose>
+                    <c:when test="#{enviarNotificacionesBean.recarga}">
+                        <ui:repeat value="#{enviarNotificacionesBean.listaCoincidencias}" var="evento">
                         <article id="#{evento.nombre}">
                         <p:panelGrid columns="2" layout="grid">
                             <!--<p:commandButton icon="#{evento.descripcion}" action="null"/>-->
                             
                         <p:outputLabel value="#{evento.nombre}"/>
                         </p:panelGrid>
-                </article>
-                </ui:repeat>
+                        </article>
+                        </ui:repeat>
+                    </c:when>
+                </c:choose>
+                
                 
                 
                 <p:dialog header="Values" modal="true" showEffect="clip" widgetVar="dlg" resizable="false">

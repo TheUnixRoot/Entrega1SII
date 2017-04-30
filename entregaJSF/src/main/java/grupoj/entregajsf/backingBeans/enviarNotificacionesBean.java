@@ -48,10 +48,13 @@ public class enviarNotificacionesBean {
     private Notificacion notificacion;
     private List<Evento> listaEventos;
     
+    private boolean recarga;
+    
        /**
      * Creates a new instance of enviarNotificacionesBean
      */
     public enviarNotificacionesBean() {
+        this.recarga = false;
         
         this.listaCoincidencias = new ArrayList();
         this.selectedUsuarios = new ArrayList();
@@ -115,10 +118,19 @@ public class enviarNotificacionesBean {
     public void setListaCoincidencias(List<Evento> listaCoincidencias) {
         this.listaCoincidencias = listaCoincidencias;
     }
+
+    public boolean isRecarga() {
+        return recarga;
+    }
+
+    public void setRecarga(boolean recarga) {
+        this.recarga = recarga;
+    }
     
     
     
-    public void filtrar(){
+    
+    public String filtrar(){
         
         System.out.println(listaEventos.get(0)+"papas");
         boolean coincide = false;
@@ -204,7 +216,8 @@ public class enviarNotificacionesBean {
             }
         }
          System.out.println(listaCoincidencias.get(0));
-       
+         this.recarga=true;
+       return "enviarNotificacionesRes";
     }
     
     public void notificacion(){
