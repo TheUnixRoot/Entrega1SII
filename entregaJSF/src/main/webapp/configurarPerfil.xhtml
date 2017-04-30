@@ -7,11 +7,15 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="Layout.xhtml">
+        <ui:define name="navBarName">
+            <ui:param name="nombrePagina" value="Configurar perfil" />
+        </ui:define>
         <ui:define name="cuerpo">
             <section id="cuerpo">
                 <h:form>
                     <p:panelGrid columns="2" layout="grid">
-
+                        
+                        
                         <p:graphicImage value="#{configurarPerfil.foto}" />    
                         <p:fileUpload value="#{configurarPerfil.foto}" mode="simple" skinSimple="true"/>
 
@@ -38,15 +42,11 @@
                         <f:param name="productId" value="formularioGustos.xhtml" />
                         </p:link>
 
+                        <br></br>
 
-
-                        <h:commandButton value="Guardar" action="#{configurarPerfil.configurar()}"/>  
-
-
+                        <p:commandButton value="Guardar" action="#{configurarPerfil.configurar()}"/>
                     </p:panelGrid>    
-
                 </h:form>  
-
             </section>
         </ui:define>
     </ui:composition>
