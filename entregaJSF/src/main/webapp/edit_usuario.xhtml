@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="Layout.xhtml">
+        <ui:define name="navBarName">
+            <ui:param name="nombrePagina" value="Información del ususario" />
+        </ui:define>
+        <ui:define name="cuerpo">
+            <c:if test="#{controlAutorizacion.administrador}" >
+                <section id="cuerpo">
+                    <article id="#{mod_usuariosBean.usr.nombre}">
+                        <p:layout fullPage="false">
+                            <p:layoutUnit position="west" closable="false" collapsible="false" resizable="false">
+                                <h:form>
+                                    <p:commandButton icon="#{mod_usuariosBean.usr.multimedia}" action="null"/>
+                                </h:form>
+                            </p:layoutUnit>
+                            <p:layoutUnit position="center" closable="false" collapsible="false" resizable="false">
+                                <p:panelGrid columns="1">
+                                    <p:outputLabel value="Nombre" style="font-size: large" />
+                                    <p:inputText value="#{mod_usuariosBean.usr.nombre}" style="font-size: large" />
+                                    <p:outputLabel value="Apellidos" style="font-size: large" />
+                                    <p:inputText value="#{mod_usuariosBean.usr.apellidos}" style="font-size: large" />
+                                    <p:outputLabel value="Email" style="font-size: large" />
+                                    <p:inputText value="#{mod_usuariosBean.usr.email}" style="font-size: large" />
+                                    <p:outputLabel value="Teléfono" style="font-size: large" />
+                                    <p:inputText value="#{mod_usuariosBean.usr.telefono}" style="font-size: large" />
+                                </p:panelGrid>
+                            </p:layoutUnit>>
+                        </p:layout>
+                    </article>
+                </section>
+            </c:if>
+            <c:if test="#{!controlAutorizacion.administrador}" >
+                <p:outputLabel value="403 Forbidden" />
+            </c:if>
+        </ui:define>
+    </ui:composition>
+</html>

@@ -24,11 +24,17 @@
                         
                     </tr>
                     <tr>
-                        <p:commandButton value="Enviar" action="#{contactoAdminBean.crearMensaje()}"/>
+                        <p:commandButton value="Enviar" oncomplete="PF('dlg').show()" action="#{contactoAdminBean.crearMensaje()}"/>
                         <h:outputText id="display" />
                     </tr>
                 </table>
             </p:panelGrid>
+            
+            <p:dialog header="Mensaje enviado correctamente" modal="true" showEffect="clip" widgetVar="dlg" resizable="false">
+                <div align="center">
+                    <p:commandButton value="Aceptar" action="#{contactoAdminBean.goIndex()}"/>
+                </div>
+            </p:dialog>
         </h:form>
         </section>
         </ui:define>
