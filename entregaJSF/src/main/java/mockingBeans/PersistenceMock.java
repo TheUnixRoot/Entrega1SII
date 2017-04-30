@@ -135,11 +135,12 @@ public class PersistenceMock implements Serializable {
         listaEventos.add(ev);
         
         Anuncio adv = new Anuncio();
-        
+        adv.setId(10L);
+        adv.setEmpresa("Aliexpress");
         adv.setAdmin(adm);
         adv.setFecha_public(new Date());
         adv.setDias_contratados(100);
-        adv.setMultimedia("media/adverts/patata.png");
+        adv.setMultimedia("default.jpg");
         listaAnuncios.add(adv);
         
         mutexUsuarios = new Semaphore(1);

@@ -5,27 +5,39 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="Layout.xhtml">
+        <ui:define name="navBarName">
+            <ui:param name="nombrePagina" value="Gestion de usuarios" />
+        </ui:define>
         <ui:define name="cuerpo">
-        <section id="cuerpo">
-            <ui:repeat value="#{crud_anunciosBean.anuncios}" var="adv">
-                <article >
-                    <h:form>
-                        <p:panelGrid  columns="2" layout="grid">
-	                       
-                            <img alt="Imagen no disponible" src="#{resource[adv.multimedia]}" class="imagen"/>
-                            
-	                    <p:commandLink value="#{adv.fecha_public}" action="null"/>
-	                    <p:outputLabel></p:outputLabel>
-	                    <p>
-                                #{adv.dias_contratados}
-	                    </p>
-	                </p:panelGrid>
-	            </h:form>
-                </article>
-            </ui:repeat>
-        </section>
+            <c:if test="${controlAutorizacion.administrador}" >
+                <section id="cuerpo">
+                    <ui:repeat value="#{crud_anunciosBean.anuncios}" var="adv">
+                    <article id="#{adv.id}">
+                        <h:form>
+                            <p:panelGrid columns="2" layout="grid">
+                                <p:graphicImage width="100" stream="true" value="#{crud_anunciosBean.generar()}"/>
+                                <p:outputLabel value="#{adv.empresa}"/>
+                                <p:commandLink value="Publicar anuncio" action="#{crud_anunciosBean.publicar()}"/>
+                                <p:link value="#{adv.fecha_public}" href="#{crud_anunciosBean.viajar(adv.id, false)}"/>
+                                <p:outputLabel value="#{adv.dias_contratados}"/>
+                                <p:outputLabel value="Lugar"/> <!-- posicion -->
+                            </p:panelGrid>
+                        </h:form>
+                    </article>
+                    </ui:repeat>
+                    <article>
+                        <h:form>
+                            <p:commandButton value="Añadir anuncio" action="new_anuncio.xhtml"/>
+                        </h:form>
+                    </article>
+                </section>
+            </c:if>
+            <c:if test="${!controlAutorizacion.administrador}">
+                <p:outputLabel value="403 Forbidden"/>
+            </c:if>
         </ui:define>
     </ui:composition>
 </html>

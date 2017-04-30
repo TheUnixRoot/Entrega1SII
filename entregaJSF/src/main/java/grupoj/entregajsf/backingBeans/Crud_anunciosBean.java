@@ -5,16 +5,16 @@
  */
 package grupoj.entregajsf.backingBeans;
 
+import grupoj.entregajsf.dropbox.DropboxController;
+import grupoj.entregajsf.dropbox.DropboxControllerException;
 import grupoj.prentrega1.Anuncio;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.ByteArrayInputStream;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
 import org.primefaces.model.DefaultStreamedContent;
@@ -30,39 +30,48 @@ public class Crud_anunciosBean {
 
     @Inject
     private PersistenceMock persistencia;
-    private Iterable<Anuncio> anuncios;
-    /**
-     * Creates a new instance of Crud_anunciosBean
-     */
-    @PostConstruct
-    public void init() {
-        anuncios = persistencia.getListaAnuncios();
-        System.out.println(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
-    }
-
-    public Iterable<Anuncio> getAnuncios() {
-        return anuncios;
-    }
-
-    public void setAnuncios(Iterable<Anuncio> anuncios) {
-        this.anuncios = anuncios;
-    }
+    private Iterator<Anuncio> it;
     
-    public StreamedContent getImage(Anuncio adv) {
-        StreamedContent result = null;
-        try (FileInputStream fstr = new FileInputStream(genPath(adv.getMultimedia()))) {
-            result = new DefaultStreamedContent(fstr, "image/png");
-        } catch(FileNotFoundException fe) {
-        } catch (IOException ex) {
+    public List<Anuncio> getAnuncios() {
+        return persistencia.getListaAnuncios();
+    }
+
+    public void setAnuncios(List<Anuncio> anuncios) {
+        try {
+            this.persistencia.setListaAnuncios(anuncios);
+        } catch (InterruptedException ex) {
             Logger.getLogger(Crud_anunciosBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return result;
     }
     
-    public String genPath(String path) {
-        String newPath = FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath() + "/resources/" + path;
-        System.out.println(newPath);
-        return newPath;
+    public String viajar(long id, boolean editar) {
+        return editar ?("edit_anuncio.xhtml?id=" + id) : ("read_anuncio.xhtml?id=" + id);
     }
+    
+    public StreamedContent generar() {
+        StreamedContent con = null;
+        try {
+            if(it == null) {
+                it = persistencia.getListaAnuncios().iterator();
+            } else if (it.hasNext()) {
+                String mul = it.next().getMultimedia();
+                if (mul == null) mul = "/default.jpg";
+                con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile(mul))); 
+            }
+        } catch (DropboxControllerException dbex) {
+            try {
+                con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile("/default.jpg")));
+            } catch (DropboxControllerException ex) {
+                Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (IndexOutOfBoundsException ie) {
+            Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ie);
+        }
+        return con;
+    }
+    
+    public void publicar() {
+        
+    }
+    
 }
