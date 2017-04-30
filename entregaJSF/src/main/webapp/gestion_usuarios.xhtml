@@ -14,9 +14,9 @@
             <c:if test="${controlAutorizacion.administrador}" >
                 <section id="cuerpo">
                     <ui:repeat value="#{crud_usuariosBean.usuarios}" var="usr">
-                    <article id="#{usr.nombre}">
+                    <article id="#{usr.id}">
                         <p:panelGrid columns="2" layout="grid">
-                            <p:commandButton icon="#{usr.multimedia}" action="null"/>
+                            <p:graphicImage width="100" stream="true" value="#{crud_usuariosBean.generar()}"/>
                             <p:link value="#{usr.email}" href="#{crud_usuariosBean.viajar(usr.id, false)}"/>
                             <p:link value="Editar usuario" href="#{crud_usuariosBean.viajar(usr.id, true)}"/>
                             <p:outputLabel value="#{usr.nombre}"/>

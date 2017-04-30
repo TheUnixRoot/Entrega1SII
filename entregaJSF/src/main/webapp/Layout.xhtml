@@ -20,14 +20,11 @@
             <p:layoutUnit position="north" closable="false" collapsible="false" resizable="false" >
             
                 <header>
-                    <!-- Esto es la cabecera de la pagina -->
-                    <div name="formularioBusqueda" id="divBusqueda">
-                        <h:form id="formBusqueda">
-                            <h:inputText id="textoABuscar"/>
-                            <p:watermark for="textoABuscar" value="Buscar eventos" id="watermarkForTextoABuscar"/> 
-                            <h:button id="botonBuscar" style="display: none"/>
-                        </h:form>
-                    </div>
+                    <h:form id="formBusqueda">
+                        <p:inputText id="textoABuscar"/>
+                        <p:watermark for="textoABuscar" value="Buscar eventos" id="watermarkForTextoABuscar"/> 
+                        <p:button id="botonBuscar" style="display: none"/>
+                    </h:form>
                 <div name="imagenCabecera" id="divImagen">
                     <h:button image="" outcome="index.xhtml"/> 
                 </div>

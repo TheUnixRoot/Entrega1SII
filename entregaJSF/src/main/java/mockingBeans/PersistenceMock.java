@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -34,6 +35,13 @@ public class PersistenceMock implements Serializable {
     private List<Lugar> listaLugares;
     private List<Tag> listaTags;
     private List<Anuncio> listaAnuncios;
+    
+    private Semaphore mutexUsuarios;
+    private Semaphore mutexEventos;
+    private Semaphore mutexLugares;
+    private Semaphore mutexTags;
+    private Semaphore mutexAnuncios;
+    
     
     /**
      * Creates a new instance of PersistenceMock
@@ -60,7 +68,7 @@ public class PersistenceMock implements Serializable {
         usr.setPassword("usuario");
         usr.setBorrado(false);
         usr.setNombre("normalito");
-        usr.setMultimedia("none");
+        usr.setMultimedia("/usuario.jpeg");
         listaUsuarios.add(usr);
        
         Periodista per = new Periodista();
@@ -72,7 +80,7 @@ public class PersistenceMock implements Serializable {
         per.setPassword("periodista");
         per.setBorrado(false);
         per.setNombre("periodisto");
-        per.setMultimedia("none");
+        per.setMultimedia(null);
         listaUsuarios.add(per);
         
         Administrador adm = new Administrador();
@@ -85,7 +93,7 @@ public class PersistenceMock implements Serializable {
         adm.setPassword("administrador");
         adm.setBorrado(false);
         adm.setNombre("administradorcito");
-        adm.setMultimedia("none");
+        adm.setMultimedia(null);
         listaUsuarios.add(adm);
         
         Geolocalizacion geo = new Geolocalizacion();
@@ -134,15 +142,23 @@ public class PersistenceMock implements Serializable {
         adv.setMultimedia("media/adverts/patata.png");
         listaAnuncios.add(adv);
         
-        System.out.println(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
+        mutexUsuarios = new Semaphore(1);
+        mutexEventos = new Semaphore(1);
+        mutexLugares = new Semaphore(1);
+        mutexTags = new Semaphore(1);
+        mutexAnuncios = new Semaphore(1);
+        
+        System.out.println("Persistencia creada en Singleton");
     }
 
     public List<Usuario> getListaUsuarios() {
         return listaUsuarios;
     }
 
-    public void setListaUsuarios(List<Usuario> listaUsuarios) {
+    public void setListaUsuarios(List<Usuario> listaUsuarios) throws InterruptedException {
+        mutexUsuarios.acquire();
         this.listaUsuarios = listaUsuarios;
+        mutexUsuarios.release();
     }
 
     public List<Evento> getListaEventos() {
@@ -153,24 +169,30 @@ public class PersistenceMock implements Serializable {
         return listaAnuncios;
     }
 
-    public void setListaAnuncios(List<Anuncio> listaAnuncios) {
+    public void setListaAnuncios(List<Anuncio> listaAnuncios) throws InterruptedException {
+        mutexAnuncios.acquire();
         this.listaAnuncios = listaAnuncios;
+        mutexAnuncios.release();
     }
 
     public List<Lugar> getListaLugares() {
         return listaLugares;
     }
 
-    public void setListaLugares(List<Lugar> listaLugares) {
+    public void setListaLugares(List<Lugar> listaLugares) throws InterruptedException {
+        mutexLugares.acquire();
         this.listaLugares = listaLugares;
+        mutexLugares.release();
     }
 
     public List<Tag> getListaTags() {
         return listaTags;
     }
 
-    public void setListaTags(List<Tag> listaTags) {
+    public void setListaTags(List<Tag> listaTags) throws InterruptedException {
+        mutexTags.acquire();
         this.listaTags = listaTags;
+        mutexTags.release();
     }
     
 }

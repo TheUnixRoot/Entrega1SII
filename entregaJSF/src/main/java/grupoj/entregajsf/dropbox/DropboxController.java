@@ -13,12 +13,11 @@ package grupoj.entregajsf.dropbox;
 import com.dropbox.core.DbxException;
 import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.v2.DbxClientV2;
-import com.dropbox.core.v2.files.UploadUploader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,36 +29,27 @@ public class DropboxController {
     private static final String ACCES_TOKEN = "wTke8zhajSAAAAAAAAAAB8mSOg7lS8jNiqVv2mL9ei0YQtjMzUfwgr5-ezK_6Ol2";
     private static DbxClientV2 client = new DbxClientV2(new DbxRequestConfig("aplicacionEmpresarial"), DropboxController.ACCES_TOKEN);
     
-    public static boolean uploadFile(String nombre, byte[] content) {
+    public static boolean uploadFile(String nombre, byte[] content) throws DropboxControllerException {
         
         try (InputStream in = new ByteArrayInputStream(content)) {
+            client.files().upload(nombre).uploadAndFinish(in);
             
-            UploadUploader up = client.files().upload(nombre);
-            up.uploadAndFinish(in);
-            
-        } catch (IOException ex) {
-            Logger.getLogger(DropboxController.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        } catch (DbxException ex) {
-            Logger.getLogger(DropboxController.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+        } catch (DbxException | IOException ex) {
+            throw new DropboxControllerException(ex.getMessage());
         }
         return true;
     }
     
-    public static byte[] downloadFile(String nombre) {
+    public static byte[] downloadFile(String nombre) throws DropboxControllerException {
         byte[] res = null;
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-            
             client.files().download(nombre).download(out);
-            res = out.toByteArray();
-            
-        } catch (IOException ex) {
-            Logger.getLogger(DropboxController.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        } catch (DbxException ex) {
-            Logger.getLogger(DropboxController.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
+            res = out.toByteArray(); 
+        
+        } catch (IllegalArgumentException | DbxException | IOException ex) {
+            if(ex instanceof IllegalArgumentException)
+                System.err.println("Nombre no valido: " + nombre);
+            throw new DropboxControllerException(ex.getMessage());
         }
         return res;
     }
