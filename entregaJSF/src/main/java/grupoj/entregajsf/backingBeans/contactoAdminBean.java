@@ -43,7 +43,7 @@ public class contactoAdminBean {
         message = new Mensaje();
         admins = new ArrayList();
         for(Usuario u : listUsers){
-            if(u.getClass().equals(Administrador.class)){
+            if(u instanceof Administrador){
                 admins.add((Administrador) u);
             }
         }
@@ -102,14 +102,23 @@ public class contactoAdminBean {
         message.setEnviadoPor(user);
         message.setRecibidoPor(admins);
         for(Administrador admin : admins){
+            if(admin.getRecibirMensaje()==null){
+                List<Mensaje> listaMensajes = new ArrayList<>();
+                admin.setRecibirMensaje(listaMensajes);
+             }
             admin.getRecibirMensaje().add(message);
         }
+        if(user.getMsg_send()==null){
+            List<Mensaje> listaMensajes = new ArrayList<>();
+            user.setMsg_send(listaMensajes);
+        }
         user.getMsg_send().add(message);
-        persistencia.addMessage(message);    
+        System.out.println(message.getTexto());
+        /*persistencia.addMessage(message);    
         String msg = persistencia.getListaMensajes().get(0).getTexto();
         System.out.println(msg);
         FacesContext ctx = FacesContext.getCurrentInstance();
-        ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+        ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));*/
     }
  
       public String goIndex(){
