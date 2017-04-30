@@ -15,12 +15,14 @@
                 <section id="cuerpo">
                     <ui:repeat value="#{crud_usuariosBean.usuarios}" var="usr">
                     <article id="#{usr.id}">
-                        <p:panelGrid columns="2" layout="grid">
-                            <p:graphicImage width="100" stream="true" value="#{crud_usuariosBean.generar()}"/>
-                            <p:link value="#{usr.email}" href="#{crud_usuariosBean.viajar(usr.id, false)}"/>
-                            <p:link value="Editar usuario" href="#{crud_usuariosBean.viajar(usr.id, true)}"/>
-                            <p:outputLabel value="#{usr.nombre}"/>
-                        </p:panelGrid>
+                        <h:form>
+                            <p:panelGrid columns="2" layout="grid">
+                                <p:graphicImage width="100" stream="true" value="#{crud_usuariosBean.generar()}"/>
+                                <p:link value="#{usr.email}" href="#{crud_usuariosBean.viajar(usr.id, false)}"/>
+                                <p:link value="Editar usuario" href="#{crud_usuariosBean.viajar(usr.id, true)}"/>
+                                <p:outputLabel value="#{usr.nombre}"/>
+                            </p:panelGrid>
+                        </h:form>
                     </article>
                     </ui:repeat>
                 </section>
