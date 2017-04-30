@@ -25,12 +25,18 @@ import mockingBeans.PersistenceMock;
 @ManagedBean
 public class formularioGustosBean {
 
-    private PersistenceMock persistencia = new PersistenceMock();
+    private PersistenceMock persistencia;
     private String[] selectedGustos;
     private List<String> gustos;
-    private Usuario user = persistencia.getListaUsuarios().get(0);//usuario de prueba
+    
+    private Usuario user;
     private List<Tag> tags;
     private Formulario formulario;
+
+    public formularioGustosBean() {
+        this.persistencia = new PersistenceMock();
+        this.user = persistencia.getListaUsuarios().get(0);//usuario de prueba
+    }
  
     @PostConstruct
     public void init() {
@@ -57,7 +63,6 @@ public class formularioGustosBean {
     
     public void saveGustos(){       
         List<Tag> l = new ArrayList<>();
-        //System.out.println(this.selectedGustos[0]);
         this.formulario = new Formulario();
         this.formulario.setId(Long.MIN_VALUE);
         formulario.setUsuario(this.user);
@@ -68,16 +73,10 @@ public class formularioGustosBean {
             tag.setId(i);
             tag.setTexto(gusto);
             tag.setForm(this.formulario);
-            //System.out.println(tag.getTexto());
             l.add(tag);
             i++;
         }
-        //System.out.println(l);
         this.formulario.setForm_tags(l);
-        //System.out.println(this.formulario);
-        //System.out.println(this.formulario.getForm_tags().get(0).getTexto());
-        persistencia.setFormulario(this.formulario);
-        //System.out.println("Todo bien todo correcto y yo que me alegro");
     }
     
     public String goIndex(){
