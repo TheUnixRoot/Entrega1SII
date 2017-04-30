@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="grupoj_prEntrega1_jar_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+      <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>grupoj.prentrega1.Administrador</class>
+    <class>grupoj.prentrega1.Anuncio</class>
+    <class>grupoj.prentrega1.Evento</class>
+    <class>grupoj.prentrega1.Formulario</class>
+    <class>grupoj.prentrega1.Geolocalizacion</class>
+    <class>grupoj.prentrega1.Lugar</class>
+    <class>grupoj.prentrega1.Mensaje</class>
+    <class>grupoj.prentrega1.Notificacion</class>
+    <class>grupoj.prentrega1.Periodista</class>
+    <class>grupoj.prentrega1.Tag</class>
+    <class>grupoj.prentrega1.Usuario</class>
+    <class>grupoj.prentrega1.Valoracion_eve</class>
+    <class>grupoj.prentrega1.Valoracion_lug</class>
+    <properties>
+      <property name="javax.persistence.schema-generation.scripts.action" value="create"/>
+      <property name="javax.persistence.schema-generation.scripts.create-target" value="schema.ddl"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/sample"/>
+      <property name="javax.persistence.jdbc.user" value="app"/>
+      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+      <property name="javax.persistence.jdbc.password" value="app"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+    </properties>
+  </persistence-unit>
+</persistence>
