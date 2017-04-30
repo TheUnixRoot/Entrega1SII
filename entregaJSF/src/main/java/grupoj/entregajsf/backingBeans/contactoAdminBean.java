@@ -11,7 +11,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import grupoj.prentrega1.Mensaje;
 import grupoj.prentrega1.Usuario;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import mockingBeans.PersistenceMock;
 
@@ -23,18 +26,47 @@ import mockingBeans.PersistenceMock;
 @Named(value = "contactoAdminBean")
 public class contactoAdminBean {
 
-    private PersistenceMock persistencia = new PersistenceMock();
+    private PersistenceMock persistencia;
     private Mensaje message;
     private String texto;
     private String asunto;
-    private Usuario user = persistencia.getListaUsuarios().get(0);
+    private Usuario user ;
+    private List<Usuario> listUsers;
     private List<Administrador> admins;
     /**
      * Creates a new instance of contactoAdminBean
      */
     public contactoAdminBean() {
         persistencia = new PersistenceMock();
+        listUsers = persistencia.getListaUsuarios();
+        user = listUsers.get(0);
+        message = new Mensaje();
+        admins = new ArrayList();
+        for(Usuario u : listUsers){
+            if(u instanceof Administrador){
+                admins.add((Administrador) u);
+            }
+        }
     }
+    
+   /* @PostConstruct
+    public void init() {
+        Map<String, String> req = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        long id = Long.parseLong(req.get("id"));
+        //this.setEditar(Boolean.getBoolean(req.get("edit")));
+        //System.out.println(editar);
+        Usuario uuu = new Usuario();
+        uuu.setId(id);
+        System.out.println(id);
+        if ( this.persistencia.getListaUsuarios().contains(uuu) ) 
+            this.user = this.persistencia.getListaUsuarios()
+                    .get(
+                            this.persistencia.getListaUsuarios().indexOf(uuu)
+                    );
+        else
+            this.user = null;
+        uuu = null;
+    }*/
 
     public Mensaje getMessage() {
         return message;
@@ -64,16 +96,29 @@ public class contactoAdminBean {
     
      public void crearMensaje() {
        
-        message = new Mensaje();
+        
         message.setTexto(this.texto);
         message.setAsunto(this.asunto);
         message.setEnviadoPor(user);
-       // message.setRecibidoPor(admins);
-        persistencia.addMessage(message);    
+        message.setRecibidoPor(admins);
+        for(Administrador admin : admins){
+            if(admin.getRecibirMensaje()==null){
+                List<Mensaje> listaMensajes = new ArrayList<>();
+                admin.setRecibirMensaje(listaMensajes);
+             }
+            admin.getRecibirMensaje().add(message);
+        }
+        if(user.getMsg_send()==null){
+            List<Mensaje> listaMensajes = new ArrayList<>();
+            user.setMsg_send(listaMensajes);
+        }
+        user.getMsg_send().add(message);
+        System.out.println(message.getTexto());
+        /*persistencia.addMessage(message);    
         String msg = persistencia.getListaMensajes().get(0).getTexto();
         System.out.println(msg);
         FacesContext ctx = FacesContext.getCurrentInstance();
-        ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+        ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));*/
     }
  
       public String goIndex(){

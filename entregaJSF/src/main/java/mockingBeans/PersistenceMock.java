@@ -5,18 +5,28 @@
  */
 package mockingBeans;
 
+
 //<<<<<<< HEAD
 /*import grupoj.prentrega1.Formulario;
 import grupoj.prentrega1.Mensaje;
 import grupoj.prentrega1.Tag;
 //=======
+=======
+/*<<<<<<< HEAD
+import grupoj.prentrega1.Mensaje;
+=======
+>>>>>>> contactarAdmin_Jesus
 import grupoj.prentrega1.Administrador;
 import grupoj.prentrega1.Anuncio;
 import grupoj.prentrega1.Evento;
 import grupoj.prentrega1.Geolocalizacion;
 import grupoj.prentrega1.Lugar;
 import grupoj.prentrega1.Periodista;
+<<<<<<< HEAD
 //>>>>>>> master
+=======
+>>>>>>> master
+>>>>>>> contactarAdmin_Jesus
 import grupoj.prentrega1.TipoNotificacion;*/
 import grupoj.prentrega1.*;
 import javax.inject.Named;
@@ -37,10 +47,25 @@ public class PersistenceMock implements Serializable {
     
     private List<Usuario> listaUsuarios;
 //<<<<<<< HEAD
-    private List<Mensaje> listaMensajes;
-    private Formulario formulario;
+
+    //private List<Mensaje> listaMensajes;
+    //private Formulario formulario;
 
     
+
+    //private List<Mensaje> listaMensajes;
+    
+    /*public List<Mensaje> getListaMensajes() {
+        return listaMensajes;
+    }
+
+    public void setListaMensajes(List<Mensaje> listaMensajes) {
+        this.listaMensajes = listaMensajes;
+    }
+    public void addMessage(Mensaje msg){
+        listaMensajes.add(msg);
+    }*/
+
 //=======
     private List<Evento> listaEventos;
     private List<Lugar> listaLugares;
@@ -54,8 +79,10 @@ public class PersistenceMock implements Serializable {
     public PersistenceMock() {
         listaUsuarios = new ArrayList<>();
 //<<<<<<< HEAD
-        listaMensajes = new ArrayList<>();
-        formulario = new Formulario();
+
+        //formulario = new Formulario();
+        //listaMensajes = new ArrayList<>();
+
 //=======
         listaEventos = new ArrayList<>();
         listaAnuncios = new ArrayList<>();
@@ -79,7 +106,10 @@ public class PersistenceMock implements Serializable {
         usr.setBorrado(false);
         usr.setNombre("normalito");
         usr.setMultimedia("none");
-        usr.setForm(this.formulario);
+
+        //usr.setForm(this.formulario);
+        //usr.setMsg_send(listaMensajes);
+
         listaUsuarios.add(usr);
        
         Periodista per = new Periodista();
@@ -105,6 +135,7 @@ public class PersistenceMock implements Serializable {
         adm.setBorrado(false);
         adm.setNombre("administradorcito");
         adm.setMultimedia("none");
+        //adm.setRecibirMensaje(listaMensajes);
         listaUsuarios.add(adm);
         
         Geolocalizacion geo = new Geolocalizacion();
@@ -192,7 +223,7 @@ public class PersistenceMock implements Serializable {
         this.listaTags = listaTags;
     }
     
-    public Formulario getFormulario() {
+    /*public Formulario getFormulario() {
         return formulario;
     }
 
@@ -210,5 +241,5 @@ public class PersistenceMock implements Serializable {
     }
     public void addMessage(Mensaje msg){
         listaMensajes.add(msg);
-    }
+    }*/
 }
