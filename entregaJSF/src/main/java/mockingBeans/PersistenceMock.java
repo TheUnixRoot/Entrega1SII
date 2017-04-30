@@ -37,7 +37,7 @@ public class PersistenceMock implements Serializable {
     private List<Usuario> listaUsuarios;
 //<<<<<<< HEAD
     private List<Mensaje> listaMensajes;
-    private Formulario formulario;
+    //private Formulario formulario;
 //=======
     private List<Evento> listaEventos;
     private List<Lugar> listaLugares;
@@ -54,7 +54,7 @@ public class PersistenceMock implements Serializable {
 //<<<<<<< HEAD
         listaMensajes = new ArrayList<>();
 
-        formulario = new Formulario();
+        //formulario = new Formulario();
 
 //=======
         listaEventos = new ArrayList<>();
@@ -194,13 +194,13 @@ public class PersistenceMock implements Serializable {
         this.listaTags = listaTags;
     }
     
-    public Formulario getFormulario() {
+    /*public Formulario getFormulario() {
         return formulario;
     }
 
     public void setFormulario(Formulario formulario) {
         this.formulario = formulario;
-    }
+    }*/
     
     
     public List<Mensaje> getListaMensajes() {
