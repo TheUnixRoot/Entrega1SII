@@ -30,7 +30,7 @@ and open the template in the editor.
                             <f:selectItems value="#{configurarNotificaciones.listaNotif}" var="Cadena" itemLabel="#{Cadena}"/>
                         </p:selectOneMenu>
  
-                        <p:commandButton value="Guardar" />
+                        <p:commandButton value="Guardar" action="#{configurarNotificaciones.tratarInformacion()}"/>
                         
                     </p:panelGrid>
                     

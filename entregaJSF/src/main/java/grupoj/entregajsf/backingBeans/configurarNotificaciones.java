@@ -6,6 +6,7 @@
 package grupoj.entregajsf.backingBeans;
 
 import grupoj.prentrega1.TipoNotificacion;
+import grupoj.prentrega1.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -27,7 +28,9 @@ public class configurarNotificaciones {
     @Inject
     private PersistenceMock persistencia;
     private boolean notificacionesActivas;
+    private Usuario usuLogueado;    // Recoger el usuario que se está logueado
     private TipoNotificacion tipoNotUsuario;
+    private TipoNotificacion tipoNotUsuAnterior;
     private List<String> ListaNotif;
 
     public PersistenceMock getPersistencia() {
@@ -61,11 +64,31 @@ public class configurarNotificaciones {
     public void setListaNotif(List<String> ListaNotif) {
         this.ListaNotif = ListaNotif;
     }
+
+    public Usuario getUsuLogueado() {
+        return usuLogueado;
+    }
+
+    public void setUsuLogueado(Usuario usuLogueado) {
+        this.usuLogueado = usuLogueado;
+    }
+
+    public TipoNotificacion getTipoNotUsuAnterior() {
+        return tipoNotUsuAnterior;
+    }
+
+    public void setTipoNotUsuAnterior(TipoNotificacion tipoNotUsuAnterior) {
+        this.tipoNotUsuAnterior = tipoNotUsuAnterior;
+    }
+    
     
     @PostConstruct
     public void init() {
-        tipoNotUsuario = persistencia.getTipoNotUsuario();
+        usuLogueado = persistencia.getListaUsuarios().get(0); // Usuario que se ha logueado, ahora esta el de persistencia.
+        tipoNotUsuario = usuLogueado.getTipoNotificacionesRecibir();
+        tipoNotUsuario = tipoNotUsuAnterior; // Para compararlo si hace modificaciones.
         ListaNotif = new ArrayList<>();
+        notificacionesActivas = true;
         rellenaLista();
     }
 
@@ -88,10 +111,9 @@ public class configurarNotificaciones {
     }
     
     private void rellenaLista () {
+        
         if (tipoNotUsuario == TipoNotificacion.Desactivado) {
             notificacionesActivas = false;
-        } else {
-            notificacionesActivas = true;
         }
         
         insertaLista(tipoNotUsuario);
@@ -108,4 +130,28 @@ public class configurarNotificaciones {
         }
     }
     
+    public String tratarInformacion() {
+        
+        if (this.tipoNotUsuario != this.tipoNotUsuAnterior) {
+            this.usuLogueado.setTipoNotificacionesRecibir(tipoNotUsuario);
+            
+            // Actualizar información del usuario en la BBDD
+            List<Usuario> listaUsu = this.persistencia.getListaUsuarios();
+            int i = 0;
+            boolean esta = false;
+            while (i < listaUsu.size() || !esta) {
+                if (usuLogueado.equals(listaUsu.get(i))) {
+                    esta = true;
+                }
+                i ++;
+            }
+            
+            if (i < listaUsu.size()) {
+                listaUsu.remove(i);
+                listaUsu.add(usuLogueado);
+            }
+        }
+        
+        return "configurarNotificaciones.xhtml";
+    }
 }
