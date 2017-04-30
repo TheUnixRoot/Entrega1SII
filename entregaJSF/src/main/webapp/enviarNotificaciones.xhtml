@@ -7,6 +7,9 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="Layout.xhtml">
+        <ui:define name="navBarName">
+            <ui:param name="nombrePagina" value="Enviar notificaciones" />
+        </ui:define>
         <ui:define name="cuerpo">
         <section id="cuerpo">
         <h:form>    
@@ -32,8 +35,20 @@
 
                 <p:separator />
 
-                <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" icon="ui-icon-check" />
+                <p:commandButton value="Submit" update="display"  icon="ui-icon-check" action="#{enviarNotificacionesBean.filtrar()}"/>
 
+                
+                <ui:repeat value="#{enviarNotificacionesBean.listaCoincidencias}" var="evento">
+                        <article id="#{evento.nombre}">
+                        <p:panelGrid columns="2" layout="grid">
+                            <!--<p:commandButton icon="#{evento.descripcion}" action="null"/>-->
+                            
+                        <p:outputLabel value="#{evento.nombre}"/>
+                        </p:panelGrid>
+                </article>
+                </ui:repeat>
+                
+                
                 <p:dialog header="Values" modal="true" showEffect="clip" widgetVar="dlg" resizable="false">
                     <p:outputPanel id="display">
                         

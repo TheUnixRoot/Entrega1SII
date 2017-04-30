@@ -10,7 +10,10 @@ import grupoj.prentrega1.Formulario;
 import grupoj.prentrega1.Notificacion;
 import grupoj.prentrega1.Tag;
 import grupoj.prentrega1.Usuario;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
@@ -27,31 +30,39 @@ import mockingBeans.PersistenceMock;
 @ManagedBean
 public class enviarNotificacionesBean {
 
-    /**
-     * Creates a new instance of enviarNotificacionesBean
-     */
-    public enviarNotificacionesBean() {
-    }
+ 
     
-     private PersistenceMock persistencia = new PersistenceMock();
+    private PersistenceMock persistencia;
     
     private String[] selectedGustos;
     private List<String> gustos;
 
-    private String[] selectedFecha;
+    private List<String> selectedFecha;
     //private List<Date> dates;
     private List<String> fechas;
     
-    private List<Evento> eventos;
+    private List<Evento> listaCoincidencias;
     private Evento selectedEvento;
     
-    private List<Usuario> selectedUsuarios = new ArrayList();
+    private List<Usuario> selectedUsuarios;
     private Notificacion notificacion;
+    private List<Evento> listaEventos;
+    
+       /**
+     * Creates a new instance of enviarNotificacionesBean
+     */
+    public enviarNotificacionesBean() {
+        
+        this.listaCoincidencias = new ArrayList();
+        this.selectedUsuarios = new ArrayList();
+        this.persistencia = new PersistenceMock();
+        this.listaEventos = persistencia.getListaEventos();
+    }
     
     @PostConstruct
     public void init() {
        gustos = new ArrayList<>();
-       gustos.add("Musica");
+       gustos.add("Música");
        gustos.add("Teatro");
        gustos.add("Opera");
        gustos.add("Cine");
@@ -59,9 +70,10 @@ public class enviarNotificacionesBean {
        gustos.add("Deportes");
        
        fechas = new ArrayList<>();
+       fechas.add("Hoy");
        fechas.add("Mañana");
-       fechas.add("Esta semana");
-       fechas.add("Este mes");
+       fechas.add("Proximos 7 dias");
+      
     }
 
     public List<String> getFechas() {
@@ -72,15 +84,13 @@ public class enviarNotificacionesBean {
         this.fechas = fechas;
     }
 
-    public String[] getSelectedFecha() {
+    public List<String> getSelectedFecha() {
         return selectedFecha;
     }
 
-    public void setSelectedFecha(String[] selectedFecha) {
+    public void setSelectedFecha(List<String> selectedFecha) {
         this.selectedFecha = selectedFecha;
     }
-
-    
     
     public String[] getSelectedGustos() {
         return selectedGustos;
@@ -96,6 +106,105 @@ public class enviarNotificacionesBean {
 
     public void setGustos(List<String> gustos) {
         this.gustos = gustos;
+    }
+
+    public List<Evento> getListaCoincidencias() {
+        return listaCoincidencias;
+    }
+
+    public void setListaCoincidencias(List<Evento> listaCoincidencias) {
+        this.listaCoincidencias = listaCoincidencias;
+    }
+    
+    
+    
+    public void filtrar(){
+        
+        System.out.println(listaEventos.get(0)+"papas");
+        boolean coincide = false;
+        boolean tip=false, f1=false;
+        if(selectedGustos[0] != null) tip=true;     
+        if(!selectedFecha.isEmpty()) f1=true;
+             // selectedFecha.
+         for(Evento e : listaEventos){
+            System.out.println(e+"papas2");
+            coincide = false;
+            if(tip){
+                for(String s : selectedGustos){
+                    System.out.println(e+"papas3");
+                    for(Tag t : e.getTagged_by()){
+                        if(t.getTexto().equals(s)){
+                            coincide = true;
+                            System.out.println(e+"papas4");
+                        }
+                    }
+                }
+            }else{
+                coincide=true;
+            }
+            if(coincide){
+                coincide=false;
+                if(f1){
+                    System.out.println(e+"papas5");
+                    Date hoy;
+                    Date mañana;
+                    Date semana;
+                    DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                    if(selectedFecha.get(0).equals("Hoy")){
+
+                        System.out.println(e+"papas6");
+                        hoy = new Date();
+                        System.out.println(formato.format(hoy)); 
+                        System.out.println(formato.format(e.getFecha()));
+                       // System.out.println(hoy); 
+                        //System.out.println(e.getFecha());
+                        //hoy.equals(hoy);
+                        if(e.getFecha().equals(hoy)){
+                            listaCoincidencias.add(e);
+                            System.out.println(e+"papas7");
+                        }
+
+                    }else if(selectedFecha.get(0).equals("Mañana")){
+                        
+                        mañana = new Date();
+                        Calendar c = Calendar.getInstance(); 
+                        c.setTime(mañana); 
+                        c.add(Calendar.DATE, 1);
+                        mañana = c.getTime();
+                        System.out.println(formato.format(mañana)); 
+
+                        if(e.getFecha().equals(mañana)){
+                            listaCoincidencias.add(e);
+                        }
+
+                    }else if(selectedFecha.get(0).equals("Proximos 7 dias")){
+                        
+                        mañana = new Date();
+                        Calendar c = Calendar.getInstance(); 
+                        c.setTime(mañana); 
+                        c.add(Calendar.DATE, 1);
+                        mañana = c.getTime();
+                        System.out.println(formato.format(mañana));                             
+
+                        semana = new Date();
+                        c.setTime(semana); 
+                        c.add(Calendar.DATE, 7);
+                        semana = c.getTime();
+                        System.out.println(formato.format(semana)); 
+
+                        if(e.getFecha().after(mañana)&&e.getFecha().before(semana)){
+                            listaCoincidencias.add(e);
+                        }
+                    }
+                        
+                }else{
+                    listaCoincidencias.add(e);
+                }
+                    
+            }
+        }
+         System.out.println(listaCoincidencias.get(0));
+       
     }
     
     public void notificacion(){

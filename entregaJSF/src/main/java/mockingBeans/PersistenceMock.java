@@ -156,9 +156,11 @@ public class PersistenceMock implements Serializable {
         e.setDonde_comprar("www.malaga.com");
         e.setTagged_by(listaTags);
         e.setOcurre_in(lug);
+        e.setId(25L);
+        e.setFecha(new Date());
         listaEventos.add(e);
         
-        Geolocalizacion geo1 = new Geolocalizacion();
+       /* Geolocalizacion geo1 = new Geolocalizacion();
         Lugar lug1 = new Lugar();
         
         geo1.setDireccion("Bulevar Luis Pasteur, 35, campus de Teatinos, 29071, Malaga");
@@ -174,7 +176,7 @@ public class PersistenceMock implements Serializable {
         ev.setValidado(true);
         ev.setFecha(new Date());
         ev.setOcurre_in(lug);
-        listaEventos.add(ev);
+        listaEventos.add(ev);*/
         
         Anuncio adv = new Anuncio();
         
