@@ -76,6 +76,7 @@ public class formularioGustosBean {
         this.formulario.setForm_tags(l);
         //System.out.println(this.formulario);
         //System.out.println(this.formulario.getForm_tags().get(0).getTexto());
+        this.user.setForm(this.formulario);
         persistencia.setFormulario(this.formulario);
         //System.out.println("Todo bien todo correcto y yo que me alegro");
     }
