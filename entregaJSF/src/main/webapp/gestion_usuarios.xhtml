@@ -16,22 +16,20 @@
                 <section id="cuerpo">
                     <h:form>
                         <p:dataGrid columns="1" layout="grid" value="#{crud_usuariosBean.usuarios}" var="usr">
-                            <p:panel>
-                                <h:panelGrid columns="2" >
-                                    <p:graphicImage width="100" stream="true" value="#{crud_usuariosBean.generar()}">
-                                        <f:param name="id" value="#{usr.id}"/>
-                                    </p:graphicImage>
-                                    <p:commandLink value="#{usr.email}" action="#{crud_usuariosBean.viajar()}">
-                                        <f:param name="id" value="#{usr.id}"/>
-                                        <f:param name="editar" value="false"/>
-                                    </p:commandLink>
-                                    <p:commandLink value="Editar usuario" action="#{crud_usuariosBean.viajar()}">
-                                        <f:param name="id" value="#{usr.id}"/>
-                                        <f:param name="editar" value="true"/>
-                                    </p:commandLink>
-                                    <p:outputLabel value="#{usr.nombre}"/>
-                                </h:panelGrid>
-                            </p:panel>
+                            <p:panelGrid columns="2" layout="grid">
+                                <p:graphicImage width="100" stream="true" value="#{crud_usuariosBean.generar()}">
+                                    <f:param name="id" value="#{usr.id}"/>
+                                </p:graphicImage>
+                                <p:commandLink value="#{usr.email}" action="#{crud_usuariosBean.viajar()}">
+                                    <f:param name="id" value="#{usr.id}"/>
+                                    <f:param name="editar" value="false"/>
+                                </p:commandLink>
+                                <p:commandLink value="Editar usuario" action="#{crud_usuariosBean.viajar()}">
+                                    <f:param name="id" value="#{usr.id}"/>
+                                    <f:param name="editar" value="true"/>
+                                </p:commandLink>
+                                <p:outputLabel value="#{usr.nombre}"/>
+                            </p:panelGrid>
                         </p:dataGrid>
                     </h:form>
                 </section>

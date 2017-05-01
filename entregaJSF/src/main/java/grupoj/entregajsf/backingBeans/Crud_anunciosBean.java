@@ -11,10 +11,12 @@ import grupoj.prentrega1.Anuncio;
 import java.io.ByteArrayInputStream;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
 import org.primefaces.model.DefaultStreamedContent;
@@ -44,8 +46,10 @@ public class Crud_anunciosBean {
         }
     }
     
-    public String viajar(long id, boolean editar) {
-        return editar ?("edit_anuncio.xhtml?id=" + id) : ("read_anuncio.xhtml?id=" + id);
+    public String viajar() {
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        
+        return "edit_anuncio.xhtml?id=" + params.get("id");
     }
     
     public StreamedContent generar() {

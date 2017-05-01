@@ -8,20 +8,25 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="Layout.xhtml">
         <ui:define name="navBarName">
-            <ui:param name="nombrePagina" value="Información del anuncio" />
+            <ui:param name="nombrePagina" value="Información del ususario" />
         </ui:define>
         <ui:define name="cuerpo">
             <c:if test="#{controlAutorizacion.administrador}" >
-                <section id="cuerpo">
-                    <article id="k">
+                    <section id="cuerpo">
+                    <article id="#{mod_anuncioBean.adv.id}">
                         <p:layout fullPage="false">
                             <p:layoutUnit position="west" closable="false" collapsible="false" resizable="false">
-                                <h:form enctype="multipart/form-data">
+                                <h:form>
                                     <p:panelGrid columns="1" layout="grid" >
                                         <p:growl id="messages" showDetail="true" />
                                         <p:fileUpload value="null" mode="simple" skinSimple="true"/>
                                         <p:commandButton value="Submit" ajax="false" 
                                                          actionListener="null" disabled="true" />
+                                        <p:commandButton action="null">
+                                            <p:graphicImage value="#{mod_anuncioBean.generar()}">
+                                                <f:param name="id" value="#{mod_anuncioBean.adv.id}"/>
+                                            </p:graphicImage>
+                                        </p:commandButton>
                                     </p:panelGrid>
                                 </h:form>
                             </p:layoutUnit>
@@ -29,16 +34,16 @@
                                 <h:form>
                                     <p:panelGrid columns="1">
                                         <p:outputLabel value="Empresa" style="font-size: large" />
-                                        <p:inputText value="#{new_anuncioBean.adv.empresa}" style="font-size: large" />
+                                        <p:inputText value="#{mod_anuncioBean.adv.empresa}" style="font-size: large" />
                                         <p:outputLabel value="Fecha publicacion" style="font-size: large" />
-                                        <p:inputText value="#{new_anuncioBean.adv.fecha_public}" style="font-size: large" />
+                                        <p:inputText value="#{mod_anuncioBean.adv.fecha_public}" style="font-size: large" />
                                         <p:outputLabel value="Días contratados" style="font-size: large" />
-                                        <p:inputText value="#{new_anuncioBean.adv.dias_contratados}" style="font-size: large" />
+                                        <p:inputText value="#{mod_anuncioBean.adv.dias_contratados}" style="font-size: large" />
                                         <p:outputLabel value="Prioridad" style="font-size: large" />
-                                        <p:inputText value="#{new_anuncioBean.adv.prioridad}" style="font-size: large" />
+                                        <p:inputText value="#{mod_anuncioBean.adv.prioridad}" style="font-size: large" />
 
                                         <p:outputLabel value="Lugar" style="font-size: large" />
-                                    <!--    <p:inputText value="{mod_anuncioBean.adv.lugar}" style="font-size: large" />-->
+                                     <!--    <p:inputText value="{mod_anuncioBean.adv.lugar}" style="font-size: large" />-->
 
                                     </p:panelGrid>
                                 </h:form>
@@ -53,3 +58,4 @@
         </ui:define>
     </ui:composition>
 </html>
+

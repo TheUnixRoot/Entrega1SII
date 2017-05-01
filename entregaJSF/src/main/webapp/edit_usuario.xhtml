@@ -25,17 +25,19 @@
                                 </h:form>
                             </p:layoutUnit>
                             <p:layoutUnit position="center" closable="false" collapsible="false" resizable="false">
-                                <p:panelGrid columns="1">
-                                    <p:outputLabel value="Nombre" style="font-size: large" />
-                                    <p:inputText value="#{mod_usuariosBean.usr.nombre}" style="font-size: large" />
-                                    <p:outputLabel value="Apellidos" style="font-size: large" />
-                                    <p:inputText value="#{mod_usuariosBean.usr.apellidos}" style="font-size: large" />
-                                    <p:outputLabel value="Email" style="font-size: large" />
-                                    <p:inputText value="#{mod_usuariosBean.usr.email}" style="font-size: large" />
-                                    <p:outputLabel value="Teléfono" style="font-size: large" />
-                                    <p:inputText value="#{mod_usuariosBean.usr.telefono}" style="font-size: large" />
-                                </p:panelGrid>
-                            </p:layoutUnit>>
+                                <h:form>
+                                    <p:panelGrid columns="1">
+                                        <p:outputLabel value="Nombre" style="font-size: large" />
+                                        <p:inputText value="#{mod_usuariosBean.usr.nombre}" style="font-size: large" />
+                                        <p:outputLabel value="Apellidos" style="font-size: large" />
+                                        <p:inputText value="#{mod_usuariosBean.usr.apellidos}" style="font-size: large" />
+                                        <p:outputLabel value="Email" style="font-size: large" />
+                                        <p:inputText value="#{mod_usuariosBean.usr.email}" style="font-size: large" />
+                                        <p:outputLabel value="Teléfono" style="font-size: large" />
+                                        <p:inputText value="#{mod_usuariosBean.usr.telefono}" style="font-size: large" />
+                                    </p:panelGrid>
+                                </h:form>
+                            </p:layoutUnit>
                         </p:layout>
                     </article>
                 </section>

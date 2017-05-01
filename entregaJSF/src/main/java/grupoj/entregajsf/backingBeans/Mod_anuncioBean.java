@@ -10,6 +10,7 @@ import grupoj.entregajsf.dropbox.DropboxControllerException;
 import grupoj.prentrega1.Anuncio;
 import java.io.ByteArrayInputStream;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -67,24 +68,32 @@ public class Mod_anuncioBean {
         this.adv = adv;
     }
     
-    public StreamedContent generar() {
+   public StreamedContent generar() {
         StreamedContent con = null;
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         try {
-            if(it == null) {
-                it = persistencia.getListaAnuncios().iterator();
-            } else if (it.hasNext()) {
-                String mul = it.next().getMultimedia();
-                if (mul == null) mul = "/default.jpg";
-                con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile(mul))); 
-            }
+            Anuncio aa = new Anuncio();
+            aa.setId(Long.parseLong(params.get("id")));
+            String mul = persistencia
+                    .getListaUsuarios()
+                    .get(persistencia
+                            .getListaUsuarios()
+                            .indexOf(aa)
+                    )
+                    .getMultimedia();
+            if (mul == null) mul = "/default.jpg";
+            con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile(mul))); 
+            
         } catch (DropboxControllerException dbex) {
             try {
                 con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile("/default.jpg")));
             } catch (DropboxControllerException ex) {
                 Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (IndexOutOfBoundsException ie) {
-            Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ie);
+        } catch (ArrayIndexOutOfBoundsException ie) {
+            System.err.println(ie.getMessage() + " id usuario recibido " + params.get("id"));
+        } catch (NumberFormatException ne) {
+            System.err.println("Error al convertir la id del parametro " + params.get("id") + " excep: " + ne.getMessage());
         }
         return con;
     }
