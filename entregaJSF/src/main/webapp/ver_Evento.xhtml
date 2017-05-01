@@ -2,19 +2,46 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="Layout.xhtml">
+        <ui:define name="navBarName">
+            <ui:param name="nombrePagina" value="Información del evento" />
+        </ui:define>
         <ui:define name="cuerpo">
-        <section id="cuerpo">
-        <ui:repeat value="" var="evento">
-            <article>
-            </article>
-        </ui:repeat>
-        </section>
+            
+                    <section id="cuerpo">
+                    <article id="#{verEvento.evento.nombre}">
+                        <p:layout fullPage="false">
+                            <p:layoutUnit position="west" closable="false" collapsible="false" resizable="false">
+                            </p:layoutUnit>
+                            <p:layoutUnit position="center" closable="false" collapsible="false" resizable="false">
+                                <p:panelGrid columns="1">
+                                    
+                                    <p:outputLabel value="Nombre" style="font-size: large" />
+                                    <p:outputLabel value="#{verEvento.evento.nombre}" style="font-size: small" />
+                                    <p:outputLabel value="Fecha" style="font-size: large" />
+                                    <p:outputLabel value="#{verEvento.evento.fecha.toString}" style="font-size: small" />
+                                    <p:outputLabel value="Lugar" style="font-size: large" />
+                                    <p:outputLabel value="#{verEvento.evento.ocurre_in.nombre}" style="font-size: small" />
+                                    <p:outputLabel value="Descripcion" style="font-size: large" />
+                                    <p:outputLabel value="#{verEvento.evento.descripcion}" style="font-size: small" />
+                                    <p:outputLabel value="Precio" style="font-size: large" />
+                                    <p:outputLabel value="#{verEvento.evento.precio}€" style="font-size: small" />
+                                    <p:outputLabel value="Comprar entradas" style="font-size: large" />
+                                    <h:form>
+                                    <p:commandLink id="nonAjax" actionListener="#{verEvento.evento.donde_comprar}" ajax="false">
+                                        <h:outputText value="#{verEvento.evento.donde_comprar}" style="font-size: small"/>
+                                    </p:commandLink>
+                                    </h:form>
+                                    
+                                </p:panelGrid>
+                            </p:layoutUnit>>
+                        </p:layout>
+                    </article>
+                </section>
         </ui:define>
     </ui:composition>
-    
 </html>
