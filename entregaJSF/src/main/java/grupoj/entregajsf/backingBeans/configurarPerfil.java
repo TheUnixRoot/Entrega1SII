@@ -16,8 +16,6 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
 import grupoj.entregajsf.controlSesion.ControlAutorizacion;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -128,11 +126,7 @@ public class configurarPerfil {
         usuario.setFechaNacimiento(fechaNacimiento);
         listaUsuario.remove(0);
         listaUsuario.add(usuario);
-        try {
-            persistencia.setListaUsuarios(listaUsuario);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(configurarPerfil.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        persistencia.setListaUsuarios(listaUsuario);
         
         return "index.html";
     }
