@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+
       xmlns:p="http://primefaces.org/ui"
       xmlns:bnu="http://bootsfaces.net/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
@@ -40,6 +41,7 @@
             <c:if test="${!controlAutorizacion.administrador}">
                 <p:outputLabel value="403 Forbidden"/>
             </c:if>
+
         </ui:define>
     </ui:composition>
 </html>
