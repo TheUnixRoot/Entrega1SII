@@ -18,7 +18,9 @@
                             <p:layoutUnit position="west" closable="false" collapsible="false" resizable="false">
                                 <h:form>
                                     <p:commandButton action="null">
-                                        <p:graphicImage value="#{crud_usuariosBean.generar(mod_usuariosBean.usr.multimedia)}"/>
+                                        <p:graphicImage value="#{mod_usuariosBean.generar()}">
+                                            <f:param name="id" value="#{mod_usuariosBean.usr.id}"/>
+                                        </p:graphicImage>
                                     </p:commandButton>
                                 </h:form>
                             </p:layoutUnit>

@@ -12,13 +12,14 @@ import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
-import org.omnifaces.cdi.ViewScoped;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -27,7 +28,7 @@ import org.primefaces.model.StreamedContent;
  * @author juanp
  */
 @Named(value = "crud_usuariosBean")
-@ViewScoped
+@RequestScoped
 public class Crud_usuariosBean implements Serializable{
     
     @Inject
@@ -46,28 +47,38 @@ public class Crud_usuariosBean implements Serializable{
         }
     }
     
-    public String viajar(long id, boolean editar) {
-        return editar ?("edit_usuario.xhtml?id=" + id) : ("read_usuario.xhtml?id=" + id);
+    public String viajar() {
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        
+        return params.get("editar").equals("true") ?("edit_usuario.xhtml?id=" + params.get("id")) : ("read_usuario.xhtml?id=" + params.get("id"));
     }
     
     public StreamedContent generar() {
         StreamedContent con = null;
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         try {
-            if(it == null) {
-                it = persistencia.getListaUsuarios().iterator();
-            } else if (it.hasNext()) {
-                String mul = it.next().getMultimedia();
-                if (mul == null) mul = "/default.jpg";
-                con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile(mul))); 
-            }
+            Usuario uu = new Usuario();
+            uu.setId(Long.parseLong(params.get("id")));
+            String mul = persistencia
+                    .getListaUsuarios()
+                    .get(persistencia
+                            .getListaUsuarios()
+                            .indexOf(uu)
+                    )
+                    .getMultimedia();
+            if (mul == null) mul = "/default.jpg";
+            con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile(mul))); 
+            
         } catch (DropboxControllerException dbex) {
             try {
                 con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile("/default.jpg")));
             } catch (DropboxControllerException ex) {
                 Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (IndexOutOfBoundsException ie) {
-            Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ie);
+        } catch (ArrayIndexOutOfBoundsException ie) {
+            System.err.println(ie.getMessage() + " id usuario recibido " + params.get("id"));
+        } catch (NumberFormatException ne) {
+            System.err.println("Error al convertir la id del parametro " + params.get("id") + " excep: " + ne.getMessage());
         }
         return con;
     }
