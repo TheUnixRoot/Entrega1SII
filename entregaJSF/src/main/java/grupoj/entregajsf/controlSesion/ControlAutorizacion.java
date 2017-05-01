@@ -60,4 +60,5 @@ public class ControlAutorizacion implements Serializable {
     public boolean isPeriodista() {
         return this.usuario instanceof Periodista;
     }
+    
 }
