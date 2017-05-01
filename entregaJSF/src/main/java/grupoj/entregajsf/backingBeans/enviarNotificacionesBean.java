@@ -18,7 +18,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import mockingBeans.PersistenceMock;
 
 
@@ -243,7 +245,7 @@ public class enviarNotificacionesBean {
         return "enviarNotificacionesRes";
     }
     
-    public void notificacion(){
+    public String notificacion(){
         //Obtenemos los usuarios interesados en el evento y los tags asociados al mismo
         List<Tag> tags = this.selectedEvento.getTagged_by();
         List<Usuario> interesados = this.selectedEvento.getInteresados_at();
@@ -279,11 +281,18 @@ public class enviarNotificacionesBean {
         }
         
         notificacion = new Notificacion();
+        notificacion.setId(Long.MIN_VALUE);
+        notificacion.setContenido("Hay un evento proximo que te puede interesar");
+        notificacion.setFecha(new Date());
         //falta añadir cosas a la notificacion
         
         for(Usuario selected : selectedUsuarios){
             selected.getNotificaciones().add(notificacion);
         }
+        
+        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario/contraseña incorrectos", "Usuario/contraseña incorrectos"));
+        return null;
+
     }
     
     public String volver(){

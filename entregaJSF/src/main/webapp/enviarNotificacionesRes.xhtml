@@ -15,25 +15,35 @@
         <section id="cuerpo">
         <h:form>    
       
-                <!--podria meter los resultados en un checkbox y que el usuario elija los que quiere-->
+            <!--podria meter los resultados en un checkbox y que el usuario elija los que quiere-->
                 
-                <c:choose>
-                    <c:when test="#{!enviarNotificacionesBean.vacio}">
+            <c:choose>
+                <c:when test="#{!enviarNotificacionesBean.vacio}">
 
-                        <ui:repeat value="#{enviarNotificacionesBean.listaCoincidencias}" var="evento">
+                    <ui:repeat value="#{enviarNotificacionesBean.listaCoincidencias}" var="evento">
                         <article id="#{evento.nombre}">
-                        <p:panelGrid columns="2" layout="grid">
+                            <p:panelGrid columns="2" layout="grid">
                             <!--<p:commandButton icon="#{evento.descripcion}" action="null"/>-->
-                           
-                        <p:outputLabel value="#{evento.nombre}"/>
-                        <p:outputPanel>#{evento.descripcion}</p:outputPanel>
-                        </p:panelGrid>
+                                <p:outputLabel value="#{evento.nombre}"/>
+                                <p:outputPanel>#{evento.descripcion}</p:outputPanel>
+                                <p:commandButton value="Notificacion" action="#{enviarNotificacionesBean.notificacion()}" oncomplete="PF('dlg').show()"/>
+
+                                <p:dialog header="Datos enviados correctamente" modal="true" showEffect="clip" widgetVar="dlg" resizable="false">
+                                    <p:outputPanel id="display">
+                                        <p:outputLabel value="Notificacion enviada correctamente"/>
+                                        <div align="center">
+                                            <p:commandButton value="OK" update="display" icon="ui-icon-check" action="#{formularioGustosBean.goIndex()}" />
+                                        </div>
+                                    </p:outputPanel>
+                                </p:dialog>
+
+                            </p:panelGrid>
                         </article>
-                        </ui:repeat>
-                    </c:when>
-                    <c:otherwise>
-                      <p:outputLabel value="No hay eventos"/>
-                    </c:otherwise>
+                    </ui:repeat>
+                </c:when>
+                <c:otherwise>
+                    <p:outputLabel value="No hay eventos"/>
+                </c:otherwise>
                 </c:choose>
                 
                 <br></br>
