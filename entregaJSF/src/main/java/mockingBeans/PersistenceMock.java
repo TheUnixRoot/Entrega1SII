@@ -122,6 +122,7 @@ public class PersistenceMock implements Serializable {
         ev.setNombre("Evento 1");
         ev.setBorrado(false);
         ev.setValidado(true);
+        ev.setPrecio(50);
         ev.setFecha(new Date());
         ev.setOcurre_in(lug);
         listaEventos.add(ev);
