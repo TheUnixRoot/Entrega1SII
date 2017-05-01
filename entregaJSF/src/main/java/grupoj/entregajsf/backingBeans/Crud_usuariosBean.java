@@ -14,11 +14,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
-import org.omnifaces.cdi.ViewScoped;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -27,7 +26,7 @@ import org.primefaces.model.StreamedContent;
  * @author juanp
  */
 @Named(value = "crud_usuariosBean")
-@ViewScoped
+@RequestScoped
 public class Crud_usuariosBean implements Serializable{
     
     @Inject
@@ -55,7 +54,13 @@ public class Crud_usuariosBean implements Serializable{
         try {
             Usuario uu = new Usuario();
             uu.setId(id);
-            String mul = persistencia.getListaUsuarios().get(persistencia.getListaUsuarios().indexOf(uu)).getMultimedia();
+            String mul = persistencia
+                    .getListaUsuarios()
+                    .get(persistencia
+                            .getListaUsuarios()
+                            .indexOf(uu)
+                    )
+                    .getMultimedia();
             if (mul == null) mul = "/default.jpg";
             con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile(mul))); 
             
@@ -65,8 +70,8 @@ public class Crud_usuariosBean implements Serializable{
             } catch (DropboxControllerException ex) {
                 Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (IndexOutOfBoundsException ie) {
-            Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ie);
+        } catch (ArrayIndexOutOfBoundsException ie) {
+            System.err.println(ie.getMessage() + " id usuario recibido " + id);
         }
         return con;
     }
