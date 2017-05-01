@@ -24,12 +24,7 @@ public class buscarEvento {
      * Creates a new instance of buscarEvento
      */
     public buscarEvento() {
-        selectedTipoEvento = null;
-        selectedLugares = null;
-        fecha1 = null;
-        fecha2 = null;
-        precio1 = 0;
-        precio2 = 0;
+        
     }
     
        
@@ -40,10 +35,11 @@ public class buscarEvento {
     private Date fecha2;
     private int precio1;
     private int precio2;
-    private String[] selectedLugares= new String[50];
+    private String[] selectedLugares = new String[50];
     private PersistenceMock persistencia = new PersistenceMock();
     private List<Evento> listaEventos;
     private List<Evento> listaCoincidencias = new ArrayList<Evento>();
+    private boolean tip=false, lug=false, f1=false,f2=false,p2=false;
     
     @PostConstruct
     public void init() {
@@ -59,9 +55,19 @@ public class buscarEvento {
        lugares.add("Antequera");
        lugares.add("Mijas");
        lugares.add("Villanueva del Rosario");
+       selectedTipoEvento = new String[50];
+       selectedLugares = new String[50];
+       fecha1 = null;
+       fecha2 = null;
+       precio1 = 0;
+       precio2 = 0;
     }
 
     public String[] getSelectedTipoEvento() {
+        if(selectedTipoEvento == null){
+            return null;
+        }
+        
         return selectedTipoEvento;
     }
  
@@ -97,6 +103,7 @@ public class buscarEvento {
         if(selectedLugares == null){
             return null;
         }
+        
         return selectedLugares;
     }
 
@@ -127,9 +134,10 @@ public class buscarEvento {
     public String buscar(){
         listaEventos = persistencia.getListaEventos();
         boolean coincide = false;
-        boolean tip=false, lug=false, f1=false,f2=false,p2=false;
-        if(selectedTipoEvento[0] != null) tip=true;     
-        if(selectedLugares[0] != null) lug=true;
+        
+        
+        if(this.getSelectedTipoEvento() != null) tip=true;     
+        if(this.getSelectedLugares() != null) lug=true;
         if(fecha1!=null) f1=true;
         if(fecha2!=null) f2=true;
         if(precio2 !=0) p2=true;
@@ -137,30 +145,25 @@ public class buscarEvento {
         for(Evento e : listaEventos){
             coincide = false;
             if(tip){
-                for(String s : selectedTipoEvento){
-                    for(Tag t : e.getTagged_by()){
-                        if(t.getTexto().equals(s)){
-                            coincide = true;
-                        }
-                    }
-                }
-            }else{
-                coincide=true;
-            }
-            if(coincide){
-                coincide = false;
-                if(lug){
-                    for(String s : selectedLugares){               
-                        if(e.getOcurre_in().getNombre().equals(s)){
-                            coincide = true;
+                if(e.getTagged_by() != null && !e.getTagged_by().isEmpty()){
+                    for(String s : selectedTipoEvento){     
+                        for(Tag t : e.getTagged_by()){
+                            if(t.getTexto().equals(s)){
+                                coincide = true;
+                                
+                            }
                         }
                     }
                 }else{
                     coincide=true;
                 }
                 
-                if(coincide){
-                    coincide=false;
+            }else{
+                coincide=true;
+            }
+            if(coincide){
+                coincide = false;
+                
                     if(f1 && f2){
                         if(e.getFecha().after(fecha1)&&e.getFecha().before(fecha2)){
                            coincide=true;
@@ -171,7 +174,7 @@ public class buscarEvento {
                     if(coincide){
                         if(p2){
                             if((e.getPrecio()>=precio1) && (e.getPrecio() <=precio2)){
-                            listaCoincidencias.add(e);
+                                listaCoincidencias.add(e);
                             }
                         }else{
                             listaCoincidencias.add(e);
@@ -179,7 +182,7 @@ public class buscarEvento {
                     }
                 }
             }
-        }
+        
         
         return "resultadoBuscarEvento.xhtml";
     }

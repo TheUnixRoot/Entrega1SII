@@ -16,15 +16,13 @@
                     <ui:repeat value="#{buscarEvento.listaCoincidencias}" var="evento">
                         <article id="#{evento.nombre}">
                         <p:panelGrid columns="2" layout="grid">
-                            <p:commandButton icon="#{evento.descripcion}" action="null"/>
-                            
                             <p:outputLabel value="#{evento.nombre}"/>
+                            <p:outputLabel value="#{evento.descripcion}" />
                         </p:panelGrid>
                     </article>
                     </ui:repeat>
                 </section>
-            
-            
+ 
         </ui:define>
     </ui:composition>
 </html>
