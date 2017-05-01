@@ -5,7 +5,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:bnu="http://bootsfaces.net/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="Layout.xhtml">
         <ui:define name="navBarName">
             <ui:param name="nombrePagina" value="Gestion de usuarios" />
@@ -17,9 +18,17 @@
                         <p:dataGrid columns="1" layout="grid" value="#{crud_usuariosBean.usuarios}" var="usr">
                             <p:panel>
                                 <h:panelGrid columns="2" >
-                                    <p:graphicImage width="100" stream="true" value="#{crud_usuariosBean.generar(usr.id)}"/>
-                                    <p:link value="#{usr.email}" href="#{crud_usuariosBean.viajar(usr.id, false)}"/>
-                                    <p:link value="Editar usuario" href="#{crud_usuariosBean.viajar(usr.id, true)}"/>
+                                    <p:graphicImage width="100" stream="true" value="#{crud_usuariosBean.generar()}">
+                                        <f:param name="id" value="#{usr.id}"/>
+                                    </p:graphicImage>
+                                    <p:commandLink value="#{usr.email}" action="#{crud_usuariosBean.viajar()}">
+                                        <f:param name="id" value="#{usr.id}"/>
+                                        <f:param name="editar" value="false"/>
+                                    </p:commandLink>
+                                    <p:commandLink value="Editar usuario" action="#{crud_usuariosBean.viajar()}">
+                                        <f:param name="id" value="#{usr.id}"/>
+                                        <f:param name="editar" value="true"/>
+                                    </p:commandLink>
                                     <p:outputLabel value="#{usr.nombre}"/>
                                 </h:panelGrid>
                             </p:panel>

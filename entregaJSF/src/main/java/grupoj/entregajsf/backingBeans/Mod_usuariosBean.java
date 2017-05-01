@@ -10,11 +10,18 @@ import javax.inject.Named;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
 import grupoj.entregajsf.controlSesion.ControlAutorizacion;
+import grupoj.entregajsf.dropbox.DropboxController;
+import grupoj.entregajsf.dropbox.DropboxControllerException;
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import org.omnifaces.cdi.ViewScoped;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -30,7 +37,6 @@ public class Mod_usuariosBean implements Serializable {
     ControlAutorizacion controlAutorizacion;
     Usuario usr;
     long id;
-    boolean editar;
     /**
      * Creates a new instance of Mod_usuariosBean
      */
@@ -38,8 +44,6 @@ public class Mod_usuariosBean implements Serializable {
     public void init() {
         Map<String, String> req = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         this.setId(Long.parseLong(req.get("id")));
-        this.setEditar(Boolean.getBoolean(req.get("edit")));
-        System.out.println(editar);
         Usuario uuu = new Usuario();
         uuu.setId(id);
         System.out.println(id);
@@ -84,14 +88,35 @@ public class Mod_usuariosBean implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
-
-    public boolean isEditar() {
-        return editar;
-    }
-
-    public void setEditar(boolean editar) {
-        this.editar = editar;
-    }
     
+    public StreamedContent generar() {
+        StreamedContent con = null;
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        try {
+            Usuario uu = new Usuario();
+            uu.setId(Long.parseLong(params.get("id")));
+            String mul = persistencia
+                    .getListaUsuarios()
+                    .get(persistencia
+                            .getListaUsuarios()
+                            .indexOf(uu)
+                    )
+                    .getMultimedia();
+            if (mul == null) mul = "/default.jpg";
+            con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile(mul))); 
+            
+        } catch (DropboxControllerException dbex) {
+            try {
+                con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile("/default.jpg")));
+            } catch (DropboxControllerException ex) {
+                Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (ArrayIndexOutOfBoundsException ie) {
+            System.err.println(ie.getMessage() + " id usuario recibido " + params.get("id"));
+        } catch (NumberFormatException ne) {
+            System.err.println("Error al convertir la id del parametro " + params.get("id") + " excep: " + ne.getMessage());
+        }
+        return con;
+    }
     
 }

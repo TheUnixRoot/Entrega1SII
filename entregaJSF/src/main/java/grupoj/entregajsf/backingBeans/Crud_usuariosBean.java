@@ -12,9 +12,11 @@ import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
@@ -45,15 +47,18 @@ public class Crud_usuariosBean implements Serializable{
         }
     }
     
-    public String viajar(long id, boolean editar) {
-        return editar ?("edit_usuario.xhtml?id=" + id) : ("read_usuario.xhtml?id=" + id);
+    public String viajar() {
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        
+        return params.get("editar").equals("true") ?("edit_usuario.xhtml?id=" + params.get("id")) : ("read_usuario.xhtml?id=" + params.get("id"));
     }
     
-    public StreamedContent generar(long id) {
+    public StreamedContent generar() {
         StreamedContent con = null;
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         try {
             Usuario uu = new Usuario();
-            uu.setId(id);
+            uu.setId(Long.parseLong(params.get("id")));
             String mul = persistencia
                     .getListaUsuarios()
                     .get(persistencia
@@ -71,7 +76,9 @@ public class Crud_usuariosBean implements Serializable{
                 Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (ArrayIndexOutOfBoundsException ie) {
-            System.err.println(ie.getMessage() + " id usuario recibido " + id);
+            System.err.println(ie.getMessage() + " id usuario recibido " + params.get("id"));
+        } catch (NumberFormatException ne) {
+            System.err.println("Error al convertir la id del parametro " + params.get("id") + " excep: " + ne.getMessage());
         }
         return con;
     }
