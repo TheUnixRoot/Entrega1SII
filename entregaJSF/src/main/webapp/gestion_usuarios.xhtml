@@ -13,18 +13,18 @@
         <ui:define name="cuerpo">
             <c:if test="${controlAutorizacion.administrador}" >
                 <section id="cuerpo">
-                    <ui:repeat value="#{crud_usuariosBean.usuarios}" var="usr">
-                    <article id="#{usr.id}">
-                        <h:form>
-                            <p:panelGrid columns="2" layout="grid">
-                                <p:graphicImage width="100" stream="true" value="#{crud_usuariosBean.generar()}"/>
-                                <p:link value="#{usr.email}" href="#{crud_usuariosBean.viajar(usr.id, false)}"/>
-                                <p:link value="Editar usuario" href="#{crud_usuariosBean.viajar(usr.id, true)}"/>
-                                <p:outputLabel value="#{usr.nombre}"/>
-                            </p:panelGrid>
-                        </h:form>
-                    </article>
-                    </ui:repeat>
+                    <h:form>
+                        <p:dataGrid columns="1" layout="grid" value="#{crud_usuariosBean.usuarios}" var="usr">
+                            <p:panel>
+                                <h:panelGrid columns="2" >
+                                    <p:graphicImage width="100" stream="true" value="#{crud_usuariosBean.generar(usr.id)}"/>
+                                    <p:link value="#{usr.email}" href="#{crud_usuariosBean.viajar(usr.id, false)}"/>
+                                    <p:link value="Editar usuario" href="#{crud_usuariosBean.viajar(usr.id, true)}"/>
+                                    <p:outputLabel value="#{usr.nombre}"/>
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:dataGrid>
+                    </h:form>
                 </section>
             </c:if>
             <c:if test="${!controlAutorizacion.administrador}">
