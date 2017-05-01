@@ -166,12 +166,18 @@ public class enviarNotificacionesBean {
 
                         System.out.println(e+"papas6");
                         hoy = new Date();
-                        System.out.println(formato.format(hoy)); 
+                        /*System.out.println(formato.format(hoy)); 
                         System.out.println(formato.format(e.getFecha()));
-                       // System.out.println(hoy); 
-                        //System.out.println(e.getFecha());
-                        //hoy.equals(hoy);
-                        if(e.getFecha().equals(hoy)){
+                        System.out.println(hoy); 
+                        System.out.println(e.getFecha());*/
+                        Calendar c = Calendar.getInstance(); 
+                        c.setTime(hoy); 
+                        int day = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+                        //System.out.println(day);
+                        c.setTime(e.getFecha()); 
+                        int day2 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+                        //System.out.println(day);
+                        if(day == day2){
                             listaCoincidencias.add(e);
                             System.out.println(e+"papas7");
                         }
@@ -182,11 +188,13 @@ public class enviarNotificacionesBean {
                         Calendar c = Calendar.getInstance(); 
                         c.setTime(mañana); 
                         c.add(Calendar.DATE, 1);
-                        mañana = c.getTime();
-                        System.out.println(formato.format(mañana)); 
+                        int day = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+                        c.setTime(e.getFecha()); 
+                        int day2 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
 
-                        if(e.getFecha().equals(mañana)){
+                        if(day == day2){
                             listaCoincidencias.add(e);
+                            System.out.println(e+"papas8");
                         }
 
                     }else if(selectedFecha.get(0).equals("Proximos 7 dias")){
@@ -195,17 +203,21 @@ public class enviarNotificacionesBean {
                         Calendar c = Calendar.getInstance(); 
                         c.setTime(mañana); 
                         c.add(Calendar.DATE, 1);
-                        mañana = c.getTime();
-                        System.out.println(formato.format(mañana));                             
+                        int day = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);    
 
                         semana = new Date();
                         c.setTime(semana); 
                         c.add(Calendar.DATE, 7);
-                        semana = c.getTime();
-                        System.out.println(formato.format(semana)); 
+                        
+                        int day2 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+                        
+                        c.setTime(e.getFecha()); 
+                        int day3 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+                       
 
-                        if(e.getFecha().after(mañana)&&e.getFecha().before(semana)){
+                        if(day3 >= day && day3 <= day2){
                             listaCoincidencias.add(e);
+                            System.out.println(e+"papas9");
                         }
                     }
                         
@@ -215,9 +227,9 @@ public class enviarNotificacionesBean {
                     
             }
         }
-         System.out.println(listaCoincidencias.get(0));
-         this.recarga=true;
-       return "enviarNotificacionesRes";
+        System.out.println(listaCoincidencias.get(0));
+        this.recarga=true;
+        return "enviarNotificacionesRes";
     }
     
     public void notificacion(){
