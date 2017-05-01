@@ -16,6 +16,9 @@
         <h:form>    
       
                 <!--podria meter los resultados en un checkbox y que el usuario elija los que quiere-->
+                
+                <c:choose>
+                    <c:when test="#{!enviarNotificacionesBean.vacio}">
 
                         <ui:repeat value="#{enviarNotificacionesBean.listaCoincidencias}" var="evento">
                         <article id="#{evento.nombre}">
@@ -27,7 +30,11 @@
                         </p:panelGrid>
                         </article>
                         </ui:repeat>
-      
+                    </c:when>
+                    <c:otherwise>
+                      <p:outputLabel value="No hay eventos"/>
+                    </c:otherwise>
+                </c:choose>
                 
         </h:form>
         </section>

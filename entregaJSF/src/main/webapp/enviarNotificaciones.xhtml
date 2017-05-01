@@ -38,19 +38,7 @@
 
                 <p:commandButton value="Submit" update="display"  icon="ui-icon-check" action="#{enviarNotificacionesBean.filtrar()}"/>
 
-                <c:choose>
-                    <c:when test="#{enviarNotificacionesBean.recarga}">
-                        <ui:repeat value="#{enviarNotificacionesBean.listaCoincidencias}" var="evento">
-                        <article id="#{evento.nombre}">
-                        <p:panelGrid columns="2" layout="grid">
-                            <!--<p:commandButton icon="#{evento.descripcion}" action="null"/>-->
-                            
-                        <p:outputLabel value="#{evento.nombre}"/>
-                        </p:panelGrid>
-                        </article>
-                        </ui:repeat>
-                    </c:when>
-                </c:choose>
+               
                 
                 
                 

@@ -34,7 +34,7 @@ public class enviarNotificacionesBean {
     
     private PersistenceMock persistencia;
     
-    private String[] selectedGustos;
+    private List<String> selectedGustos;
     private List<String> gustos;
 
     private List<String> selectedFecha;
@@ -48,13 +48,13 @@ public class enviarNotificacionesBean {
     private Notificacion notificacion;
     private List<Evento> listaEventos;
     
-    private boolean recarga;
+    private boolean vacio;
     
        /**
      * Creates a new instance of enviarNotificacionesBean
      */
     public enviarNotificacionesBean() {
-        this.recarga = false;
+        this.vacio = true;
         
         this.listaCoincidencias = new ArrayList();
         this.selectedUsuarios = new ArrayList();
@@ -95,11 +95,11 @@ public class enviarNotificacionesBean {
         this.selectedFecha = selectedFecha;
     }
     
-    public String[] getSelectedGustos() {
+    public List<String> getSelectedGustos() {
         return selectedGustos;
     }
 
-    public void setSelectedGustos(String[] selectedGustos) {
+    public void setSelectedGustos(List<String> selectedGustos) {
         this.selectedGustos = selectedGustos;
     }
 
@@ -119,12 +119,12 @@ public class enviarNotificacionesBean {
         this.listaCoincidencias = listaCoincidencias;
     }
 
-    public boolean isRecarga() {
-        return recarga;
+    public boolean isVacio() {
+        return vacio;
     }
 
-    public void setRecarga(boolean recarga) {
-        this.recarga = recarga;
+    public void setVacio(boolean vacio) {
+        this.vacio = vacio;
     }
     
     
@@ -135,7 +135,7 @@ public class enviarNotificacionesBean {
         System.out.println(listaEventos.get(0)+"papas");
         boolean coincide = false;
         boolean tip=false, f1=false;
-        if(selectedGustos[0] != null) tip=true;     
+        if(!selectedGustos.isEmpty()) tip=true;     
         if(!selectedFecha.isEmpty()) f1=true;
              // selectedFecha.
          for(Evento e : listaEventos){
@@ -179,6 +179,7 @@ public class enviarNotificacionesBean {
                         //System.out.println(day);
                         if(day == day2){
                             listaCoincidencias.add(e);
+                            this.vacio=false;
                             System.out.println(e+"papas7");
                         }
 
@@ -186,14 +187,22 @@ public class enviarNotificacionesBean {
                         
                         mañana = new Date();
                         Calendar c = Calendar.getInstance(); 
-                        c.setTime(mañana); 
-                        c.add(Calendar.DATE, 1);
-                        int day = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+                        //c.setTime(mañana); 
+                        //c.add(Calendar.DATE, 1);
+                        int day = c.get(Calendar.DAY_OF_WEEK_IN_MONTH)+1;
+                        System.out.println(c.getTime());
+                        
+                        //Calendar c2 = Calendar.getInstance(); 
                         c.setTime(e.getFecha()); 
                         int day2 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
-
+                        System.out.println(c.getTime());
+                        
+                        /*System.out.println(mañana);
+                        System.out.println(day);
+                        System.out.println(day2);*/
                         if(day == day2){
                             listaCoincidencias.add(e);
+                            this.vacio=false;
                             System.out.println(e+"papas8");
                         }
 
@@ -201,34 +210,36 @@ public class enviarNotificacionesBean {
                         
                         mañana = new Date();
                         Calendar c = Calendar.getInstance(); 
-                        c.setTime(mañana); 
-                        c.add(Calendar.DATE, 1);
-                        int day = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);    
+                        //c.setTime(mañana); 
+                        //c.add(Calendar.DATE, 1);
+                        int day = c.get(Calendar.DAY_OF_WEEK_IN_MONTH)+1;    
 
                         semana = new Date();
-                        c.setTime(semana); 
-                        c.add(Calendar.DATE, 7);
+                        //c.setTime(semana); 
+                       // c.add(Calendar.DATE, 7);
                         
-                        int day2 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+                        int day2 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH)+7;
                         
-                        c.setTime(e.getFecha()); 
+                        //c.setTime(e.getFecha()); 
                         int day3 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
-                       
+                        System.out.println(day);
+                        System.out.println(day2);
+                        System.out.println(day3);
 
                         if(day3 >= day && day3 <= day2){
                             listaCoincidencias.add(e);
+                            this.vacio=false;
                             System.out.println(e+"papas9");
                         }
                     }
                         
                 }else{
                     listaCoincidencias.add(e);
+                    this.vacio=false;
                 }
                     
             }
         }
-        System.out.println(listaCoincidencias.get(0));
-        this.recarga=true;
         return "enviarNotificacionesRes";
     }
     
