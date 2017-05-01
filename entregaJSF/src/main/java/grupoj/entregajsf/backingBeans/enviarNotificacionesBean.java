@@ -285,5 +285,9 @@ public class enviarNotificacionesBean {
             selected.getNotificaciones().add(notificacion);
         }
     }
+    
+    public String volver(){
+        return "enviarNotificaciones.xhtml";
+    }
      
 }
