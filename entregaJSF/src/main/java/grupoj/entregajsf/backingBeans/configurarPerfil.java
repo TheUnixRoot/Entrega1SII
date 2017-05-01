@@ -25,14 +25,14 @@ import java.util.logging.Logger;
  */
 @Named(value = "configurarPerfil")
 @RequestScoped
-public class configurarPerfil {
+public class configurarPerfil{
     @Inject
     private ControlAutorizacion control;
     
     @Inject
     private PersistenceMock persistencia;
     private List<Usuario> listaUsuario;
-    private Image foto;
+    private String foto;
     private Usuario usuario;
     private String nombre;
     private String apellidos;
@@ -48,7 +48,8 @@ public class configurarPerfil {
     public void init() {
         listaUsuario = persistencia.getListaUsuarios();
         usuario = control.getUsuario();
-        //foto = usuario.getMultimedia();
+        listaUsuario.remove(usuario);
+        foto = usuario.getMultimedia();
         nombre = usuario.getNombre();
         apellidos = usuario.getApellidos();
         email = usuario.getEmail();
@@ -58,11 +59,11 @@ public class configurarPerfil {
                 
     }
 
-    public Image getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(Image foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
     
@@ -73,9 +74,6 @@ public class configurarPerfil {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-    public String getNombreU(){
-        return "Pepe";
     }
 
     public String getApellidos() {
@@ -119,14 +117,14 @@ public class configurarPerfil {
     }
     
     public String configurar(){
-        //usuario.setMultimedia(foto);
+        
         usuario.setNombre(nombre);
         usuario.setApellidos(apellidos);
         usuario.setEmail(email);
         usuario.setPassword(contrasenia);
         usuario.setTelefono(telefono);
         usuario.setFechaNacimiento(fechaNacimiento);
-        listaUsuario.remove(0);
+        usuario.setMultimedia(foto);
         listaUsuario.add(usuario);
         try {
             persistencia.setListaUsuarios(listaUsuario);
@@ -135,6 +133,7 @@ public class configurarPerfil {
         }
         
         return "index.html";
+
     }
     
     
