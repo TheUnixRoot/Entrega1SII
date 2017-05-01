@@ -49,7 +49,7 @@ public class Crud_usuariosBean implements Serializable{
         return editar ?("edit_usuario.xhtml?id=" + id) : ("read_usuario.xhtml?id=" + id);
     }
     
-    public StreamedContent generar(Long id) {
+    public StreamedContent generar(long id) {
         StreamedContent con = null;
         try {
             Usuario uu = new Usuario();
