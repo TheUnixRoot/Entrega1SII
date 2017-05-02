@@ -9,7 +9,22 @@
     <ui:composition template="Layout.xhtml">
         <ui:define name="cuerpo">
         <section id="cuerpo">
-        <!-- Aqui se inserta -->
+            <!-- Titulo --> 
+            
+            <p:panelGrid columns="1" layout="grid">
+                
+                <p:inputTextarea placeholder="Añade tu comentario..." value="" autoResize="true" cols="100" rows="6" />
+                <p:commandButton value="Enviar comentario" actionListener=" " /> 
+                <p:row>
+                    <p:column colspan="2">
+                        <h:outputText value="Valoración del evento: " />
+                        <p:rating value=""/>
+                    </p:column>
+                </p:row>
+                
+
+            </p:panelGrid>
+            
         </section>
         </ui:define>
     </ui:composition>
