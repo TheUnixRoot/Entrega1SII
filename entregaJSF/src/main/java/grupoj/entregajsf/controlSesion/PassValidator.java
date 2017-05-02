@@ -23,13 +23,13 @@ public class PassValidator implements Validator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        String email = value.toString();
-        Pattern patron = Pattern.compile("[a-zA-Z0-9]+?@[a-zA-Z0-9]+?\".\"(com|es|org|co\".\"uk|net)");
-        Matcher m = patron.matcher(email);
-        if (!m.matches())
-            throw new ValidatorException(
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Las Contraseñas no coinciden", null)
-            );
+        String attribute = (String) component.getAttributes().get("password");
+        if (!value.equals(attribute)) {
+            FacesMessage message = new FacesMessage();
+            message.setSummary("La contraseña no coincide");
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
+            throw new ValidatorException(message);
+        }
     }
     
 }
