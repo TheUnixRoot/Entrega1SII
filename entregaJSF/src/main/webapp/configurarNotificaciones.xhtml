@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="Layout.xhtml">
+        <ui:define name="cuerpo">
+        <section id="cuerpo">
+            <article>
+                <h:form>
+                    
+                    <p:panelGrid columns="2" layout="grid">
+                        <p:outputLabel value="Activar notifiaciones : " />
+                        <p:selectOneRadio id="Notificaciones" value="#{configurarNotificaciones.notificacionesActivas}">
+                            <f:selectItem itemLabel="Si" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneRadio>
+
+                        
+                        <p:outputLabel value="Como recibir notifiaciones : " />
+                        <p:selectOneMenu id="TipoNotificaciones" value="" style="width:125px">
+                            <f:selectItems value="#{configurarNotificaciones.listaNotif}" var="Cadena" itemLabel="#{Cadena}"/>
+                        </p:selectOneMenu>
+ 
+                        <p:commandButton value="Guardar" action="#{configurarNotificaciones.tratarInformacion()}"/>
+                        
+                    </p:panelGrid>
+                    
+                    
+
+                </h:form>
+            </article>
+        </section>
+        </ui:define>
+    </ui:composition>
+    
+</html>
