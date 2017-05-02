@@ -29,9 +29,9 @@
                                 </h:form>
                             </p:layoutUnit>
                             <p:layoutUnit position="center" closable="false" collapsible="false" resizable="false">
-                                <h:form>
-                                    <p:panelGrid columns="1">
-                                        <p:messages autoUpdate="true" id="mensaje"/>
+                                <h:form id="fsign">
+                                    <p:panelGrid columns="1" id="psign">
+                                        
                                         <p:outputLabel value="Nombre" style="font-size: large" />
                                         <p:inputText value="#{signupBean.usuario.nombre}" style="font-size: large" />
                                         
@@ -44,19 +44,22 @@
                                                      requiredMessage="Se debe introducir un email"> 
                                             <f:validateRegex 
                                                 pattern="([a-zA-Z0-9]|[._-])+@[a-zA-Z0-9]+\.(com|es|org|co\.uk|net)" />
-                                            <p:ajax update="mensaje" />
+                                            <p:ajax update="emailmsg" />
                                         </p:inputText>
+                                        <p:message for="email" id="emailmsg" style="font-size: large"/>
                                         
                                         <p:outputLabel value="Contraseña*: " style="font-size: large" />
-                                        <p:password id="password" value="#{signupBean.pass1}" required="true"
-                                            requiredMessage="Por favor introduzca una contraseña" style="font-size: large" />
+                                        <p:password id="password" value="#{signupBean.pass}" required="true"
+                                                    requiredMessage="Por favor introduzca una contraseña" style="font-size: large" 
+                                                    match="confirmPassword"
+                                                    validatorMessage="Las contraseñas no coinciden"/>
+                                        <p:message for="password" id="passmsg" style="font-size: large"/>
                                         
                                         <p:outputLabel value="Repita la contraseña*: " style="font-size: large" />
-                                        <p:password id="confirmPassword" value="#{signupBean.pass2}" required="true"
-                                                    requiredMessage="Por favor introduzca de nuevo la contraseña" style="font-size: large" >
-                                            <f:validator validatorId="passValidator" />
-                                            <p:ajax update="mensaje"/>
-                                        </p:password>
+                                        <p:password id="confirmPassword" value="#{signupBean.pass}" required="true"
+                                                    requiredMessage="Por favor introduzca de nuevo la contraseña" style="font-size: large"
+                                                    />
+                                        <p:message for="confirmPassword" id="confirmpassmsg"/>
                                         
                                         <p:outputLabel value="Teléfono" style="font-size: large" />
                                         <p:inputText value="#{signupBean.usuario.telefono}" style="font-size: large" />
@@ -64,7 +67,7 @@
                                         <p:outputLabel value="Fecha de nacimiento" style="font-size: large" />
                                         <p:inputText value="#{signupBean.usuario.fechaNacimiento}" style="font-size: large" />
                                     </p:panelGrid>
-                                    <p:commandButton action="null" value="Registrarse" />
+                                    <p:commandButton action="null" value="Registrarse" update="psign" />
                                 </h:form>
                             </p:layoutUnit>
                         </p:layout>

@@ -27,8 +27,7 @@ public class SignupBean {
     @Inject
     PersistenceMock persistencia;
     Usuario usuario;
-    String pass1;
-    String pass2;
+    String pass;
     String email;
     
     /**
@@ -54,20 +53,12 @@ public class SignupBean {
         this.usuario = usuario;
     }
 
-    public String getPass1() {
-        return pass1;
+    public String getPass() {
+        return pass;
     }
 
-    public void setPass1(String pass1) {
-        this.pass1 = pass1;
-    }
-
-    public String getPass2() {
-        return pass2;
-    }
-
-    public void setPass2(String pass2) {
-        this.pass2 = pass2;
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
     public String getEmail() {
@@ -76,28 +67,6 @@ public class SignupBean {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-    
-    public void validatePassword(ComponentSystemEvent event) {
-
-	  FacesContext fc = FacesContext.getCurrentInstance();
-
-	  UIComponent components = event.getComponent();
-
-	  if (pass1.isEmpty() || pass2.isEmpty()) {
-		return;
-	  }
-
-	  if (!pass1.equals(pass2)) {
-
-		FacesMessage msg = new FacesMessage("Password must match confirm password");
-		msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-                UIInput uiInputPassword = (UIInput) components.findComponent("password");
-	  	fc.addMessage(uiInputPassword.getClientId(), msg);
-		fc.renderResponse();
-
-	  }
-
     }
     
 }
