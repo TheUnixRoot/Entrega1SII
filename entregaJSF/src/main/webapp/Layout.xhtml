@@ -35,13 +35,10 @@
                 <bnu:navBar fluid="true" sticky="true" >
                     <bnu:navbarLinks>
                         <bnu:navLink value="Index" href="index.xhtml"/>
-                        <c:if test="#{controlAutorizacion.usuario == null}" >
-                            <bnu:navLink value="Login" href="login.xhtml"/>
-                        </c:if>
-                        <c:if test="#{controlAutorizacion.usuario != null}" >
-                            <bnu:navLink value="Login" href="login.xhtml"/>
-                        </c:if>
-                        
+
+                        <bnu:navLink value="Login" href="login.xhtml" rendered="${controlAutorizacion.usuario == null}"/>
+                        <bnu:navLink value="Logout" href="login.xhtml" rendered="${controlAutorizacion.usuario != null}"/>
+                       
                         <bnu:navLink value="SignUp" href="sign_up.xhtml"/>
                         <bnu:navLink value="patata" href="#"/>
                     </bnu:navbarLinks>
