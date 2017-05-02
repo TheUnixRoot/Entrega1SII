@@ -32,17 +32,15 @@
                 <div id="divInitSesion">
 
                 </div>
-                <bnu:navBar fluid="true" sticky="true" >
-                    <bnu:navbarLinks>
-                        <bnu:navLink value="Index" href="index.xhtml"/>
-
-                        <bnu:navLink value="Login" href="login.xhtml" rendered="${controlAutorizacion.usuario == null}"/>
-                        <bnu:navLink value="Logout" href="login.xhtml" rendered="${controlAutorizacion.usuario != null}"/>
-                       
-                        <bnu:navLink value="SignUp" href="sign_up.xhtml"/>
-                        <bnu:navLink value="patata" href="#"/>
-                    </bnu:navbarLinks>
-                </bnu:navBar>
+                <h:form>
+                    <p:menubar>
+                        <p:menuitem value="Index" action="index.xhtml" />
+                        <p:menuitem value="Login" action="login.xhtml" rendered="${controlAutorizacion.usuario == null}" />
+                        <p:menuitem value="Logout" action="login.xhtml" rendered="${controlAutorizacion.usuario != null}" />
+                        <p:menuitem value="SignUp" action="sign_up.xhtml"/>
+                        <p:menuitem value="Patata" action="#"/>
+                    </p:menubar>
+                </h:form>
                 <nav name="enlacesNegro" id="navNegro">
                     <ul>
                         <!-- Elementos de la lista negra de arriba -->
@@ -81,7 +79,7 @@
                                 <p:menuitem value="Gestion de anuncios" action="gestion_anuncios.xhtml" rendered="${controlAutorizacion.administrador}"/>
                                 <p:menuitem value="Busqueda" action="buscarEvento.xhtml"/>
                                 <p:menuitem value="Contactar con administrador" action="contactoAdmin.xhtml"/>
-                                <p:menuitem value="Enviar notificaciones" action="enviarNotificaciones.xhtml" rendered="${controlAutorizacion.administrador}"/>
+                                <p:menuitem value="Enviar notificaciones" action="enviarNotificaciones.xhtml" rendered="${controlAutorizacion.periodista}"/>
                             </p:submenu>
                         </p:menu>
                     </h:form>

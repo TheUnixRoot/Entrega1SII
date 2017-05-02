@@ -94,7 +94,7 @@ public class contactoAdminBean {
     
     
     
-     public void crearMensaje() {
+     public String crearMensaje() {
        
         
         message.setTexto(this.texto);
@@ -117,9 +117,11 @@ public class contactoAdminBean {
         /*persistencia.addMessage(message);    
         String msg = persistencia.getListaMensajes().get(0).getTexto();
         System.out.println(msg);
+        */
         FacesContext ctx = FacesContext.getCurrentInstance();
-        ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));*/
-    }
+        ctx.addMessage("formulario:panel:growl", new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje enviado correctamente", "Mensaje enviado correctamente"));
+        return null;
+     }
  
       public String goIndex(){
         return "index.xhtml";
