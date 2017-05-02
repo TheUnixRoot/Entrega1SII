@@ -10,7 +10,6 @@ import java.util.Date;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import grupoj.prentrega1.*;
-import java.awt.Image;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
