@@ -82,19 +82,20 @@ public class verEvento {
         this.id = id;
     }
     
-    public void meInteresa(){
+    public String meInteresa(){
         Usuario usu = control.getUsuario();
         Map <String, String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String id = map.get("id");
         Evento ev = new Evento();
         ev.setId(Long.parseLong(id));
         if(usu == null){
-            //return null;
+            
         }else{
             ev = persistencia.getListaEventos().get(persistencia.getListaEventos().indexOf(ev));
             usu.getMeInteresa().add(ev);
             ev.getInteresados_at().add(usu);
         }
+        return null;
     }
     
     
