@@ -33,13 +33,13 @@
                                     <p:panelGrid columns="1" id="psign">
                                         
                                         <p:outputLabel value="Nombre" style="font-size: large" />
-                                        <p:inputText value="#{signupBean.usuario.nombre}" style="font-size: large" />
+                                        <p:inputText value="#{signupBean.nombre}" style="font-size: large" />
                                         
                                         <p:outputLabel value="Apellidos" style="font-size: large" />
-                                        <p:inputText value="#{signupBean.usuario.apellidos}" style="font-size: large" />
+                                        <p:inputText value="#{signupBean.apellidos}" style="font-size: large" />
                                         
                                         <p:outputLabel value="Email*: " style="font-size: large" />
-                                        <p:inputText id="email" value="#{signupBean.usuario.email}" style="font-size: large"
+                                        <p:inputText id="email" value="#{signupBean.email}" style="font-size: large"
                                                      required="true" validatorMessage="Email no reconocido"
                                                      requiredMessage="Se debe introducir un email"> 
                                             <f:validateRegex 
@@ -59,15 +59,15 @@
                                         <p:password id="confirmPassword" value="#{signupBean.pass}" required="true"
                                                     requiredMessage="Por favor introduzca de nuevo la contraseña" style="font-size: large"
                                                     />
-                                        <p:message for="confirmPassword" id="confirmpassmsg"/>
+                                        <p:message for="confirmPassword" id="confirmpassmsg" style="font-size: large"/>
                                         
                                         <p:outputLabel value="Teléfono" style="font-size: large" />
-                                        <p:inputText value="#{signupBean.usuario.telefono}" style="font-size: large" />
+                                        <p:inputText value="#{signupBean.telefono}" style="font-size: large" />
                                         
                                         <p:outputLabel value="Fecha de nacimiento" style="font-size: large" />
-                                        <p:inputText value="#{signupBean.usuario.fechaNacimiento}" style="font-size: large" />
+                                        <p:calendar pattern="dd-MM-yyyy" mask="true" value="#{signupBean.fechaNacimiento}" style="font-size: large"/>
                                     </p:panelGrid>
-                                    <p:commandButton action="null" value="Registrarse" update="psign" />
+                                    <p:commandButton action="#{signupBean.submit()}" value="Registrarse" update="psign" style="font-size: large"/>
                                 </h:form>
                             </p:layoutUnit>
                         </p:layout>

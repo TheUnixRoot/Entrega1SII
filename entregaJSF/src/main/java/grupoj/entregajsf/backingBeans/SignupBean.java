@@ -6,6 +6,10 @@
 package grupoj.entregajsf.backingBeans;
 
 import grupoj.prentrega1.Usuario;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -27,8 +31,6 @@ public class SignupBean {
     @Inject
     PersistenceMock persistencia;
     Usuario usuario;
-    String pass;
-    String email;
     
     /**
      * Creates a new instance of SignupBean
@@ -54,19 +56,63 @@ public class SignupBean {
     }
 
     public String getPass() {
-        return pass;
+        return usuario.getPassword();
     }
 
     public void setPass(String pass) {
-        this.pass = pass;
+        this.usuario.setPassword(pass);
     }
 
+    public String getNombre() {
+        return usuario.getNombre();
+    }
+
+    public void setNombre(String nombre) {
+        this.usuario.setNombre(nombre);
+    }
+    
+    public String getApellidos() {
+        return usuario.getApellidos();
+    }
+
+    public void setApellidos(String apellidos) {
+        this.usuario.setApellidos(apellidos);
+    }
+    
     public String getEmail() {
-        return email;
+        return usuario.getEmail();
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.usuario.setEmail(email);
     }
     
+    public String getTelefono() {
+        return usuario.getTelefono();
+    }
+
+    public void setTelefono(String telefono) {
+        this.usuario.setTelefono(telefono);
+    }
+    
+    public Date getFechaNacimiento() {
+        return usuario.getFechaNacimiento();
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.usuario.setFechaNacimiento(fechaNacimiento);
+    }
+    
+    public String submit() {
+        List<Usuario> list = persistencia.getListaUsuarios();
+        usuario.setId((long)list.size());
+        list.add(usuario);
+        try {
+            persistencia.setListaUsuarios(list);
+        } catch (InterruptedException ex) {
+            System.err.println("Error al insertar usuario en persistencia");
+        }
+        
+        return "index.xhtml";
+    }
 }
