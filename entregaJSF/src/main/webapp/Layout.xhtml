@@ -35,13 +35,10 @@
                 <bnu:navBar fluid="true" sticky="true" >
                     <bnu:navbarLinks>
                         <bnu:navLink value="Index" href="index.xhtml"/>
-                        <c:if test="#{controlAutorizacion.usuario == null}" >
-                            <bnu:navLink value="Login" href="login.xhtml"/>
-                        </c:if>
-                        <c:if test="#{controlAutorizacion.usuario != null}" >
-                            <bnu:navLink value="Login" href="login.xhtml"/>
-                        </c:if>
-                        
+
+                        <bnu:navLink value="Login" href="login.xhtml" rendered="${controlAutorizacion.usuario == null}"/>
+                        <bnu:navLink value="Logout" href="login.xhtml" rendered="${controlAutorizacion.usuario != null}"/>
+                       
                         <bnu:navLink value="SignUp" href="sign_up.xhtml"/>
                         <bnu:navLink value="patata" href="#"/>
                     </bnu:navbarLinks>
@@ -72,8 +69,7 @@
             </header>
             
             </p:layoutUnit>
-            
-            
+
             <p:layoutUnit position="west" closable="false" collapsible="false" resizable="false" >
             
                 <aside id="asideNavBar">
@@ -83,7 +79,11 @@
                             <p:submenu label="#{nombrePagina}" expanded="true">
                                 <p:menuitem value="Gestion de usuarios" action="gestion_usuarios.xhtml" rendered="${controlAutorizacion.administrador}"/>
                                 <p:menuitem value="Gestion de anuncios" action="gestion_anuncios.xhtml" rendered="${controlAutorizacion.administrador}"/>
+
                                 <p:menuitem value="Configuración de notificaciones" action="configurarNotificaciones.xhtml" rendered="${controlAutorizacion.administrador}"/>
+
+                                <p:menuitem value="Busqueda" action="buscarEvento.xhtml"/>
+
                             </p:submenu>
                         </p:menu>
                     </h:form>
@@ -95,10 +95,7 @@
                 </aside>
             
             </p:layoutUnit>
-            
-            
-            <p:layoutUnit position="center" id="layCenter">
-            
+            <p:layoutUnit position="center">
                 <ui:insert name="cuerpo">
                     Default section
                 </ui:insert>
