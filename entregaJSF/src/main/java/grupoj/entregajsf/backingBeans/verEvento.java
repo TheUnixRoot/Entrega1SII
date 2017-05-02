@@ -6,7 +6,9 @@ package grupoj.entregajsf.backingBeans;
  * and open the template in the editor.
  */
 
+import grupoj.entregajsf.controlSesion.ControlAutorizacion;
 import grupoj.prentrega1.Evento;
+import grupoj.prentrega1.Usuario;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
@@ -28,10 +30,13 @@ public class verEvento {
     PersistenceMock persistencia;
     private Evento evento;
     private long id;
+    private ControlAutorizacion control;
+    private Usuario usu;
     
     
         @PostConstruct
         public void init() {
+        
         Map<String, String> req = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         this.setId(Long.parseLong(req.get("id")));
         Evento ev = new Evento();
@@ -75,6 +80,21 @@ public class verEvento {
 
     public void setId(long id) {
         this.id = id;
+    }
+    
+    public void meInteresa(){
+        Usuario usu = control.getUsuario();
+        Map <String, String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String id = map.get("id");
+        Evento ev = new Evento();
+        ev.setId(Long.parseLong(id));
+        if(usu == null){
+            //return null;
+        }else{
+            ev = persistencia.getListaEventos().get(persistencia.getListaEventos().indexOf(ev));
+            usu.getMeInteresa().add(ev);
+            ev.getInteresados_at().add(usu);
+        }
     }
     
     
