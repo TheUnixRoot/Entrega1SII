@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="Layout.xhtml">
+        <ui:define name="pageName">
+            Gestion de anuncios
+        </ui:define>
+        <ui:define name="navBarName">
+            <ui:param name="nombrePagina" value="Gestion de anuncios" />
+        </ui:define>
+        <ui:define name="cuerpo">
+            <c:if test="${controlAutorizacion.administrador}" >
+                <section id="cuerpo">
+                    <h:form>
+                        <p:dataGrid columns="1" layout="grid" value="#{crud_anunciosBean.anuncios}" var="adv">
+                            <p:panelGrid columns="2" layout="grid">
+                                <p:graphicImage width="100" stream="true" value="#{crud_anunciosBean.generar()}"/>
+                                    <f:param name="id" value="#{adv.id}"/>
+                                <p:outputLabel value="#{adv.empresa}"/>
+                                <p:commandLink value="Publicar anuncio" action="#{crud_anunciosBean.publicar()}"/>
+                                <p:commandLink value="#{adv.fecha_public}" action="#{crud_anunciosBean.viajar()}">
+                                    <f:param name="id" value="#{adv.id}"/>
+                                </p:commandLink>
+                                <p:outputLabel value="#{adv.dias_contratados}"/>
+                                <p:outputLabel value="Lugar"/> <!-- posicion -->
+                            </p:panelGrid>
+                        </p:dataGrid>
+                    </h:form>
+                    <article>
+                        <h:form>
+                            <p:commandButton value="Añadir anuncio" action="new_anuncio.xhtml"/>
+                        </h:form>
+                    </article>
+                </section>
+            </c:if>
+            <c:if test="${!controlAutorizacion.administrador}">
+                <p:outputLabel value="403 Forbidden"/>
+            </c:if>
+        </ui:define>
+    </ui:composition>
+</html>
+

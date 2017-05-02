@@ -5,21 +5,21 @@
  */
 package grupoj.entregajsf.backingBeans;
 
-import grupoj.entregajsf.dropbox.DropboxController;
-import grupoj.entregajsf.dropbox.DropboxControllerException;
 import grupoj.prentrega1.Usuario;
-import java.io.ByteArrayInputStream;
-import java.io.Serializable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
+import grupoj.entregajsf.controlSesion.ControlAutorizacion;
+import grupoj.entregajsf.dropbox.DropboxController;
+import grupoj.entregajsf.dropbox.DropboxControllerException;
+import java.io.ByteArrayInputStream;
+import java.io.Serializable;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
+import org.omnifaces.cdi.ViewScoped;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -27,30 +27,66 @@ import org.primefaces.model.StreamedContent;
  *
  * @author juanp
  */
-@Named(value = "crud_usuariosBean")
-@RequestScoped
-public class Crud_usuariosBean implements Serializable{
-    
+@Named(value = "mod_usuariosBean")
+@ViewScoped
+public class Mod_usuariosBean implements Serializable {
+
     @Inject
-    private PersistenceMock persistencia;
-    private Iterator<Usuario> it;
-    
-    public List<Usuario> getUsuarios() {
-        return persistencia.getListaUsuarios();
+    PersistenceMock persistencia;
+    @Inject
+    ControlAutorizacion controlAutorizacion;
+    Usuario usr;
+    long id;
+    /**
+     * Creates a new instance of Mod_usuariosBean
+     */
+    @PostConstruct
+    public void init() {
+        Map<String, String> req = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        this.setId(Long.parseLong(req.get("id")));
+        Usuario uuu = new Usuario();
+        uuu.setId(id);
+        System.out.println(id);
+        if ( this.persistencia.getListaUsuarios().contains(uuu) ) 
+            this.usr = this.persistencia.getListaUsuarios()
+                    .get(
+                            this.persistencia.getListaUsuarios().indexOf(uuu)
+                    );
+        else
+            this.usr = null;
+        uuu = null;
     }
 
-    public void setUsuarios(List<Usuario> usuarios) {
-        try {
-            this.persistencia.setListaUsuarios(usuarios);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public PersistenceMock getPersistencia() {
+        return persistencia;
     }
-    
-    public String viajar() {
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        
-        return params.get("editar").equals("true") ?("edit_usuario.xhtml?id=" + params.get("id")) : ("read_usuario.xhtml?id=" + params.get("id"));
+
+    public void setPersistencia(PersistenceMock persistencia) {
+        this.persistencia = persistencia;
+    }
+
+    public Usuario getUsr() {
+        return usr;
+    }
+
+    public void setUsr(Usuario usr) {
+        this.usr = usr;
+    }
+
+    public ControlAutorizacion getControlAutorizacion() {
+        return controlAutorizacion;
+    }
+
+    public void setControlAutorizacion(ControlAutorizacion controlAutorizacion) {
+        this.controlAutorizacion = controlAutorizacion;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
     
     public StreamedContent generar() {
