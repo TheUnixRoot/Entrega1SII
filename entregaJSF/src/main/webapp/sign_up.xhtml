@@ -30,9 +30,8 @@
                             </p:layoutUnit>
                             <p:layoutUnit position="center" closable="false" collapsible="false" resizable="false">
                                 <h:form>
-                                    <h:message for="RegisterGroupPanel" style="color:red;" />
                                     <p:panelGrid columns="1">
-                                        
+                                        <p:messages autoUpdate="true" id="mensaje"/>
                                         <p:outputLabel value="Nombre" style="font-size: large" />
                                         <p:inputText value="#{signupBean.usuario.nombre}" style="font-size: large" />
                                         
@@ -45,22 +44,19 @@
                                                      requiredMessage="Se debe introducir un email"> 
                                             <f:validateRegex 
                                                 pattern="([a-zA-Z0-9]|[._-])+@[a-zA-Z0-9]+\.(com|es|org|co\.uk|net)" />
-                                            <p:ajax update="memail" />
+                                            <p:ajax update="mensaje" />
                                         </p:inputText>
-                                        <h:message for="email" id="memail" style="font-size: large;color: red" />
                                         
                                         <p:outputLabel value="Contraseña*: " style="font-size: large" />
                                         <p:password id="password" value="#{signupBean.pass1}" required="true"
                                             requiredMessage="Por favor introduzca una contraseña" style="font-size: large" />
-                                        <h:message for="contrasenia" id="mensaje" style="font-size: large;color: red" />
                                         
                                         <p:outputLabel value="Repita la contraseña*: " style="font-size: large" />
                                         <p:password id="confirmPassword" value="#{signupBean.pass2}" required="true"
-                                                    requiredMessage="Por favor intruzca de nuevo la contraseña" style="font-size: large" >
+                                                    requiredMessage="Por favor introduzca de nuevo la contraseña" style="font-size: large" >
                                             <f:validator validatorId="passValidator" />
-                                            <p:ajax event="keyup" update="mensaje"/>
+                                            <p:ajax update="mensaje"/>
                                         </p:password>
-                                        <h:message for="confirmPassword" style="font-size: large;color: red" />
                                         
                                         <p:outputLabel value="Teléfono" style="font-size: large" />
                                         <p:inputText value="#{signupBean.usuario.telefono}" style="font-size: large" />
