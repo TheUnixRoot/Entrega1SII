@@ -73,7 +73,7 @@ public class Crud_usuariosBean implements Serializable{
             try {
                 con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile("/default.jpg")));
             } catch (DropboxControllerException ex) {
-                Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex.getMessage() + " id usuario recibido " + params.get("id") + " DropboxException");
             }
         } catch (ArrayIndexOutOfBoundsException ie) {
             System.err.println(ie.getMessage() + " id usuario recibido " + params.get("id"));
