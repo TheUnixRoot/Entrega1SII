@@ -19,7 +19,7 @@
                 <section id="cuerpo">
                     <h:form>
                         <p:dataGrid columns="1" layout="grid" value="#{crud_usuariosBean.usuarios}" var="usr">
-                            <p:panelGrid columns="2" layout="grid">
+                            <p:panelGrid columns="2" layout="grid" style="background-color: ${usr.borrado?red:green}}">
                                 <p:graphicImage width="100" stream="true" value="#{crud_usuariosBean.generar()}">
                                     <f:param name="id" value="#{usr.id}"/>
                                 </p:graphicImage>

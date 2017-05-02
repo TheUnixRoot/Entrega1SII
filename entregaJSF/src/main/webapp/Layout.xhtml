@@ -69,7 +69,6 @@
             
             </p:layoutUnit>
             
-            
             <p:layoutUnit position="west" closable="false" collapsible="false" resizable="false" >
             
                 <aside id="asideNavBar">
@@ -79,6 +78,7 @@
                             <p:submenu label="#{nombrePagina}" expanded="true">
                                 <p:menuitem value="Gestion de usuarios" action="gestion_usuarios.xhtml" rendered="${controlAutorizacion.administrador}"/>
                                 <p:menuitem value="Gestion de anuncios" action="gestion_anuncios.xhtml" rendered="${controlAutorizacion.administrador}"/>
+                                <p:menuitem value="Busqueda" action="buscarEvento.xhtml"/>
                             </p:submenu>
                         </p:menu>
                     </h:form>
@@ -107,116 +107,3 @@
     </h:body>
 </html>
 
-=======
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:bnu="http://bootsfaces.net/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <h:head>
-        <title>Agenda Diario SUR</title>
-        <meta charset="utf-8"/>
-        <link href="#{resource['/css/anuncios.css']}" rel="stylesheet" type="text/css"/>
-        
-    </h:head>
-    <h:body>
-        <p:layout fullPage="true">
-            
-            <p:layoutUnit position="north" closable="false" collapsible="false" resizable="false" >
-            
-                <header>
-                    <!-- Esto es la cabecera de la pagina -->
-                    <div name="formularioBusqueda" id="divBusqueda">
-                        <h:form id="formBusqueda">
-                            <h:inputText id="textoABuscar"/>
-                            <p:watermark for="textoABuscar" value="Buscar eventos" id="watermarkForTextoABuscar"/> 
-                            <h:button id="botonBuscar" style="display: none"/>
-                        </h:form>
-                    </div>
-                <div name="imagenCabecera" id="divImagen">
-                    <h:button image="" outcome="index.xhtml"/> 
-                </div>
-                <!-- Boton de inciar sesion/notificacion -->
-                <div id="divInitSesion">
-
-                </div>
-                <bnu:navBar fluid="true" sticky="true" >
-                    <bnu:navbarLinks>
-                        <bnu:navLink value="Index" href="index.xhtml"/>
-                        <bnu:navLink value="Login" href="login.xhtml"/>
-                        <bnu:navLink value="patata" action="#"/>
-                        <bnu:navLink value="patata" action="#"/>
-                    </bnu:navbarLinks>
-                </bnu:navBar>
-                <nav name="enlacesNegro" id="navNegro">
-                    <ul>
-                        <!-- Elementos de la lista negra de arriba -->
-                        <ui:repeat value="#{navBlack.items}" var="it">
-                            <li>
-                                <h:link value="#{it.nombre}" outcome="#{it.enlace}"/>
-                            </li>
-                        </ui:repeat>
-                    </ul>
-                </nav>
-                <nav name="enlacesRojo" id="navRojo">
-                    <ul>
-                        <!-- Elementos de la lista roja de arriba -->
-                        <ui:repeat value="#{navRed.items}" var="it">
-                            <li>
-                                <h:link value="#{it.nombre}" outcome="#{it.enlace}"/>
-                            </li>
-                        </ui:repeat>
-                    </ul>
-                </nav>
-                <div name="anuncioArribaTocho" id="divAnunAT">
-
-                </div>
-            </header>
-            
-            </p:layoutUnit>
-            
-            
-            <p:layoutUnit position="west" closable="false" collapsible="false" resizable="false" >
-            
-                <aside id="asideNavBar">
-                    <ui:insert name="navBarName" />
-                    <h:form>
-                        <p:menu>
-                            <p:submenu label="#{nombrePagina}" expanded="true">
-                                <p:menuitem value="Gestion de usuarios" action="gestion_usuarios.xhtml" rendered="${controlAutorizacion.administrador}"/>
-                                <p:menuitem value="Gestion de anuncios" action="gestion_anuncios.xhtml" rendered="${controlAutorizacion.administrador}"/>
-                                <p:menuitem value="Busqueda avanzada" action="buscarEvento.xhtml" rendered="${controlAutorizacion.administrador}"/>
-                            </p:submenu>
-                        </p:menu>
-                    </h:form>
-                    
-
-                    <div name="anuncioAbajoIzquierda" id="divAnunAI">
-
-                    </div>
-                </aside>
-            
-            </p:layoutUnit>
-            
-            
-            <p:layoutUnit position="center">
-            
-                <ui:insert name="cuerpo">
-                    Default section
-                </ui:insert>
-            
-            </p:layoutUnit>
-            
-            <footer id="footer">
-            <!-- esto es el pie de pagina -->
-        </footer>
-        </p:layout>
-    </h:body>
-</html>
-
->>>>>>> 505a030411e73b1b15840c795f11f81d3c4e7a6d
