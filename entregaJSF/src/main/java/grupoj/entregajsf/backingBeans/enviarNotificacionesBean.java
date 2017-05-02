@@ -245,7 +245,7 @@ public class enviarNotificacionesBean {
         return "enviarNotificacionesRes";
     }
     
-    public String notificacion(){
+    public void seleccionaUsuarios(){
         //Obtenemos los usuarios interesados en el evento y los tags asociados al mismo
         List<Tag> tags = this.selectedEvento.getTagged_by();
         List<Usuario> interesados = this.selectedEvento.getInteresados_at();
@@ -279,20 +279,28 @@ public class enviarNotificacionesBean {
                 selectedUsuarios.add(interesado);
             }
         }
-        
+    }
+    
+    public void notificacion(){
         notificacion = new Notificacion();
         notificacion.setId(Long.MIN_VALUE);
         notificacion.setContenido("Hay un evento proximo que te puede interesar");
         notificacion.setFecha(new Date());
         //falta añadir cosas a la notificacion
-        
+    }
+    
+    public void enviaNotificacion(){
+        System.out.println("exito0");
+        seleccionaUsuarios();
+        notificacion();
+                System.out.println("exito1");
+
         for(Usuario selected : selectedUsuarios){
             selected.getNotificaciones().add(notificacion);
-        }
-        
-        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario/contraseña incorrectos", "Usuario/contraseña incorrectos"));
-        return null;
+                    System.out.println("exito2");
 
+        }
+        System.out.println("exito3");
     }
     
     public String volver(){

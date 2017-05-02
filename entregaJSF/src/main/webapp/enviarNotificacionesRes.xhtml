@@ -26,7 +26,8 @@
                             <!--<p:commandButton icon="#{evento.descripcion}" action="null"/>-->
                                 <p:outputLabel value="#{evento.nombre}"/>
                                 <p:outputPanel>#{evento.descripcion}</p:outputPanel>
-                                <p:commandButton value="Notificacion" action="#{enviarNotificacionesBean.notificacion()}" oncomplete="PF('dlg').show()"/>
+                                <p:commandButton value="Enviar notificacion" action="#{enviarNotificacionesBean.enviaNotificacion()}" oncomplete="PF('dlg').show()"/>
+                                <p:commandButton value="Editar notificacion" action="#{enviarNotificacionesBean.enviaNotificacion()}" oncomplete="PF('dlg').show()"/>
 
                                 <p:dialog header="Datos enviados correctamente" modal="true" showEffect="clip" widgetVar="dlg" resizable="false">
                                     <p:outputPanel id="display">
