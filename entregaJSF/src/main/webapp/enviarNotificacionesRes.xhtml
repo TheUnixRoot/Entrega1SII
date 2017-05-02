@@ -13,42 +13,35 @@
         </ui:define>
         <ui:define name="cuerpo">
         <section id="cuerpo">
-        <h:form>    
-      
-            <!--podria meter los resultados en un checkbox y que el usuario elija los que quiere-->
-                
+        <h:form>      
             <c:choose>
                 <c:when test="#{!enviarNotificacionesBean.vacio}">
-
-                    <ui:repeat value="#{enviarNotificacionesBean.listaCoincidencias}" var="evento">
-                        <article id="#{evento.nombre}">
-                            <p:panelGrid columns="2" layout="grid">
-                            <!--<p:commandButton icon="#{evento.descripcion}" action="null"/>-->
-                                <p:outputLabel value="#{evento.nombre}"/>
-                                <p:outputPanel>#{evento.descripcion}</p:outputPanel>
-                                <p:commandButton value="Enviar notificacion" action="#{enviarNotificacionesBean.enviaNotificacion()}" oncomplete="PF('dlg').show()"/>
-                                <p:commandButton value="Editar notificacion" action="#{enviarNotificacionesBean.enviaNotificacion()}" oncomplete="PF('dlg').show()"/>
-
-                                <p:dialog header="Datos enviados correctamente" modal="true" showEffect="clip" widgetVar="dlg" resizable="false">
-                                    <p:outputPanel id="display">
-                                        <p:outputLabel value="Notificacion enviada correctamente"/>
-                                        <div align="center">
-                                            <p:commandButton value="OK" update="display" icon="ui-icon-check" action="#{formularioGustosBean.goIndex()}" />
-                                        </div>
-                                    </p:outputPanel>
-                                </p:dialog>
-
-                            </p:panelGrid>
-                        </article>
-                    </ui:repeat>
+                    <p:dataGrid var="evento" value="#{enviarNotificacionesBean.listaCoincidencias}" layout="grid">
+                    <f:facet name="header">
+                        Resultados
+                    </f:facet>
+                    <p:panel header="#{evento.nombre}" style="text-align:center">
+                        <h:panelGrid columns="1" style="width:100%">
+                            <h:outputText value="#{evento.descripcion}" />
+                            <p:commandButton value="Enviar notificacion" action="#{enviarNotificacionesBean.enviaNotificacion(0)}">
+                                 <f:param id="evento" value="#{evento.getId()}"/>
+                            </p:commandButton>    
+                            <p:commandButton  value="Editar notificacion" action="#{enviarNotificacionesBean.editarNotificacion()}">
+                                 <f:param id="evento2" value="#{evento.getId()}"/>
+                            </p:commandButton>
+                           
+                        </h:panelGrid>
+                    </p:panel>
+                    </p:dataGrid>
                 </c:when>
                 <c:otherwise>
                     <p:outputLabel value="No hay eventos"/>
                 </c:otherwise>
                 </c:choose>
-                
+            
                 <br></br>
                 <p:commandButton value="Vover a buscar"  icon="ui-icon-check" action="#{enviarNotificacionesBean.volver()}"/>
+                
         </h:form>
         </section>
         </ui:define>

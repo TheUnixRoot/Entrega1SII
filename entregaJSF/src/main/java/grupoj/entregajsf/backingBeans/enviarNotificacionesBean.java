@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -50,6 +51,8 @@ public class enviarNotificacionesBean {
     private Notificacion notificacion;
     private List<Evento> listaEventos;
     
+    private String notificacionPersonalizada;
+    
     private boolean vacio;
     
        /**
@@ -81,6 +84,16 @@ public class enviarNotificacionesBean {
       
     }
 
+    public String getNotificacionPersonalizada() {
+        return notificacionPersonalizada;
+    }
+
+    public void setNotificacionPersonalizada(String notificacionPersonalizada) {
+        this.notificacionPersonalizada = notificacionPersonalizada;
+    }
+
+    
+    
     public List<String> getFechas() {
         return fechas;
     }
@@ -242,10 +255,13 @@ public class enviarNotificacionesBean {
                     
             }
         }
+         //System.out.println(listaCoincidencias.get(0).getTagged_by().get(0));
         return "enviarNotificacionesRes";
     }
     
     public void seleccionaUsuarios(){
+        
+              
         //Obtenemos los usuarios interesados en el evento y los tags asociados al mismo
         List<Tag> tags = this.selectedEvento.getTagged_by();
         List<Usuario> interesados = this.selectedEvento.getInteresados_at();
@@ -281,18 +297,39 @@ public class enviarNotificacionesBean {
         }
     }
     
-    public void notificacion(){
+    public void notificacion(int n){
         notificacion = new Notificacion();
         notificacion.setId(Long.MIN_VALUE);
-        notificacion.setContenido("Hay un evento proximo que te puede interesar");
+        if(n==0){
+            notificacion.setContenido("Hay un evento proximo que te puede interesar");
+        }else{
+            notificacion.setContenido(notificacionPersonalizada);
+        }
+        
         notificacion.setFecha(new Date());
         //falta añadir cosas a la notificacion
     }
     
-    public void enviaNotificacion(){
+    public void enviaNotificacion(int n){
+        
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String s =  params.get("evento");
+        System.out.println(s);
+        Long l = Long.parseLong(s);
+        for(Evento e : listaCoincidencias){
+            if(e.getId().equals(l)){
+                this.selectedEvento=e;
+            }
+        }
+        
         System.out.println("exito0");
         seleccionaUsuarios();
-        notificacion();
+        if(n==0){
+            notificacion(0);
+        }else{
+            notificacion(1);
+        }
+        
                 System.out.println("exito1");
 
         for(Usuario selected : selectedUsuarios){
@@ -301,6 +338,20 @@ public class enviarNotificacionesBean {
 
         }
         System.out.println("exito3");
+    }
+    
+    public String editarNotificacion(){
+         System.out.println("exitoasdasdsa2");
+         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+         String s =  params.get("evento2");
+         System.out.println(s);
+         Long l = Long.parseLong(s);
+         for(Evento e : listaCoincidencias){
+             if(e.getId().equals(l)){
+                 this.selectedEvento=e;
+             }
+         }
+        return "editarNotificacion.xhtml?evento="+s;
     }
     
     public String volver(){

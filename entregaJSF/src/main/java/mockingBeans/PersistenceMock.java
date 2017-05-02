@@ -49,7 +49,7 @@ public class PersistenceMock implements Serializable {
 //<<<<<<< HEAD
 
     //private List<Mensaje> listaMensajes;
-    //private Formulario formulario;
+    private Formulario formulario;
 
     
 
@@ -90,12 +90,17 @@ public class PersistenceMock implements Serializable {
         listaTags = new ArrayList<>();
         
         Tag tag1 = new Tag();
+        tag1.setId(1L);
         tag1.setTexto("Música");
         listaTags.add(tag1);
         
         Tag tag2 = new Tag();
+        tag2.setId(2L);
         tag2.setTexto("Teatro");
         listaTags.add(tag2);
+        
+        formulario = new Formulario();
+        formulario.setForm_tags(listaTags);
         
 //>>>>>>> master
         Usuario usr = new Usuario();
@@ -106,6 +111,7 @@ public class PersistenceMock implements Serializable {
         usr.setBorrado(false);
         usr.setNombre("normalito");
         usr.setMultimedia("none");
+        usr.setForm(formulario);
 
         //usr.setForm(this.formulario);
         //usr.setMsg_send(listaMensajes);
@@ -225,7 +231,7 @@ public class PersistenceMock implements Serializable {
         this.listaTags = listaTags;
     }
     
-    /*public Formulario getFormulario() {
+    public Formulario getFormulario() {
         return formulario;
     }
 
@@ -233,7 +239,7 @@ public class PersistenceMock implements Serializable {
         this.formulario = formulario;
     }
     
-    
+    /*
     public List<Mensaje> getListaMensajes() {
         return listaMensajes;
     }
