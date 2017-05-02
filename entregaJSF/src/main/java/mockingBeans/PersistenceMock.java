@@ -5,13 +5,6 @@
  */
 package mockingBeans;
 
-import grupoj.prentrega1.Administrador;
-import grupoj.prentrega1.Anuncio;
-import grupoj.prentrega1.Evento;
-import grupoj.prentrega1.Geolocalizacion;
-import grupoj.prentrega1.Lugar;
-import grupoj.prentrega1.Periodista;
-import grupoj.prentrega1.TipoNotificacion;
 import grupoj.prentrega1.*;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -30,10 +23,34 @@ import javax.enterprise.context.ApplicationScoped;
 public class PersistenceMock implements Serializable {
     
     private List<Usuario> listaUsuarios;
+
+
+
+    //private List<Mensaje> listaMensajes;
+    private Formulario formulario;
+
+    
+
+
+    //private List<Mensaje> listaMensajes;
+    
+    /*public List<Mensaje> getListaMensajes() {
+        return listaMensajes;
+    }
+
+    public void setListaMensajes(List<Mensaje> listaMensajes) {
+        this.listaMensajes = listaMensajes;
+    }
+    public void addMessage(Mensaje msg){
+        listaMensajes.add(msg);
+    }*/
+
+
     private List<Evento> listaEventos;
     private List<Lugar> listaLugares;
     private List<Tag> listaTags;
     private List<Anuncio> listaAnuncios;
+
     
     private Semaphore mutexUsuarios;
     private Semaphore mutexEventos;
@@ -47,19 +64,25 @@ public class PersistenceMock implements Serializable {
      */
     public PersistenceMock() {
         listaUsuarios = new ArrayList<>();
+
         listaEventos = new ArrayList<>();
         listaAnuncios = new ArrayList<>();
         listaLugares = new ArrayList<>();
         listaTags = new ArrayList<>();
         
         Tag tag1 = new Tag();
+        tag1.setId(1L);
         tag1.setTexto("Música");
         listaTags.add(tag1);
         
         Tag tag2 = new Tag();
+        tag2.setId(2L);
         tag2.setTexto("Teatro");
         listaTags.add(tag2);
         
+        formulario = new Formulario();
+        formulario.setForm_tags(listaTags);
+
         Usuario usr = new Usuario();
         usr.setId(1L);
         usr.setEmail("usuario@normal.com");
@@ -68,6 +91,8 @@ public class PersistenceMock implements Serializable {
         usr.setBorrado(false);
         usr.setNombre("normalito");
         usr.setMultimedia("/usuario.jpeg");
+        usr.setForm(formulario);
+
         listaUsuarios.add(usr);
        
         Periodista per = new Periodista();
@@ -113,9 +138,11 @@ public class PersistenceMock implements Serializable {
         e.setDonde_comprar("www.malaga.com");
         e.setTagged_by(listaTags);
         e.setOcurre_in(lug);
+        e.setId(25L);
+        e.setFecha(new Date());
         listaEventos.add(e);
         
-        Geolocalizacion geo1 = new Geolocalizacion();
+       /* Geolocalizacion geo1 = new Geolocalizacion();
         Lugar lug1 = new Lugar();
         
         geo1.setDireccion("Bulevar Luis Pasteur, 35, campus de Teatinos, 29071, Malaga");
@@ -131,7 +158,7 @@ public class PersistenceMock implements Serializable {
         ev.setValidado(true);
         ev.setFecha(new Date());
         ev.setOcurre_in(lug);
-        listaEventos.add(ev);
+        listaEventos.add(ev);*/
         
         Anuncio adv = new Anuncio();
         adv.setId(10L);
@@ -196,3 +223,4 @@ public class PersistenceMock implements Serializable {
     }
     
 }
+

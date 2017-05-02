@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="Layout.xhtml">
+        <ui:define name="navBarName">
+            <ui:param name="nombrePagina" value="Enviar notificaciones" />
+        </ui:define>
+        <ui:define name="cuerpo">
+        <section id="cuerpo">
+        <h:form>      
+            <c:choose>
+                <c:when test="#{!enviarNotificacionesBean.vacio}">
+                    <p:dataGrid var="evento" value="#{enviarNotificacionesBean.listaCoincidencias}" layout="grid">
+                    <f:facet name="header">
+                        Resultados
+                    </f:facet>
+                    <p:panel header="#{evento.nombre}" style="text-align:center">
+                        <h:panelGrid columns="1" style="width:100%">
+                            <h:outputText value="#{evento.descripcion}" />
+                            <p:commandButton value="Enviar notificacion" action="#{enviarNotificacionesBean.enviaNotificacion(0)}">
+                                 <f:param id="evento" value="#{evento.getId()}"/>
+                            </p:commandButton>    
+                            <p:commandButton  value="Editar notificacion" action="#{enviarNotificacionesBean.editarNotificacion()}">
+                                 <f:param id="evento2" value="#{evento.getId()}"/>
+                            </p:commandButton>
+                           
+                        </h:panelGrid>
+                    </p:panel>
+                    </p:dataGrid>
+                </c:when>
+                <c:otherwise>
+                    <p:outputLabel value="No hay eventos"/>
+                </c:otherwise>
+                </c:choose>
+            
+                <br></br>
+                <p:commandButton value="Vover a buscar"  icon="ui-icon-check" action="#{enviarNotificacionesBean.volver()}"/>
+                
+        </h:form>
+        </section>
+        </ui:define>
+    </ui:composition>
+</html>

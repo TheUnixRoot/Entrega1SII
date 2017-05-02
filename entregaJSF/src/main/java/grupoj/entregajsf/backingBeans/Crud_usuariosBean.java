@@ -68,6 +68,6 @@ public class Crud_usuariosBean implements Serializable{
             System.err.println("Error al convertir la id del parametro " + usu.getId() + " excep: " + ne.getMessage());
         }
         return con;
-    }
-    
+    }  
 }
+
