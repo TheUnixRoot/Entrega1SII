@@ -5,6 +5,7 @@
  */
 package grupoj.entregajsf.backingBeans;
 
+import grupoj.entregajsf.controlSesion.ControlAutorizacion;
 import grupoj.prentrega1.TipoNotificacion;
 import grupoj.prentrega1.Usuario;
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ import mockingBeans.PersistenceMock;
 public class configurarNotificaciones {
     @Inject
     private PersistenceMock persistencia;
+    @Inject
+    private ControlAutorizacion ctrAut;
     private boolean notificacionesActivas;
     private Usuario usuLogueado;    // Recoger el usuario que se está logueado
     private TipoNotificacion tipoNotUsuario;
@@ -76,13 +79,10 @@ public class configurarNotificaciones {
     
     @PostConstruct
     public void init() {
-        persistencia = new PersistenceMock();
-        usuLogueado = persistencia.getListaUsuarios().get(0); // Usuario que se ha logueado, ahora esta el de persistencia.
+        usuLogueado = ctrAut.getUsuario(); // Usuario que se ha logueado, ahora esta el de persistencia.
         tipoNotUsuario = usuLogueado.getTipoNotificacionesRecibir();
-        if (null == tipoNotUsuario) {
-            System.out.println("Mierdaseca");
-        }
-        tipoNotUsuario = tipoNotUsuAnterior; // Para compararlo si hace modificaciones.
+        tipoNotUsuAnterior = tipoNotUsuario; // Para compararlo si hace modificaciones.
+        System.out.println(tipoNotUsuario.toString());
         ListaNotif = new ArrayList<>();
         notificacionesActivas = true;
         rellenaLista();

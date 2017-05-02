@@ -12,10 +12,16 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="Layout.xhtml">
+        <ui:define name="Configurar notificaciones">
+            Agenda Diario SUR
+        </ui:define>
+        <ui:define name="navBarName">
+            <ui:param name="Configurar notificaciones" value="Agenda Diario SUR" />
+        </ui:define>
         <ui:define name="cuerpo">
         <section id="cuerpo">
             <article>
-                <h:form>
+                <h:form id="confNotificaciones">
                     
                     <p:panelGrid columns="2" layout="grid">
                         <p:outputLabel value="Activar notifiaciones : " />
@@ -30,7 +36,7 @@ and open the template in the editor.
                             <f:selectItems value="#{configurarNotificaciones.listaNotif}" var="Cadena" itemLabel="#{Cadena}"/>
                         </p:selectOneMenu>
  
-                        <p:commandButton value="Guardar" action="#{configurarNotificaciones.tratarInformacion()}"/>
+                        <p:commandButton value="Guardar configuración" update="confNotificaciones" action="#{configurarNotificaciones.tratarInformacion()}"/>
                         
                     </p:panelGrid>
                     
