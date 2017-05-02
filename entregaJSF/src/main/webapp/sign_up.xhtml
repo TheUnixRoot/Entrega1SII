@@ -32,24 +32,39 @@
                                 <h:form>
                                     <h:message for="RegisterGroupPanel" style="color:red;" />
                                     <p:panelGrid columns="1">
-                                        <f:event listener="#{signupBean.validatePassword}" type="postValidate" />
+                                        
                                         <p:outputLabel value="Nombre" style="font-size: large" />
                                         <p:inputText value="#{signupBean.usuario.nombre}" style="font-size: large" />
+                                        
                                         <p:outputLabel value="Apellidos" style="font-size: large" />
                                         <p:inputText value="#{signupBean.usuario.apellidos}" style="font-size: large" />
-                                        <p:outputLabel value="Email" style="font-size: large" />
-                                        <p:inputText id="email" value="#{signupBean.email}" style="font-size: large"/>
-                                        <h:message for="email" style="color: red;" />
-                                        <p:outputLabel value="Constraseña" style="font-size: large" />
+                                        
+                                        <p:outputLabel value="Email*: " style="font-size: large" />
+                                        <p:inputText id="email" value="#{signupBean.usuario.email}" style="font-size: large"
+                                                     required="true" validatorMessage="Email no reconocido"
+                                                     requiredMessage="Se debe introducir un email"> 
+                                            <f:validateRegex 
+                                                pattern="([a-zA-Z0-9]|[._-])+@[a-zA-Z0-9]+\.(com|es|org|co\.uk|net)" />
+                                            <p:ajax update="memail" />
+                                        </p:inputText>
+                                        <h:message for="email" id="memail" style="font-size: large;color: red" />
+                                        
+                                        <p:outputLabel value="Contraseña*: " style="font-size: large" />
                                         <p:password id="password" value="#{signupBean.pass1}" required="true"
                                             requiredMessage="Por favor introduzca una contraseña" style="font-size: large" />
-                                        <h:message for="password" style="color: red;" />
-                                        <p:outputLabel value="Repita la contraseña" style="font-size: large" />
+                                        <h:message for="contrasenia" id="mensaje" style="font-size: large;color: red" />
+                                        
+                                        <p:outputLabel value="Repita la contraseña*: " style="font-size: large" />
                                         <p:password id="confirmPassword" value="#{signupBean.pass2}" required="true"
-                                            requiredMessage="Por favor intruzca de nuevo la contraseña" style="font-size: large" />
-                                        <h:message for="confirmPassword" style="color: red;" />
+                                                    requiredMessage="Por favor intruzca de nuevo la contraseña" style="font-size: large" >
+                                            <f:validator validatorId="passValidator" />
+                                            <p:ajax event="keyup" update="mensaje"/>
+                                        </p:password>
+                                        <h:message for="confirmPassword" style="font-size: large;color: red" />
+                                        
                                         <p:outputLabel value="Teléfono" style="font-size: large" />
                                         <p:inputText value="#{signupBean.usuario.telefono}" style="font-size: large" />
+                                        
                                         <p:outputLabel value="Fecha de nacimiento" style="font-size: large" />
                                         <p:inputText value="#{signupBean.usuario.fechaNacimiento}" style="font-size: large" />
                                     </p:panelGrid>

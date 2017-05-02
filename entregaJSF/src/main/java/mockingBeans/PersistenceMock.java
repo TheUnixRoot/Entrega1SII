@@ -19,15 +19,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Semaphore;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
+import javax.enterprise.context.ApplicationScoped;
 
 /**
  *
  * @author juanp
  */
 @Named(value = "persistenceMock")
-@SessionScoped
+@ApplicationScoped
 public class PersistenceMock implements Serializable {
     
     private List<Usuario> listaUsuarios;

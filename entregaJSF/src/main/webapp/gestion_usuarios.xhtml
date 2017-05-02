@@ -21,7 +21,7 @@
                     <h:form>
                         <p:dataGrid columns="1" layout="grid" value="#{crud_usuariosBean.usuarios}" var="usr">
                             <p:panelGrid columns="2" layout="grid">
-                                <p:graphicImage width="100" stream="true" value="#{crud_usuariosBean.generar()}">
+                                <p:graphicImage width="100" stream="true" value="#{crud_usuariosBean.generar(usr)}">
                                     <f:param name="id" value="#{usr.id}"/>
                                 </p:graphicImage>
                                 <p:commandLink value="#{usr.email}" action="#{crud_usuariosBean.viajar()}">
