@@ -69,8 +69,7 @@
             </header>
             
             </p:layoutUnit>
-            
-            
+
             <p:layoutUnit position="west" closable="false" collapsible="false" resizable="false" >
             
                 <aside id="asideNavBar">
@@ -80,6 +79,7 @@
                             <p:submenu label="#{nombrePagina}" expanded="true">
                                 <p:menuitem value="Gestion de usuarios" action="gestion_usuarios.xhtml" rendered="${controlAutorizacion.administrador}"/>
                                 <p:menuitem value="Gestion de anuncios" action="gestion_anuncios.xhtml" rendered="${controlAutorizacion.administrador}"/>
+                                <p:menuitem value="Busqueda" action="buscarEvento.xhtml"/>
                             </p:submenu>
                         </p:menu>
                     </h:form>
@@ -91,10 +91,7 @@
                 </aside>
             
             </p:layoutUnit>
-            
-            
-            <p:layoutUnit position="center" id="layCenter">
-            
+            <p:layoutUnit position="center">
                 <ui:insert name="cuerpo">
                     Default section
                 </ui:insert>
