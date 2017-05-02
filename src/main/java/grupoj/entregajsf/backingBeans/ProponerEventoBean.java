@@ -16,6 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import mockingBeans.PersistenceMock;
 
 /**
@@ -44,19 +47,28 @@ public class ProponerEventoBean {
     private boolean borrado;
     private String ocurre_in;
     private Usuario subido_by;
-    
+    private UIComponent enviar;
+    private boolean mensaje;
     
     public ProponerEventoBean() {
         persistencia = new PersistenceMock();
         lugares = persistencia.getListaLugares();
         eventos = persistencia.getListaEventos();
+       
     }
     
-    public void insertarEvento(){
+    public String insertarEvento(){
       if(existeEvento(nombre)){
-      System.out.println("Ya existe: "+ nombre);
+          
+      
+      FacesMessage fm = new FacesMessage("La cuenta no existe");
+      FacesContext.getCurrentInstance().addMessage("proponerEvento:nombre", fm);
+      System.out.println("Ya existe: "+ nombre + fm);
+      return null;
       }
       else{
+      System.out.println("no existe: "+ nombre);
+      
       Evento e=new Evento();
       fecha.setHours(hora.getHours());
       fecha.setMinutes(hora.getMinutes());
@@ -71,15 +83,15 @@ public class ProponerEventoBean {
       //e.setValidado(validado);
       eventos.add(e);
       persistencia.setListaEventos(eventos);
-      
+      return "index.xhtml";
       }
-    System.out.println("nombre: "+ nombre);
+    /*System.out.println("nombre: "+ nombre);
     System.out.println("precio: "+ precio);
     System.out.println("donde comprar: "+ donde_comprar);
-    System.out.println("fecha "+ fecha);
-    System.out.println("Lugar: "+ hora);
+    System.out.println("fecha: "+ fecha);
+    System.out.println("hora: "+ hora);
     System.out.println("Lugar: "+ ocurre_in);
-    System.out.println("aqui tmb"+ validado);
+    System.out.println("Descripcion: "+ descripcion);*/
      
     }
 
@@ -170,6 +182,31 @@ public class ProponerEventoBean {
     public void setHora(Date hora) {
         this.hora = hora;
     }
+
+    public List<Evento> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(List<Evento> eventos) {
+        this.eventos = eventos;
+    }
+
+    public PersistenceMock getPersistencia() {
+        return persistencia;
+    }
+
+    public void setPersistencia(PersistenceMock persistencia) {
+        this.persistencia = persistencia;
+    }
+
+    public UIComponent getEnviar() {
+        return enviar;
+    }
+
+    public void setEnviar(UIComponent enviar) {
+        this.enviar = enviar;
+    }
+
     
     
 
@@ -194,5 +231,16 @@ public class ProponerEventoBean {
      }
      return lg;
     }
+
+    public String mensaje() {
+        if(existeEvento(nombre)){
+            return "Ya existe evento";
+        }else{
+        return "No existe evento";
+        }
+    }
+
+    
+    
     
 }

@@ -16,30 +16,48 @@
                 <!-- falta validar, quien sube evento-->
                 <h:form id="proponerEvento">
                     
-                    <p:panelGrid columns="2" layout="grid">
-                        <p:outputLabel value="Nombre:"/>
-                        <p:inputText value="#{proponerEventoBean.nombre}"/>
-                        <p:outputLabel value="Precio:"/>
-                        <p:inputNumber value="#{proponerEventoBean.precio}"/>
-                        <p:outputLabel value="Donde comprar entradas:"/>
-                        <p:inputText value="#{proponerEventoBean.donde_comprar}"/>
-                        <p:outputLabel value="Lugar:"/>
+                    <p:panelGrid  columns="2" layout="grid">
                         
-                        <p:selectOneMenu value="#{proponerEventoBean.ocurre_in}" >
+                        <p:outputLabel id="nombre" value="Nombre:"/> 
+                        <p:inputText value="#{proponerEventoBean.nombre}"/>
+                        <h:message for="nombre" id="mensajenombre"/>
+                        
+                        <p:outputLabel value="Precio:"/>
+                        <p:inputNumber id="precio" value="#{proponerEventoBean.precio}" />
+                        <h:message for="precio" id="mensajeprecio"/>
+                        
+                        <p:outputLabel value="Donde comprar entradas:" />
+                        <p:inputText id="url" value="#{proponerEventoBean.donde_comprar}" validatorMessage="No es una url valida" >
+                            <f:validateRegex pattern="(((https)|(http))://)?(www\.)([a-zA-Z0-9])\."></f:validateRegex>
+                        </p:inputText>
+                        <h:message for="url" id="mensajeurl"/>
+                        
+                        <p:outputLabel value="Lugar:"/>
+                        <p:selectOneMenu id="lugar" value="#{proponerEventoBean.ocurre_in}" >
                             <f:selectItems  value="#{proponerEventoBean.lugares}"  var="lgr" itemLabel="#{lgr.nombre}" itemValue="#{lgr.nombre}" />
                         </p:selectOneMenu>
+                       <h:message for="lugar" id="mensajelugar"/>
                        
                         <p:outputLabel value="Descripcion:"/>
-                        <p:inputTextarea value="#{proponerEventoBean.descripcion}"/>
+                        <p:inputTextarea id="descripcion" value="#{proponerEventoBean.descripcion}"/>
+                        <h:message for="descripcion" id="mensajedescripcion" />
+                        
                         <p:outputLabel value="fecha:"/>
-                        <p:calendar  mode="inline" id="calendario" value="#{proponerEventoBean.fecha}"/>
-                        <p:outputLabel for="time" value="Hora:" />
-                        <p:calendar id="time" value="#{proponerEventoBean.hora}" pattern="HH:mm" timeOnly="true"  />
+                        <p:calendar  mode="inline" id="fecha" value="#{proponerEventoBean.fecha}"/>
+                        <h:message for="fecha" id="mensajefecha" />
                         
+                        <p:outputLabel  value="Hora:" />
+                        <p:calendar id="hora" value="#{proponerEventoBean.hora}" pattern="HH:mm" timeOnly="true"  />
+                        <h:message for="hora" id="mensajehora"   />
                         
-                        <p:commandButton value="Enviar" action="#{proponerEventoBean.insertarEvento()}"/>
+                        <p:commandButton id="patatota" update="mensa"  value="Enviar" action="#{proponerEventoBean.insertarEvento()}"/>
+                        
                     </p:panelGrid>
                     </h:form>
+                    
+                    
+               <!--<p:message id="pa" for="patatota" style="color: red"  />                         <p:dialog id="msg" header="error" modal="true" showEffect="clip" widgetVar="dlg" resizable="false" ><p:outputLabel    value="#{proponerEventoBean.mensaje()}"  /></p:dialog>
+ -->
             </article>
         
         </section>
