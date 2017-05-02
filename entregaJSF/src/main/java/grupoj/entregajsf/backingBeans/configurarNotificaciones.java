@@ -148,6 +148,6 @@ public class configurarNotificaciones {
             }
         }
         
-        return "configurarNotificaciones.xhtml";
+        return null;
     }
 }
