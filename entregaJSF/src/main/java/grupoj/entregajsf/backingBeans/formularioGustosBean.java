@@ -10,8 +10,10 @@ import grupoj.prentrega1.Tag;
 import grupoj.prentrega1.Usuario;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import mockingBeans.PersistenceMock;
 
 
@@ -33,7 +35,7 @@ public class formularioGustosBean {
     public formularioGustosBean() {
         
         this.persistencia = new PersistenceMock();
-        this.user = persistencia.getListaUsuarios().get(0);//usuario de prueba
+        //this.user = persistencia.getListaUsuarios().get(0);//usuario de prueba
     }
  
     @PostConstruct
@@ -60,6 +62,21 @@ public class formularioGustosBean {
     }
     
     public void saveGustos(){       
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        
+        //this.setId(Long.parseLong(params.get("id")));
+        Usuario uuu = new Usuario();
+        uuu.setId(Long.parseLong(params.get("id")));
+        System.out.println(Long.parseLong(params.get("id")));
+        
+         if ( this.persistencia.getListaUsuarios().contains(uuu) ) {
+             this.user = this.persistencia.getListaUsuarios().get(this.persistencia.getListaUsuarios().indexOf(uuu));
+         }else{
+              this.user = null;
+         }
+           
+        uuu = null;
+        
         List<Tag> l = new ArrayList<>();
         this.formulario = new Formulario();
         this.formulario.setId(Long.MIN_VALUE);
