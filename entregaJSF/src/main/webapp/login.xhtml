@@ -20,13 +20,14 @@
                     <section id="cuerpo">
                         <h:form id="login">
                             <p:outputLabel value="Login" style="font-size: large"/>
+                            <p:messages id="mensaje" style="color: red" autoUpdate="true" />
                             <p:panelGrid columns="2" layout="grid">
                                 <p:outputLabel value="Email: " />
                                 <p:inputText value="#{login.email}"/>
                                 <p:outputLabel value="Contraseña: " />
                                 <p:password id="contrasenia" value="#{login.contrasenia}" />
                             </p:panelGrid>    
-                            <p:commandButton value="Aceptar" action="#{login.autenticar()}"/>   
+                            <p:commandButton value="Aceptar" action="#{login.autenticar()}" update="login"/>   
                             <!-- ¿Boton cancelar? -->
                         </h:form>
                     </section>
@@ -34,7 +35,7 @@
                 <c:otherwise>
                     <p:outputLabel value="Sesion ya iniciada" />
                     <h:form>
-                        <p:commandButton value="Logout" action="#{controlAutorizacion.logout()}" />
+                        <p:commandButton value="Logout" action="#{controlAutorizacion.logout()}"/>
                     </h:form>
                 </c:otherwise>
             </c:choose>

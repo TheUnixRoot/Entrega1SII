@@ -14,8 +14,8 @@
         <link href="#{resource['/css/anuncios.css']}" rel="stylesheet" type="text/css"/>
         
     </h:head>
-    <h:body>
-        <p:layout fullPage="true">
+    <h:body id="body">
+        <p:layout fullPage="true" id="layFull">
             
             <p:layoutUnit position="north" closable="false" collapsible="false" resizable="false" >
             
@@ -36,7 +36,7 @@
                     <bnu:navbarLinks>
                         <bnu:navLink value="Index" href="index.xhtml"/>
                         <bnu:navLink value="Login" href="login.xhtml"/>
-                        <bnu:navLink value="patata" action="#"/>
+                        <bnu:navLink value="SignUp" action="sign_up.xhtml"/>
                         <bnu:navLink value="patata" action="#"/>
                     </bnu:navbarLinks>
                 </bnu:navBar>
@@ -90,7 +90,7 @@
             </p:layoutUnit>
             
             
-            <p:layoutUnit position="center">
+            <p:layoutUnit position="center" id="layCenter">
             
                 <ui:insert name="cuerpo">
                     Default section
