@@ -53,32 +53,19 @@ public class Crud_usuariosBean implements Serializable{
         return params.get("editar").equals("true") ?("edit_usuario.xhtml?id=" + params.get("id")) : ("read_usuario.xhtml?id=" + params.get("id"));
     }
     
-    public StreamedContent generar() {
+    public StreamedContent generar(Usuario usu) {
         StreamedContent con = null;
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String mul = usu.getMultimedia();
+        mul = mul == null? "/default.jpg" : mul;
+        System.out.println(mul);
         try {
-            Usuario uu = new Usuario();
-            uu.setId(Long.parseLong(params.get("id")));
-            String mul = persistencia
-                    .getListaUsuarios()
-                    .get(persistencia
-                            .getListaUsuarios()
-                            .indexOf(uu)
-                    )
-                    .getMultimedia();
-            if (mul == null) mul = "/default.jpg";
-            con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile(mul))); 
-            
+            con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile(usu.getMultimedia()))); 
         } catch (DropboxControllerException dbex) {
-            try {
-                con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile("/default.jpg")));
-            } catch (DropboxControllerException ex) {
-                Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            System.err.println(dbex.getMessage() + " id usuario recibido " + usu.getId() + " DropboxException");
         } catch (ArrayIndexOutOfBoundsException ie) {
-            System.err.println(ie.getMessage() + " id usuario recibido " + params.get("id"));
+            System.err.println(ie.getMessage() + " id usuario recibido " + usu.getId());
         } catch (NumberFormatException ne) {
-            System.err.println("Error al convertir la id del parametro " + params.get("id") + " excep: " + ne.getMessage());
+            System.err.println("Error al convertir la id del parametro " + usu.getId() + " excep: " + ne.getMessage());
         }
         return con;
     }
