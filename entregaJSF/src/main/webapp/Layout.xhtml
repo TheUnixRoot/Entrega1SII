@@ -1,3 +1,4 @@
+
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -51,6 +52,7 @@
                                 <p:menuitem value="Busqueda" action="buscarEvento.xhtml"/>
                                 <p:menuitem value="Contactar con administrador" action="contactoAdmin.xhtml"/>
                                 <p:menuitem value="Enviar notificaciones" action="enviarNotificaciones.xhtml" rendered="${controlAutorizacion.periodista}"/>
+                                <p:menuitem value="Gestion de lugares" action="gestion_lugar.xhtml" rendered="${controlAutorizacion.periodista}"/>
                             </p:submenu>
                         </p:menu>
                     </h:form>
