@@ -17,11 +17,43 @@
         </ui:define>
         <ui:define name="cuerpo">
             <section id="cuerpo">
-                <ui:repeat value="" var="evento">
                     <article>
+                        <h:form>
+                            <p:commandButton  value="Proponer Evento" action="crearEvento.xhtml"/>
+                        </h:form>
                     </article>
-                </ui:repeat>
-            </section>
+                    <h:form>
+                        <p:dataGrid columns="1" layout="grid" value="#{verEventoBean.listaEventos}" var="ev">
+                            
+                            
+                            <p:panelGrid columns="2" layout="grid">
+                                <p:outputLabel value="Nombre:" style="font-size: large" />
+                                <p:outputLabel value="#{ev.nombre}" style="font-size: large" />
+                                <p:outputLabel value="Fecha inicio:" style="font-size: large" />
+                                <p:outputLabel value="#{ev.fecha_inicio}" style="font-size: large" />
+                                <p:outputLabel value="Fecha fin:" style="font-size: large" />
+                                <p:outputLabel value="#{ev.fecha_fin}" style="font-size: large" />
+                                <p:outputLabel value="lugar:" style="font-size: large" />
+                                 <p:outputLabel value="#{ev.ocurre_in.nombre}" style="font-size: large" />
+                                <p:commandLink value="Ver Evento" style="color:red" action="#{verEventoBean.viajarv()}">
+                                    <f:param name="id" value="#{ev.id}"/>
+                                </p:commandLink>
+                                <c:if test="${controlAutorizacion.periodista}" >
+                                <p:commandLink value="Editar Evento" style="color:red" action="#{verEventoBean.viajar()}">
+                                    <f:param name="id" value="#{ev.id}"/>
+                                </p:commandLink>
+                                 
+                                <p:commandLink value="eliminar Evento" style="color:red" action="#{verLugarBean.viajarE()}">
+                                    <f:param name="id" value="#{ev.id}"/>
+                                </p:commandLink>
+                                    </c:if>
+                                
+                            </p:panelGrid>
+                        </p:dataGrid>
+                    </h:form>
+                    
+                </section>
+            
         </ui:define>
     </ui:composition>
     
