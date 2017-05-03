@@ -21,12 +21,14 @@
                             <h:form id="formu" enctype="multipart/form-data">
                                 <p:panelGrid id="panel" columns="1" layout="grid" >
                                     <p:growl id="messages" showDetail="true" />
-                                    
+                                    <p:graphicImage width="150" value="#{mod_anunciosBean.multimedia}">
+                                        <f:param name="id" value="#{mod_anunciosBean.id}"/>
+                                    </p:graphicImage>
                                     <p:fileUpload skinSimple="true" mode="simple" value="#{mod_anunciosBean.multimedia2}"/>
                                 </p:panelGrid>
                                 <p:panelGrid columns="1">
                                     <p:outputLabel value="Empresa" style="font-size: large" />
-                                    <p:inputText value="#{mod_anunciosBean.empresa()}" style="font-size: large" >
+                                    <p:inputText value="#{mod_anunciosBean.empresa}" style="font-size: large" >
                                         <f:param name="id" value="#{adv.id}"/>
                                     </p:inputText>
                                     <p:outputLabel value="Fecha publicacion" style="font-size: large" />

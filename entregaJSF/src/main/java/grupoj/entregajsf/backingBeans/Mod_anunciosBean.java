@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.Dependent;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
@@ -27,7 +28,7 @@ import org.primefaces.model.UploadedFile;
  * @author juanp
  */
 @Named(value = "mod_anunciosBean")
-@ViewScoped
+@Dependent
 public class Mod_anunciosBean implements Serializable{
 
     @Inject
