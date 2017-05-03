@@ -13,6 +13,7 @@ import grupoj.prentrega1.Valoracion_eve;
 import grupoj.prentrega1.Valoracion_lug;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.inject.Inject;
@@ -50,12 +51,11 @@ public class AniadirAEvento {
     }
 
     public String getComEvento() {
-            return comEvento;
+        return comEvento;
     }
 
     public void setComEvento(String comEvento) {
         this.comEvento = comEvento;
-        System.out.println(this.comEvento);
     }
 
     public UploadedFile getfEvento() {
@@ -89,6 +89,7 @@ public class AniadirAEvento {
     public void setfLugar(UploadedFile fLugar) {
         this.fLugar = fLugar;
     }
+
     
     public String añadirComentarioEvento() {
         eve = new Evento(); // Lo cojo de la página que ya tiene uno
@@ -100,32 +101,72 @@ public class AniadirAEvento {
             listEve = new ArrayList<>();
         }
         
+        if (comEvento == null) {
+            comEvento = " ";
+        }
+        if (valEvento == null) {
+            valEvento = 3;
+        }
+        
+        
         Valoracion_eve valEve = new Valoracion_eve();
         valEve.setId(System.currentTimeMillis());
         valEve.setCalificacion(valEvento);
         valEve.setComentario(comEvento);
-        valEve.setFotos(fEvento.getContents());
+        if (fEvento == null) {
+            valEve.setFotos(new byte[1]);
+        } else {
+            valEve.setFotos(fEvento.getContents());
+        }
         valEve.setRealizado_por(usu);
         valEve.setValoracion_sobre(eve);
         
         listEve.add(valEve);
         eve.setValoraciones_sobre(listEve);
         
-        return null;
-    }
-    
-    public String añadirComentarioLugar() {
+        valEvento = null;
+        valEvento = null;
+        fEvento = null;
         
         return null;
     }
     
-    public AniadirAEvento() {
-        this.comEvento = "";
-        this.comLugar = "";
-        this.valEvento = null;
-        this.valLugar = null;
-        this.fEvento = null;
-        this.fLugar = null;
+    public String añadirComentarioLugar() {
+        lug = new Lugar(); // Lo cojo de la página que ya tiene uno
+        Usuario usu = this.ctrAut.getUsuario(); // Usuario logueado
+        
+        listLug = lug.getValoraciones_sobre();
+        
+        if (listLug == null) {
+            listLug = new ArrayList<>();
+        }
+        if (comLugar == null) {
+            comLugar = " ";
+        }
+        if (valLugar == null) {
+            valLugar = 3;
+        }
+        
+        
+         Valoracion_lug valLug = new Valoracion_lug();
+        valLug.setId(System.currentTimeMillis());
+        valLug.setCalificacion(valLugar);
+        valLug.setComentario(comLugar);
+        if (fEvento == null) {
+            valLug.setFotos(new byte[1]);
+        } else {
+            valLug.setFotos(fLugar.getContents());
+        }
+        valLug.setRealizado_por(usu);
+        valLug.setValoracion_sobre(lug);
+        listLug.add(valLug);
+        lug.setValoraciones_sobre(listLug);
+        
+        valLugar = null;
+        comLugar = null;
+        fLugar = null;
+        
+        return null;
     }
     
 }
