@@ -105,7 +105,7 @@ public class CrearEventoBean {
       eventos.add(e);
       
       persistencia.setListaEventos(eventos);
-      return "gestion_evento.xhtml";
+      return "index.xhtml";
       }
      
     }
