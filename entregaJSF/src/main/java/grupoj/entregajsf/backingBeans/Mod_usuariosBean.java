@@ -14,6 +14,8 @@ import grupoj.entregajsf.dropbox.DropboxController;
 import grupoj.entregajsf.dropbox.DropboxControllerException;
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -119,5 +121,25 @@ public class Mod_usuariosBean implements Serializable {
         }
         return con;
     }
-    
+    public void change() {
+        System.out.println("Changeeeeeeeee");
+        this.usr.getId();
+        Iterator<Usuario> it = persistencia.getListaUsuarios().iterator();
+        boolean find = false;
+        Usuario uu = null;
+        while(it.hasNext() && !find) {
+            uu = it.next();
+            if (uu.equals(usr)) {
+                int l = persistencia.getListaUsuarios().indexOf(uu);
+                List<Usuario> list = persistencia.getListaUsuarios();
+                list.set(l, usr);
+                try {
+                    persistencia.setListaUsuarios(list);
+                } catch (InterruptedException ex) {
+                    System.err.println("Error al modificar el usuario");
+                }
+                find = true;
+            }
+        }
+    }
 }
