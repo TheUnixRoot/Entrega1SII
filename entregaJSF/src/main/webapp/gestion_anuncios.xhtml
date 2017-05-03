@@ -20,10 +20,12 @@
                     <h:form>
                         <p:dataGrid columns="1" layout="grid" value="#{crud_anunciosBean.anuncios}" var="adv">
                             <p:panelGrid columns="2" layout="grid">
-                                <p:graphicImage width="100" stream="true" value="#{crud_anunciosBean.generar()}"/>
+                                <p:graphicImage width="100" value="#{crud_anunciosBean.generar(adv)}"/>
                                     <f:param name="id" value="#{adv.id}"/>
                                 <p:outputLabel value="#{adv.empresa}"/>
-                                <p:commandLink value="Publicar anuncio" action="#{crud_anunciosBean.publicar()}"/>
+                                <p:commandLink value="Publicar anuncio" action="#{crud_anunciosBean.publicar()}">
+                                    <f:param name="id" value="#{adv.id}"/>
+                                </p:commandLink>
                                 <p:commandLink value="#{adv.fecha_public}" action="#{crud_anunciosBean.viajar()}">
                                     <f:param name="id" value="#{adv.id}"/>
                                 </p:commandLink>

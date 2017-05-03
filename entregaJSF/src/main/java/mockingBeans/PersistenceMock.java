@@ -5,6 +5,8 @@
  */
 package mockingBeans;
 
+import grupoj.entregajsf.dropbox.DropboxController;
+import grupoj.entregajsf.dropbox.DropboxControllerException;
 import grupoj.prentrega1.*;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -12,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Semaphore;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 
 /**
@@ -143,12 +147,69 @@ public class PersistenceMock implements Serializable {
         
         Anuncio adv = new Anuncio();
         adv.setId(10L);
+        adv.setOnline(true);
+        adv.setLugar("top");
         adv.setEmpresa("Aliexpress");
         adv.setAdmin(adm);
         adv.setFecha_public(new Date());
         adv.setDias_contratados(100);
-        adv.setMultimedia("default.jpg");
+        try {
+            adv.setMultimedia(
+                    DropboxController.downloadFile("/amazon.png"));
+        } catch (DropboxControllerException ex) {
+            System.err.println("Error al acceder al recurso en linea " + ex.getMessage());
+        }
         listaAnuncios.add(adv);
+        
+        Anuncio adv2 = new Anuncio();
+        adv2.setId(11L);
+        adv2.setOnline(true);
+        adv2.setLugar("bot");
+        adv2.setEmpresa("Aliexpress");
+        adv2.setAdmin(adm);
+        adv2.setFecha_public(new Date());
+        adv2.setDias_contratados(100);
+        try {
+            adv2.setMultimedia(
+                    DropboxController.downloadFile("/imagen1.png"));
+        } catch (DropboxControllerException ex) {
+            System.err.println("Error al acceder al recurso en linea " + ex.getMessage());
+        }
+        
+        listaAnuncios.add(adv2);
+        
+        Anuncio adv3 = new Anuncio();
+        adv3.setId(13L);
+        adv3.setOnline(true);
+        adv3.setLugar("self");
+        adv3.setEmpresa("SUR");
+        adv3.setAdmin(adm);
+        adv3.setFecha_public(new Date());
+        adv3.setDias_contratados(100);
+        try {
+            adv3.setMultimedia(
+                    DropboxController.downloadFile("/default.jpg"));
+        } catch (DropboxControllerException ex) {
+            System.err.println("Error al acceder al recurso en linea " + ex.getMessage());
+        }
+        listaAnuncios.add(adv3);
+        
+        Anuncio adv4 = new Anuncio();
+        adv4.setId(14L);
+        adv4.setOnline(false);
+        adv4.setLugar("top");
+        adv4.setEmpresa("Razer");
+        adv4.setAdmin(adm);
+        adv4.setFecha_public(new Date());
+        adv4.setDias_contratados(100);
+        try {
+            adv4.setMultimedia(
+                    DropboxController.downloadFile("/Razer1.jpg"));
+        } catch (DropboxControllerException ex) {
+            System.err.println("Error al acceder al recurso en linea " + ex.getMessage());
+        }
+        listaAnuncios.add(adv4);
+        
         
         mutexUsuarios = new Semaphore(1);
         mutexEventos = new Semaphore(1);
