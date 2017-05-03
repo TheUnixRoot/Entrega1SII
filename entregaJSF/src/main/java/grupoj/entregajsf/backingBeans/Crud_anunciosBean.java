@@ -5,11 +5,8 @@
  */
 package grupoj.entregajsf.backingBeans;
 
-import grupoj.entregajsf.dropbox.DropboxController;
-import grupoj.entregajsf.dropbox.DropboxControllerException;
 import grupoj.prentrega1.Anuncio;
 import java.io.ByteArrayInputStream;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;

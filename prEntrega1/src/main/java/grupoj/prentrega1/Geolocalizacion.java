@@ -28,6 +28,8 @@ public class Geolocalizacion implements Serializable {
     private Long id;
     @Column(nullable=false)
     private String direccion;
+    @Column(nullable=false)
+    private String ciudad;
     
     // Relacion bidireccional Geolocalizacion <-> Usuario
     @OneToMany (mappedBy="geolocalizacion")
@@ -51,7 +53,6 @@ public class Geolocalizacion implements Serializable {
         this.lugar = lugar;
     }
     
-    
     public Long getId() {
         return id;
     }
@@ -66,6 +67,14 @@ public class Geolocalizacion implements Serializable {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 
     public List<Usuario> getUsuarios() {

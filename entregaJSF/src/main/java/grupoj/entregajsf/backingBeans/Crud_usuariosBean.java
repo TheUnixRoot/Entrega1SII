@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -28,12 +29,11 @@ import org.primefaces.model.StreamedContent;
  * @author juanp
  */
 @Named(value = "crud_usuariosBean")
-@RequestScoped
+@Dependent
 public class Crud_usuariosBean implements Serializable{
     
     @Inject
     private PersistenceMock persistencia;
-    private Iterator<Usuario> it;
     
     public List<Usuario> getUsuarios() {
         return persistencia.getListaUsuarios();

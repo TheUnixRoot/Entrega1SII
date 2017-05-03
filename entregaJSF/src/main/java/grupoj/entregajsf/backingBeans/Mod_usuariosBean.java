@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.Dependent;
 import javax.faces.context.FacesContext;
 import org.omnifaces.cdi.ViewScoped;
 import org.primefaces.model.DefaultStreamedContent;
@@ -28,7 +29,7 @@ import org.primefaces.model.StreamedContent;
  * @author juanp
  */
 @Named(value = "mod_usuariosBean")
-@ViewScoped
+@Dependent
 public class Mod_usuariosBean implements Serializable {
 
     @Inject
