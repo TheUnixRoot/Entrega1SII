@@ -7,6 +7,12 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="Layout.xhtml">
+         <ui:define name="pageName">
+            Contactar con administrador
+        </ui:define>
+        <ui:define name="navBarName">
+            <ui:param name="nombrePagina" value="Contactar con administrador" />
+        </ui:define>
         <ui:define name="cuerpo">
         <section id="cuerpo">
             <h:form id="formulario">    

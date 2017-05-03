@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
 
 
+
 /**
  *
  * @author migue
@@ -54,7 +55,6 @@ public class Mod_LugarBean {
                 );
         
     }
-    
 
     public PersistenceMock getPersistencia() {
         return persistencia;
@@ -74,12 +74,8 @@ public class Mod_LugarBean {
     
     
     public String modificarEvento(){
-        
-        
-        
-        
-        
+
         return "gestion_lugar.xhtml";
-    
+
     }
 }

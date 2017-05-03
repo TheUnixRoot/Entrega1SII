@@ -8,6 +8,9 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="Layout.xhtml">
+        <ui:define name="pageName">
+            Enviar notificaciones
+        </ui:define>
         <ui:define name="navBarName">
             <ui:param name="nombrePagina" value="Enviar notificaciones" />
         </ui:define>
@@ -23,12 +26,10 @@
                     <p:panel header="#{evento.nombre}" style="text-align:center">
                         <h:panelGrid columns="1" style="width:100%">
                             <h:outputText value="#{evento.descripcion}" />
-                            <p:commandButton value="Enviar notificacion" action="#{enviarNotificacionesBean.enviaNotificacion(0)}">
-                                 <f:param id="evento" value="#{evento.getId()}"/>
-                            </p:commandButton>    
-                            <p:commandButton  value="Editar notificacion" action="#{enviarNotificacionesBean.editarNotificacion()}">
-                                 <f:param id="evento2" value="#{evento.getId()}"/>
-                            </p:commandButton>
+     
+                             <p:selectOneRadio id="eve" value="#{enviarNotificacionesBean.selectedEventoS}">
+                                <f:selectItem itemLabel="#{evento.nombre}" itemValue="#{evento.nombre}" />
+                             </p:selectOneRadio>
                            
                         </h:panelGrid>
                     </p:panel>
@@ -38,7 +39,11 @@
                     <p:outputLabel value="No hay eventos"/>
                 </c:otherwise>
                 </c:choose>
-            
+                <br></br>
+                            <p:commandButton value="Enviar notificacion" action="#{enviarNotificacionesBean.enviaNotificacion(0)}"/>
+   
+                            <p:commandButton  value="Editar notificacion" action="#{enviarNotificacionesBean.editarNotificacion()}"/>
+
                 <br></br>
                 <p:commandButton value="Vover a buscar"  icon="ui-icon-check" action="#{enviarNotificacionesBean.volver()}"/>
                 

@@ -76,11 +76,11 @@ public class CrearLugarBean {
       g.setCiudad(ciudad);
       l.setGeolocalizacion(g);
       
-      if(file == null){
+     /* if(file == null){
       l.setFotos(new byte[1]);
       }else{
       l.setFotos(file.getContents());
-      }
+      }*/
       lugares.add(l);
       persistencia.setListaLugares(lugares);
 

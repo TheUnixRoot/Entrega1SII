@@ -30,6 +30,21 @@ public class PersistenceMock implements Serializable {
 
 
     private Formulario formulario;
+    
+
+
+    private List<Mensaje> listaMensajes;
+    
+    /*public List<Mensaje> getListaMensajes() {
+        return listaMensajes;
+    }
+
+    public void setListaMensajes(List<Mensaje> listaMensajes) {
+        this.listaMensajes = listaMensajes;
+    }
+    public void addMessage(Mensaje msg){
+        listaMensajes.add(msg);
+    }*/
 
     private List<Evento> listaEventos;
     private List<Lugar> listaLugares;
@@ -106,6 +121,9 @@ public class PersistenceMock implements Serializable {
         usr.setNombre("normalito");
         usr.setMultimedia("/usuario.jpeg");
         usr.setForm(formulario);
+
+        //usr.setForm(this.formulario);
+        usr.setMsg_send(listaMensajes);
 
         listaUsuarios.add(usr);
        
