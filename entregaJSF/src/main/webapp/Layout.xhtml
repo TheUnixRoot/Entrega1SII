@@ -52,6 +52,7 @@
                                 <p:menuitem value="Enviar notificaciones" action="enviarNotificaciones.xhtml" rendered="${controlAutorizacion.periodista}"/>
                                 <p:menuitem value="Gestion de lugares" action="gestion_lugar.xhtml" rendered="${controlAutorizacion.periodista}"/>
                                 <p:menuitem value="Gestion de eventos" action="gestion_evento.xhtml" rendered="${controlAutorizacion.periodista}"/>
+                                <p:menuitem value="Nuevo evento" action="crearEvento.xhtml" rendered="${controlAutorizacion.usuario != null}"/>
                                 <p:menuitem value="Configuración de perfil" action="configurarPerfil.xhtml" rendered="${controlAutorizacion.usuario != null}"/>
                                 <p:menuitem value="Configuración de notificaciones" action="configurarNotificaciones.xhtml" rendered="${controlAutorizacion.usuario != null}"/>
                                 <p:menuitem value="Ver notificaciones" action="ver_noti.xhtml" rendered="#{controlAutorizacion.usuario != null}" />                               

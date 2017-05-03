@@ -5,11 +5,13 @@
  */
 package grupoj.entregajsf.backingBeans;
 
+import grupoj.entregajsf.controlSesion.ControlAutorizacion;
 import grupoj.prentrega1.Evento;
 import grupoj.prentrega1.Lugar;
 import grupoj.prentrega1.Usuario;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -34,6 +36,8 @@ public class CrearEventoBean {
      */
     @Inject
     private PersistenceMock persistencia;
+    @Inject
+    private ControlAutorizacion cr;
     private List<Lugar> lugares;
     private List<Evento> eventos;
     private String nombre;
@@ -51,10 +55,12 @@ public class CrearEventoBean {
     private UIComponent enviar;
     UploadedFile file;
     
-    public CrearEventoBean() {
-        persistencia = new PersistenceMock();
+    @PostConstruct
+    public void init() {
+        
         lugares = persistencia.getListaLugares();
         eventos = persistencia.getListaEventos();
+        
        
     }
     
@@ -80,9 +86,22 @@ public class CrearEventoBean {
       e.setDescripcion(descripcion);
       e.setOcurre_in(buscarLugar(ocurre_in));
       e.setBorrado(false);
+      
+      if(file == null){
+      e.setMultimedia(new byte[1]);
+      }else{
       e.setMultimedia(file.getContents());
-      //e.setSubido_by(subido_by);
-      //e.setValidado(validado);
+      }
+      
+      if(cr.isAdministrador() || cr.isPeriodista()){
+      e.setValidado(true);
+      }
+      else{
+      e.setValidado(false);
+      }
+      e.setSubido_by(cr.getUsuario());
+     
+      
       eventos.add(e);
       
       persistencia.setListaEventos(eventos);

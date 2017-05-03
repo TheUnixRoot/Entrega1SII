@@ -58,13 +58,7 @@
                         <p:outputLabel  value="Hora :" />
                         <p:calendar id="hora" value="#{crearEventoBean.hora}" pattern="HH:mm" timeOnly="true"  />
                        
-                        <c:if test="${controlAutorizacion.administrador}">
-                           
-                           
-                        </c:if>
-                
-                        
-      
+
                      
                         <p:commandButton value="Enviar" ajax="false" action="#{crearEventoBean.insertarEvento()}"/>
                         
