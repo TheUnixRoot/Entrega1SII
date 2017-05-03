@@ -32,7 +32,7 @@ public class PersistenceMock implements Serializable {
     
 
 
-    //private List<Mensaje> listaMensajes;
+    private List<Mensaje> listaMensajes;
     
     /*public List<Mensaje> getListaMensajes() {
         return listaMensajes;
@@ -87,7 +87,7 @@ public class PersistenceMock implements Serializable {
         usr.setForm(formulario);
 
         //usr.setForm(this.formulario);
-        //usr.setMsg_send(listaMensajes);
+        usr.setMsg_send(listaMensajes);
 
         listaUsuarios.add(usr);
        
