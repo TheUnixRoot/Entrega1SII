@@ -23,17 +23,6 @@
             <p:growl id="growlmensaje" autoUpdate="true" />
             <p:commandButton value="Enviar" update="growlmensaje" icon="ui-icon-check" action="#{formularioGustosBean.saveGustos()}"/>
                
-            <!--<p:dialog header="Datos enviados correctamente" modal="true" showEffect="clip" widgetVar="dlg" resizable="false">
-                <p:outputPanel id="display">
-                    <p:dataList value="#{formularioGustosBean.selectedGustos}" var="gusto">
-                        <f:facet name="header">
-                            Gustos
-                        </f:facet>
-                        #{gusto}
-                    </p:dataList>
-                    <p:commandButton value="OK" update="display" icon="ui-icon-check" action="#{formularioGustosBean.goIndex()}" />
-                </p:outputPanel>
-            </p:dialog>-->
         </h:form>
         </section>
         </ui:define>
