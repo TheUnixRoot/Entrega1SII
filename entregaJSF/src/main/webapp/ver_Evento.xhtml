@@ -26,7 +26,7 @@
                                     <p:outputLabel value="#{verEvento.evento.nombre}" style="font-size: small" />
                                     <p:outputLabel value="Fecha" style="font-size: large" />
 
-                                    <p:outputLabel value="#{verEvento.evento.fecha.toString}" style="font-size: small" />
+                                    <p:outputLabel value="#{verEvento.evento.fecha_inicio}" style="font-size: small" />
                                     <!--<p:outputLabel value="{verEvento.evento.fecha1.toString - verEvento.evento.fecha2.toString}" style="font-size: small" />-->
                                     <p:outputLabel value="Lugar" style="font-size: large" />
                                     <p:outputLabel value="#{verEvento.evento.ocurre_in.nombre}" style="font-size: small" />
@@ -36,13 +36,18 @@
                                     <p:outputLabel value="#{verEvento.evento.precio}€" style="font-size: small" />
                                     <p:outputLabel value="Comprar entradas" style="font-size: large" />
                                     <h:form>
-                                    <p:commandLink id="nonAjax" actionListener="#{verEvento.evento.donde_comprar}" ajax="false">
-                                        <h:outputText value="#{verEvento.evento.donde_comprar}" style="font-size: small"/>
-                                    </p:commandLink>
-                                        <p:commandButton value="#{verEvento.evento.interesados_at.size}" id="nonAjax" actionListener="#{verEvento.meInteresa()}" ajax="false" update="true" />
+                                    <p:outputLabel value="#{verEvento.evento.donde_comprar}" style="font-size: small"/>
+                                    <p:commandButton value="#{verEvento.evento.interesados_at.size}" actionListener="#{verEvento.meInteresa()}" ajax="false" />
+                                    
+                                    </h:form>
+                                    <h:form>
+                                        <p:commandButton ajax="false" value="Generar pdf">
+                                            <p:fileDownload  value="#{printpdf.file}" >
+                                            </p:fileDownload>
+                                        </p:commandButton>
                                     </h:form>
                                 </p:panelGrid>
-                            </p:layoutUnit>>
+                            </p:layoutUnit>
                         </p:layout>
                     </article>
                 </section>
