@@ -28,7 +28,7 @@ public class Valoracion_lug implements Serializable {
     @Column(nullable = false)
     private int calificacion;
     private String comentario;
-    private String fotos;
+    private byte[] fotos;
 
     // Relacion Bidireccional Usuario <-> Valoracion_lug
     @ManyToOne
@@ -87,11 +87,11 @@ public class Valoracion_lug implements Serializable {
         this.comentario = comentario;
     }
 
-    public String getFotos() {
+    public byte[] getFotos() {
         return fotos;
     }
 
-    public void setFotos(String fotos) {
+    public void setFotos(byte[] fotos) {
         this.fotos = fotos;
     }
     

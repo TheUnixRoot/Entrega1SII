@@ -19,9 +19,7 @@
             <h:form id="añadirAEvento">                
             
                 <p:panelGrid columns="2" layout="grid">
-                    <h:outputText value="Titulo del evento" />
-                    <h:outputText value=" " />
-                    <p:inputTextarea placeholder="Añade tu comentario..." value="#{AniadirAEvento.comEvento}" autoResize="true" cols="100" rows="6" />
+                    <p:inputTextarea placeholder="Añade tu comentario sobre el evento..." value="#{AniadirAEvento.comEvento}" autoResize="true" cols="100" rows="6" />
                     
                     <h:outputText value=" " />
                     <h:outputText value="Valoración del evento: " />
@@ -32,14 +30,14 @@
                     
                     <p:row>
                         <p:column colspan="2">
-                            <p:fileUpload skinSimple="true" mode="simple" value="#{new_anuncioBean.multimedia}"/>
+                            <p:fileUpload skinSimple="true" mode="simple" value="#{AniadirAEvento.fEvento}"/>
                         </p:column>
                     </p:row>
                     
                     <h:outputText value=" " />
                     <h:outputText value=" " />
                     
-                    <p:commandButton value="Comentar y valorar evento"  update="añadirAEvento" action="#{AniadirAEvento.añadirComentarioEvento()}"/>
+                    <p:commandButton value="Comentar y valorar evento"  update="añadirAEvento" action="#{AniadirAEvento.añadirComentarioEvento()}" ajax="false" />
                     
                 </p:panelGrid>
             </h:form>
@@ -47,26 +45,24 @@
             <h:form id="añadirALugar">                
             
                 <p:panelGrid columns="2" layout="grid">
-                    <h:outputText value="Nombre del lugar" />
-                    <h:outputText value=" " />
-                    <p:inputTextarea placeholder="Añade tu comentario..." value="#{AniadirAEvento.comLugar}" autoResize="true" cols="100" rows="6" />
+                    <p:inputTextarea placeholder="Añade tu comentario sobre el lugar..." value="#{AniadirAEvento.comLugar}" autoResize="true" cols="100" rows="6" />
                     <h:outputText value=" " />
                     <h:outputText value="Valoración del lugar: " />
                     <p:rating value="#{AniadirAEvento.valLugar}"/>
                     
                     <h:outputText value="Seleccionar imagen del lugar para subir: " />
-                    <p:growl id="imgEvento" showDetail="true" />
+                    <p:growl id="imgLugar" showDetail="true" />
                     
                     <p:row>
                         <p:column colspan="2">
-                            <p:fileUpload skinSimple="true" mode="simple" value="#{new_anuncioBean.multimedia}"/>
+                            <p:fileUpload skinSimple="true" mode="simple" value="#{AniadirAEvento.fLugar}"/>
                         </p:column>
                     </p:row>
                     
                     <h:outputText value=" " />
                     <h:outputText value=" " />
                     
-                    <p:commandButton value="Comentar y valorar lugar"  update="añadirALugar" action="#{AniadirAEvento.añadirComentarioLugar()}"/>
+                    <p:commandButton value="Comentar y valorar lugar"  update="añadirALugar" action="#{AniadirAEvento.añadirComentarioLugar()}" ajax="false" />
                     
                 </p:panelGrid>
             </h:form>
