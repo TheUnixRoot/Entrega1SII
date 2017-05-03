@@ -51,6 +51,8 @@
                                 <p:menuitem value="Busqueda" action="buscarEvento.xhtml"/>
                                 <p:menuitem value="Contactar con administrador" action="contactoAdmin.xhtml"/>
                                 <p:menuitem value="Enviar notificaciones" action="enviarNotificaciones.xhtml" rendered="${controlAutorizacion.periodista}"/>
+                                <p:menuitem value="Gestion de lugares" action="gestion_lugar.xhtml" rendered="${controlAutorizacion.periodista}"/>
+                                <p:menuitem value="Configuración de notificaciones" action="configurarNotificaciones.xhtml" rendered="${controlAutorizacion.administrador}"/>
                             </p:submenu>
                         </p:menu>
                     </h:form>
@@ -75,4 +77,3 @@
         </p:layout>
     </h:body>
 </html>
-

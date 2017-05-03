@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="Layout.xhtml">
+        <ui:define name="pageName">
+            Gestion de Lugar
+        </ui:define>
+        <ui:define name="navBarName">
+            <ui:param name="nombrePagina" value="Gestion de lugares" />
+        </ui:define>
+        <ui:define name="cuerpo">
+            <c:if test="${controlAutorizacion.periodista}" >
+                <section id="cuerpo">
+                    <article>
+                        <h:form>
+                            <p:commandButton  value="Añadir Lugar" action="crearLugar.xhtml"/>
+                        </h:form>
+                    </article>
+                    <h:form>
+                        <p:dataGrid columns="1" layout="grid" value="#{verLugarBean.listaLugares}" var="lgr">
+                            
+                            
+                            <p:panelGrid columns="2" layout="grid">
+                                <p:outputLabel value="#{lgr.nombre}"/>
+                                <p:outputLabel value="#{lgr.fotos}"/>
+                                <p:commandLink value="Editar Lugar" style="color:red" action="#{verLugarBean.viajar()}">
+                                    <f:param name="id" value="#{lgr.id}"/>
+                                </p:commandLink>
+                                 <p:commandLink value="Ver Lugar" style="color:red" action="#{verLugarBean.viajarv()}">
+                                    <f:param name="id" value="#{lgr.id}"/>
+                                </p:commandLink>
+                                <p:commandLink value="eliminar Lugar" style="color:red" action="#{verLugarBean.viajarE()}">
+                                    <f:param name="id" value="#{lgr.id}"/>
+                                </p:commandLink>
+                                
+                            </p:panelGrid>
+                        </p:dataGrid>
+                    </h:form>
+                    
+                </section>
+            </c:if>
+            <c:if test="${!controlAutorizacion.administrador}">
+                <p:outputLabel value="403 Forbidden"/>
+            </c:if>
+        </ui:define>
+    </ui:composition>
+</html>

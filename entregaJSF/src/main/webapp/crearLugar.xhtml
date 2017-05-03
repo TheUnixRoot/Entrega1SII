@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:bnu="http://bootsfaces.net/ui">
+    <ui:composition template="Layout.xhtml">
+        <ui:define name="cuerpo">
+        <section id="cuerpo">
+         <article>
+             
+                <!-- falta validar, quien sube evento-->
+                <h:form id="crearLugar">
+                    
+                    <p:panelGrid  columns="2" layout="grid">
+                        
+                        <p:outputLabel id="nombre" value="Nombre:"/> 
+                        <p:inputText value="#{crearLugarBean.nombre}"/>
+                              
+                       
+                        <p:outputLabel id="geolocalizacion" value="Direccion:"/> 
+                        <p:inputText value="#{crearLugarBean.direccion}"/>
+                    
+                        
+                        <p:outputLabel value="Fotos:"/>
+                        <p:inputText id="fotos" value="#{crearLugarBean.fotos}"/>
+                        
+                        
+                        <p:outputLabel value="Descripcion:"/>
+                        <p:inputTextarea id="descripcion" value="#{crearLugarBean.descripcion}"/>
+                        
+                        
+                        
+                     
+                        <p:commandButton value="Enviar" action="#{crearLugarBean.insertarLugar()}"/>
+                        
+                    </p:panelGrid>
+                    </h:form>
+                <p:growl id="mensaje" autoUpdate="true"></p:growl> 
+                    
+             
+                    
+                       <!-- <p:gmap id="gmap" center="41.381542, 2.122893" zoom="15" type="HYBRID" style="width:100%;height:400px" /> -->
+                    
+                    
+               <!--<p:message id="pa" for="patatota" style="color: red"  />                         <p:dialog id="msg" header="error" modal="true" showEffect="clip" widgetVar="dlg" resizable="false" ><p:outputLabel    value="#{proponerEventoBean.mensaje()}"  /></p:dialog>
+ -->
+            </article>
+        
+        </section>
+        </ui:define>
+    </ui:composition>
+</html>
