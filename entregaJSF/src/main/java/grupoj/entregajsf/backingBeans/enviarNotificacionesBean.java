@@ -189,7 +189,7 @@ public class enviarNotificacionesBean {
                         c.setTime(hoy); 
                         int day = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
                         //System.out.println(day);
-                        c.setTime(e.getFecha()); 
+                        c.setTime(e.getFecha_inicio()); 
                         int day2 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
                         //System.out.println(day);
                         if(day == day2){
@@ -208,7 +208,7 @@ public class enviarNotificacionesBean {
                         System.out.println(c.getTime());
                         
                         //Calendar c2 = Calendar.getInstance(); 
-                        c.setTime(e.getFecha()); 
+                        c.setTime(e.getFecha_inicio()); 
                         int day2 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
                         System.out.println(c.getTime());
                         
