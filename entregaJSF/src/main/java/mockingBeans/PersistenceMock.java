@@ -143,6 +143,19 @@ public class PersistenceMock implements Serializable {
         adv.setMultimedia("default.jpg");
         listaAnuncios.add(adv);
         
+        Lugar lugar1 = new Lugar();
+        lugar1.setId(1L);
+        lugar1.setNombre("plazuela");
+        lugar1.setDescripcion("Un sitio muy chu-chuli");
+        listaLugares.add(lugar1);
+        
+        Lugar lugar2 = new Lugar();
+        lugar2.setId(2L);
+        lugar2.setNombre("campo futbol");
+        lugar2.setDescripcion("estadio grande");
+        listaLugares.add(lugar2);
+        
+        
         mutexUsuarios = new Semaphore(1);
         mutexEventos = new Semaphore(1);
         mutexLugares = new Semaphore(1);

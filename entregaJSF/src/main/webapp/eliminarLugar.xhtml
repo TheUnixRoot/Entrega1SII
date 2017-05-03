@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="Layout.xhtml">
+        <ui:define name="navBarName">
+            <ui:param name="nombrePagina" value="Información del evento" />
+        </ui:define>
+        <ui:define name="cuerpo">
+            
+                    <section id="cuerpo">
+                    <article id="">
+                        <p:layout fullPage="false">
+                            <p:layoutUnit position="west" closable="false" collapsible="false" resizable="false">
+                            </p:layoutUnit>
+                            <p:layoutUnit position="center" closable="false" collapsible="false" resizable="false">
+                                <p:panelGrid columns="2">
+                         <p:outputLabel value="¿Esta seguro de que quiere eliminar el usuario?" style="font-size: large" />
+                         <h:form>
+                            <p:inputText value="#{eliminarLugar.adv.id}" style="font-size: large;"  />
+                            <p:selectOneRadio id="console" value="#{eliminarLugar.valor}">
+                            <f:selectItem itemLabel="si" itemValue="SI" />
+                            <f:selectItem itemLabel="no" itemValue="NO" />
+
+                         </p:selectOneRadio>
+                         <p:commandButton  value="Enviar" action="#{eliminarLugar.eliminarLugar()}"/>
+                             </h:form>
+                                </p:panelGrid>
+                            </p:layoutUnit>>
+                        </p:layout>
+                    </article>
+                </section>
+        </ui:define>
+    </ui:composition>
+</html>
