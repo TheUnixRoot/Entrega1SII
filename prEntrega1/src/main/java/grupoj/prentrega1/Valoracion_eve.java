@@ -28,7 +28,7 @@ public class Valoracion_eve implements Serializable {
     @Column(nullable=false)
     private int calificacion;
     private String comentario;
-    private String fotos;
+    private byte[] fotos;
     
     // Relacion Bidireccional Usuario <-> Valoracion_eve
     @ManyToOne
@@ -86,11 +86,11 @@ public class Valoracion_eve implements Serializable {
         this.comentario = comentario;
     }
 
-    public String getFotos() {
+    public byte[] getFotos() {
         return fotos;
     }
 
-    public void setFotos(String fotos) {
+    public void setFotos(byte[] fotos) {
         this.fotos = fotos;
     }
 
