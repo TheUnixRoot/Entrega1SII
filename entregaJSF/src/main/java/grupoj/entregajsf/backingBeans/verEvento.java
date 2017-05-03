@@ -7,6 +7,7 @@ package grupoj.entregajsf.backingBeans;
  */
 
 import grupoj.entregajsf.controlSesion.ControlAutorizacion;
+import grupoj.entregajsf.toPDF.PdfCreator;
 import grupoj.prentrega1.Evento;
 import grupoj.prentrega1.Usuario;
 import java.io.ByteArrayInputStream;
@@ -14,6 +15,8 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
@@ -35,12 +38,13 @@ public class verEvento {
     private long id;
     private ControlAutorizacion control;
     private Usuario usu;
-    
+    private Map<String, String> req;
+    private PdfCreator pdf;
     
         @PostConstruct
         public void init() {
         
-        Map<String, String> req = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        req = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         this.setId(Long.parseLong(req.get("id")));
         Evento ev = new Evento();
         ev.setId(id);
@@ -86,6 +90,9 @@ public class verEvento {
     }
     
     public StreamedContent getMultimedia() {
+        if (evento.getMultimedia() == null) {
+            return null;
+        }
         return new DefaultStreamedContent(new ByteArrayInputStream(evento.getMultimedia()));
     }
     
@@ -94,7 +101,7 @@ public class verEvento {
     }
     
     public String meInteresa(){
-        Usuario usu = control.getUsuario();
+        usu = control.getUsuario();
         Map <String, String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String id = map.get("id");
         Evento ev = new Evento();
@@ -109,5 +116,26 @@ public class verEvento {
         return null;
     }
     
+    public PdfCreator getPdf() {
+        return pdf;
+    }
+
+    public void setPdf(PdfCreator pdf) {
+        this.pdf = pdf;
+    }
     
+    public StreamedContent getFile() {
+//        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+//        Evento evprima = new Evento();
+//        evprima.setId(Long.parseLong(params.get("id")));
+//        this.evento = persistencia.getListaEventos().get(
+//            persistencia.getListaEventos().indexOf(evprima));
+//        
+        pdf = new PdfCreator(this.evento);
+        
+        StreamedContent stc = new DefaultStreamedContent(
+                new ByteArrayInputStream(pdf.getStream()), 
+                "application/pdf", evento.getNombre() + ".pdf");
+        return stc;
+    }
 }

@@ -15,7 +15,7 @@
             <ui:param name="nombrePagina" value="Gestion de Eventos" />
         </ui:define>
         <ui:define name="cuerpo">
-            
+            <c:if test="#{controlAutorizacion.administrador}" >
                 <section id="cuerpo">
                     <article>
                         <h:form>
@@ -53,7 +53,7 @@
                     </h:form>
                     
                 </section>
-            
+            </c:if>
             <c:if test="${!controlAutorizacion.administrador}">
                 <p:outputLabel value="403 Forbidden"/>
             </c:if>
