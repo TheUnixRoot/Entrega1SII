@@ -10,6 +10,7 @@ import grupoj.prentrega1.Evento;
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
@@ -54,7 +55,11 @@ public class PrintBean implements Serializable {
     }
     
     public StreamedContent getFile() {
-        setEv(persistencia.getListaEventos().get(0));
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        Evento evprima = new Evento();
+        evprima.setId(Long.parseLong(params.get("id")));
+        setEv(persistencia.getListaEventos().get(
+            persistencia.getListaEventos().indexOf(evprima)));
         pdf = new PdfCreator(this.ev);
         
         StreamedContent stc = new DefaultStreamedContent(

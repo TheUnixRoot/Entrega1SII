@@ -3,12 +3,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="verEvento.xhtml">
     <ui:define name="printButton">
         <h:form>
             <p:commandButton value="Generar pdf" ajax="false">
-                <p:fileDownload value="#{printBean.file}"/>
+                <p:fileDownload value="#{printBean.file}" >
+                    <f:param name="id" value="#{verEvento.id}"/>
+                </p:fileDownload>
             </p:commandButton>
         </h:form>
     </ui:define>
