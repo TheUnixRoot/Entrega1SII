@@ -117,3 +117,4 @@ public class SignupBean {
         return "index.xhtml";
     }
 }
+

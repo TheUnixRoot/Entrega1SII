@@ -173,12 +173,10 @@ public class buscarEvento {
                         }
                     }
                 }else{
-                    
                     coincide=true;
                 }
                 
             }else{
-                
                 coincide=true;
             }
             if(coincide){
@@ -199,7 +197,6 @@ public class buscarEvento {
                 
                 if(coincide){
                     coincide=false;
-                
                 
                     if(f1 && f2){
                         if( (e.getFecha_inicio().after(fecha1) && e.getFecha_fin().after(fecha2)) ||
@@ -223,9 +220,8 @@ public class buscarEvento {
                     }
                 }
             }
-            }
-        
-        
+        }
+
         return "resultadoBuscarEvento.xhtml";
     }
 }

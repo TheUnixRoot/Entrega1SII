@@ -5,16 +5,19 @@
  */
 package grupoj.entregajsf.backingBeans;
 
+import grupoj.entregajsf.controlSesion.ControlAutorizacion;
 import grupoj.prentrega1.Formulario;
 import grupoj.prentrega1.Tag;
 import grupoj.prentrega1.Usuario;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+//import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import mockingBeans.PersistenceMock;
+import javax.inject.Inject;
+//import mockingBeans.PersistenceMock;
 
 
 /**
@@ -25,17 +28,20 @@ import mockingBeans.PersistenceMock;
 @ManagedBean
 public class formularioGustosBean {
 
-    private PersistenceMock persistencia;
+    //private PersistenceMock persistencia;
     private String[] selectedGustos;
     private List<String> gustos;
     private Usuario user;
     private List<Tag> tags;
     private Formulario formulario;
+    
+    @Inject
+    private ControlAutorizacion control;
 
     public formularioGustosBean() {
         
-        this.persistencia = new PersistenceMock();
-        //this.user = persistencia.getListaUsuarios().get(0);//usuario de prueba
+       // this.persistencia = new PersistenceMock();
+        
     }
  
     @PostConstruct
@@ -61,22 +67,10 @@ public class formularioGustosBean {
         return gustos;
     }
     
-    public void saveGustos(){       
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+    public String saveGustos(){       
         
-        //this.setId(Long.parseLong(params.get("id")));
-        Usuario uuu = new Usuario();
-        uuu.setId(Long.parseLong(params.get("id")));
-        System.out.println(Long.parseLong(params.get("id")));
-        
-         if ( this.persistencia.getListaUsuarios().contains(uuu) ) {
-             this.user = this.persistencia.getListaUsuarios().get(this.persistencia.getListaUsuarios().indexOf(uuu));
-         }else{
-              this.user = null;
-         }
-           
-        uuu = null;
-        
+        this.user = control.getUsuario();
+                
         List<Tag> l = new ArrayList<>();
         this.formulario = new Formulario();
         this.formulario.setId(Long.MIN_VALUE);
@@ -88,17 +82,14 @@ public class formularioGustosBean {
             tag.setId(i);
             tag.setTexto(gusto);
             tag.setForm(this.formulario);
-            //System.out.println(tag.getTexto());
             l.add(tag);
             i++;
         }
        
         this.formulario.setForm_tags(l);
         this.user.setForm(this.formulario);
-        
-    }
-    
-    public String goIndex(){
-        return "index.xhtml";
+        FacesContext.getCurrentInstance()
+            .addMessage("login:growlmensaje", new FacesMessage(FacesMessage.SEVERITY_INFO, "Datos enviados correctamente", "Datos enviados correctamente"));
+         return "index.xhtml";
     }
 }

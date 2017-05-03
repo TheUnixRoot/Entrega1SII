@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -42,10 +41,10 @@ public class enviarNotificacionesBean {
     private List<String> gustos;
 
     private List<String> selectedFecha;
-    //private List<Date> dates;
     private List<String> fechas;
     
     private List<Evento> listaCoincidencias;
+    private String selectedEventoS;
     private Evento selectedEvento;
     
     private List<Usuario> selectedUsuarios;
@@ -85,6 +84,26 @@ public class enviarNotificacionesBean {
       
     }
 
+    public String getSelectedEventoS() {
+        return selectedEventoS;
+    }
+
+    public void setSelectedEventoS(String selectedEventoS) {
+        this.selectedEventoS = selectedEventoS;
+    }
+    
+    
+
+    public Evento getSelectedEvento() {
+        return selectedEvento;
+    }
+
+    public void setSelectedEvento(Evento selectedEvento) {
+        this.selectedEvento = selectedEvento;
+    }
+
+    
+    
     public String getNotificacionPersonalizada() {
         return notificacionPersonalizada;
     }
@@ -142,28 +161,25 @@ public class enviarNotificacionesBean {
     public void setVacio(boolean vacio) {
         this.vacio = vacio;
     }
-    
-    
-    
+
     
     public String filtrar(){
         
-        System.out.println(listaEventos.get(0)+"papas");
         boolean coincide = false;
         boolean tip=false, f1=false;
         if(!selectedGustos.isEmpty()) tip=true;     
         if(!selectedFecha.isEmpty()) f1=true;
-             // selectedFecha.
+            
          for(Evento e : listaEventos){
-            System.out.println(e+"papas2");
+           
             coincide = false;
             if(tip){
                 for(String s : selectedGustos){
-                    System.out.println(e+"papas3");
+                    
                     for(Tag t : e.getTagged_by()){
                         if(t.getTexto().equals(s)){
                             coincide = true;
-                            System.out.println(e+"papas4");
+                            
                         }
                     }
                 }
@@ -173,79 +189,74 @@ public class enviarNotificacionesBean {
             if(coincide){
                 coincide=false;
                 if(f1){
-                    System.out.println(e+"papas5");
+                  
                     Date hoy;
                     Date mañana;
                     Date semana;
                     DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                     if(selectedFecha.get(0).equals("Hoy")){
 
-                        System.out.println(e+"papas6");
+                       
                         hoy = new Date();
-                        /*System.out.println(formato.format(hoy)); 
-                        System.out.println(formato.format(e.getFecha()));
-                        System.out.println(hoy); 
-                        System.out.println(e.getFecha());*/
+                       
                         Calendar c = Calendar.getInstance(); 
                         c.setTime(hoy); 
                         int day = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
-                        //System.out.println(day);
-                        c.setTime(e.getFecha_inicio()); 
-                        int day2 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
-                        //System.out.println(day);
-                        if(day == day2){
+                      
+                        c.setTime(e.getFecha_inicio());
+                        int init = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+                        
+                        c.setTime(e.getFecha_fin());
+                        int end = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+                      
+                        if(day >=init && day <=end){
                             listaCoincidencias.add(e);
                             this.vacio=false;
-                            System.out.println(e+"papas7");
+                          
                         }
 
                     }else if(selectedFecha.get(0).equals("Mañana")){
                         
                         mañana = new Date();
                         Calendar c = Calendar.getInstance(); 
-                        //c.setTime(mañana); 
-                        //c.add(Calendar.DATE, 1);
+                        
                         int day = c.get(Calendar.DAY_OF_WEEK_IN_MONTH)+1;
-                        System.out.println(c.getTime());
+                       
                         
-                        //Calendar c2 = Calendar.getInstance(); 
-                        c.setTime(e.getFecha_inicio()); 
-                        int day2 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
-                        System.out.println(c.getTime());
+                       
+                        c.setTime(e.getFecha_inicio());
+                        int init = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
                         
-                        /*System.out.println(mañana);
-                        System.out.println(day);
-                        System.out.println(day2);*/
-                        if(day == day2){
+                        c.setTime(e.getFecha_fin());
+                        int end = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+                        
+                      
+                        if(day >=init && day <=end){
                             listaCoincidencias.add(e);
                             this.vacio=false;
-                            System.out.println(e+"papas8");
+                            
                         }
 
                     }else if(selectedFecha.get(0).equals("Proximos 7 dias")){
                         
                         mañana = new Date();
                         Calendar c = Calendar.getInstance(); 
-                        //c.setTime(mañana); 
-                        //c.add(Calendar.DATE, 1);
+                       
                         int day = c.get(Calendar.DAY_OF_WEEK_IN_MONTH)+1;    
 
                         semana = new Date();
-                        //c.setTime(semana); 
-                       // c.add(Calendar.DATE, 7);
-                        
-                        int day2 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH)+7;
-                        
-                        //c.setTime(e.getFecha()); 
-                        int day3 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
-                        System.out.println(day);
-                        System.out.println(day2);
-                        System.out.println(day3);
 
-                        if(day3 >= day && day3 <= day2){
+                        int day2 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH)+7;
+
+                        c.setTime(e.getFecha_inicio());
+                        int init = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+                        
+                        c.setTime(e.getFecha_fin());
+                        int end = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+
+                        if((day>=init && day<=end) || (day2>=init && day2<=end)){
                             listaCoincidencias.add(e);
                             this.vacio=false;
-                            System.out.println(e+"papas9");
                         }
                     }
                         
@@ -256,7 +267,7 @@ public class enviarNotificacionesBean {
                     
             }
         }
-         //System.out.println(listaCoincidencias.get(0).getTagged_by().get(0));
+        
         return "enviarNotificacionesRes";
     }
     
@@ -308,56 +319,52 @@ public class enviarNotificacionesBean {
         }
         
         notificacion.setFecha(new Date());
-        //falta añadir cosas a la notificacion
     }
     
     public void enviaNotificacion(int n){
         
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        /*Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String s =  params.get("evento");
         System.out.println(s);
-        Long l = Long.parseLong(s);
+        Long l = Long.parseLong(s);*/
+        System.out.println(selectedEventoS);
         for(Evento e : listaCoincidencias){
-            if(e.getId().equals(l)){
+            if(e.getNombre().equals(selectedEventoS)){
                 this.selectedEvento=e;
             }
         }
-        
-        System.out.println("exito0");
+         
         seleccionaUsuarios();
         if(n==0){
             notificacion(0);
         }else{
             notificacion(1);
         }
-        
-                System.out.println("exito1");
 
         for(Usuario selected : selectedUsuarios){
             selected.getNotificaciones().add(notificacion);
-                    System.out.println("exito2");
 
         }
-        System.out.println("exito3");
+
     }
     
     public String editarNotificacion(){
-         System.out.println("exitoasdasdsa2");
-         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+      
+        /* Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
          String s =  params.get("evento2");
-         System.out.println(s);
+        
          Long l = Long.parseLong(s);
          for(Evento e : listaCoincidencias){
              if(e.getId().equals(l)){
                  this.selectedEvento=e;
              }
-         }
-        return "editarNotificacion.xhtml?evento="+s;
+         }*/
+        return "editarNotificacion.xhtml";
     }
     
     public String volver(){
         return "enviarNotificaciones.xhtml";
     }
-     
+
 }
 

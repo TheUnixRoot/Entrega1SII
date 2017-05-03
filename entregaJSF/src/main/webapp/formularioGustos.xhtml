@@ -21,23 +21,9 @@
             <h3>Formulario sobre gustos</h3>
             <p:selectManyCheckbox id="grid" value="#{formularioGustosBean.selectedGustos}" layout="responsive" columns="2">
                 <f:selectItems value="#{formularioGustosBean.gustos}" var="gusto" itemLabel="#{gusto}" itemValue="#{gusto}" />
-            </p:selectManyCheckbox>
-
-            <p:commandButton value="Enviar" update="display" oncomplete="PF('dlg').show()" icon="ui-icon-check" action="#{formularioGustosBean.saveGustos()}" >
-                <f:param id="id" value="#{controlAutorizacion.getUsuario().getId()}"/>
-            </p:commandButton>
-
-            <p:dialog header="Datos enviados correctamente" modal="true" showEffect="clip" widgetVar="dlg" resizable="false">
-                <p:outputPanel id="display">
-                    <p:dataList value="#{formularioGustosBean.selectedGustos}" var="gusto">
-                        <f:facet name="header">
-                            Gustos
-                        </f:facet>
-                        #{gusto}
-                    </p:dataList>
-                    <p:commandButton value="OK" update="display" icon="ui-icon-check" action="#{formularioGustosBean.goIndex()}" />
-                </p:outputPanel>
-            </p:dialog>
+            </p:selectManyCheckbox> 
+            <p:growl id="growlmensaje" autoUpdate="true" />
+            <p:commandButton value="Enviar" update="growlmensaje" icon="ui-icon-check" action="#{formularioGustosBean.saveGustos()}"/>
         </h:form>
         </section>
         </ui:define>
