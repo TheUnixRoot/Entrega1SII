@@ -5,6 +5,7 @@
  */
 package grupoj.entregajsf.backingBeans;
 
+import grupoj.entregajsf.controlSesion.ControlAutorizacion;
 import grupoj.prentrega1.Formulario;
 import grupoj.prentrega1.Tag;
 import grupoj.prentrega1.Usuario;
@@ -14,6 +15,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
 
 
@@ -32,6 +34,9 @@ public class formularioGustosBean {
     private List<Tag> tags;
     private Formulario formulario;
 
+    @Inject
+    private ControlAutorizacion control;
+    
     public formularioGustosBean() {
         
         this.persistencia = new PersistenceMock();
@@ -62,20 +67,8 @@ public class formularioGustosBean {
     }
     
     public void saveGustos(){       
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        this.user=control.getUsuario();
         
-        //this.setId(Long.parseLong(params.get("id")));
-        Usuario uuu = new Usuario();
-        uuu.setId(Long.parseLong(params.get("id")));
-        System.out.println(Long.parseLong(params.get("id")));
-        
-         if ( this.persistencia.getListaUsuarios().contains(uuu) ) {
-             this.user = this.persistencia.getListaUsuarios().get(this.persistencia.getListaUsuarios().indexOf(uuu));
-         }else{
-              this.user = null;
-         }
-           
-        uuu = null;
         
         List<Tag> l = new ArrayList<>();
         this.formulario = new Formulario();
