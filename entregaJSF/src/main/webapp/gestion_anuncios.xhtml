@@ -23,7 +23,7 @@
                                 <p:graphicImage width="100" value="#{crud_anunciosBean.generar(adv)}"/>
                                     <f:param name="id" value="#{adv.id}"/>
                                 <p:outputLabel value="#{adv.empresa}"/>
-                                <p:commandLink value="Publicar anuncio" action="#{crud_anunciosBean.publicar()}">
+                                <p:commandLink value="Publicar anuncio" action="#{crud_anunciosBean.publicar()}" update="corporative topbanner bottombanner">
                                     <f:param name="id" value="#{adv.id}"/>
                                 </p:commandLink>
                                 <p:commandLink value="#{adv.fecha_public}" action="#{crud_anunciosBean.viajar()}">

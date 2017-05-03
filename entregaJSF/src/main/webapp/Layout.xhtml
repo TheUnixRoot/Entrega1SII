@@ -21,8 +21,8 @@
             
                 <header>
                     <p:panelGrid columns="2" >
-                        <p:graphicImage name="#{show_anunciosBean.self}" height="100"/>
-                        <p:graphicImage value="#{show_anunciosBean.top}" height="100"/>
+                        <p:graphicImage id="corporative" value="#{show_anunciosBean.self}" height="100"/>
+                        <p:graphicImage id="topbanner" value="#{show_anunciosBean.top}" height="100"/>
                     </p:panelGrid>
                     <h:form>
                         <p:menubar>
@@ -57,7 +57,7 @@
                     
 
                     <div name="anuncioAbajoIzquierda" id="divAnunAI" style="margin-top: 10pt">
-                        <p:graphicImage value="#{show_anunciosBean.bottom}" width="180"/>
+                        <p:graphicImage id="bottombanner" value="#{show_anunciosBean.bottom}" width="180"/>
                     </div>
                 </aside>
             

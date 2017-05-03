@@ -55,7 +55,7 @@ public class Crud_anunciosBean {
         return new DefaultStreamedContent(new ByteArrayInputStream(adv.getMultimedia()));
     }
     
-    public void publicar() {
+    public String publicar() {
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         Anuncio anun = new Anuncio();
         anun.setId(Long.parseLong(params.get("id")));
@@ -75,6 +75,7 @@ public class Crud_anunciosBean {
         } catch (InterruptedException ex) {
             System.err.println("Error al publicar el anuncio " + ex.getMessage());
         }
+        return null;
     }
     
 }

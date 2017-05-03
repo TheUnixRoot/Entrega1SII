@@ -190,6 +190,7 @@ public class PersistenceMock implements Serializable {
             adv3.setMultimedia(
                     DropboxController.downloadFile("/default.jpg"));
         } catch (DropboxControllerException ex) {
+            ex.printStackTrace();
             System.err.println("Error al acceder al recurso en linea " + ex.getMessage());
         }
         listaAnuncios.add(adv3);
