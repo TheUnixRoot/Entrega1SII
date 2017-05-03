@@ -19,7 +19,7 @@
             <h:form id="añadirAEvento">                
             
                 <p:panelGrid columns="2" layout="grid">
-                    <p:inputTextarea placeholder="Añade tu comentario sobre el evento..." value="#{AniadirAEvento.comEvento}" autoResize="true" cols="100" rows="6" />
+                    <p:inputTextarea placeholder="Añade tu comentario sobre el evento..." valueChangeListener="#{AniadirAEvento.comEvento}" autoResize="true" cols="100" rows="6" />
                     
                     <h:outputText value=" " />
                     <h:outputText value="Valoración del evento: " />

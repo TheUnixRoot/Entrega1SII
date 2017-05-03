@@ -13,8 +13,8 @@ import grupoj.prentrega1.Valoracion_eve;
 import grupoj.prentrega1.Valoracion_lug;
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import org.primefaces.model.UploadedFile;
 
@@ -23,7 +23,7 @@ import org.primefaces.model.UploadedFile;
  * @author David
  */
 @Named(value = "aniadirAEvento")
-@Dependent
+@RequestScoped
 public class AniadirAEvento {
     @Inject
     private ControlAutorizacion ctrAut;
@@ -117,6 +117,15 @@ public class AniadirAEvento {
     public String añadirComentarioLugar() {
         
         return null;
+    }
+    
+    public AniadirAEvento() {
+        this.comEvento = "";
+        this.comLugar = "";
+        this.valEvento = null;
+        this.valLugar = null;
+        this.fEvento = null;
+        this.fLugar = null;
     }
     
 }
