@@ -25,18 +25,18 @@ and open the template in the editor.
                     
                     <p:panelGrid columns="2" layout="grid">
                         <p:outputLabel value="Activar notifiaciones : " />
-                        <p:selectOneRadio id="Notificaciones" value="#{configurarNotificaciones.notificacionesActivas}">
+                        <p:selectOneButton id="Notificaciones" value="#{configurarNotificaciones.notificacionesActivas}">
                             <f:selectItem itemLabel="Si" itemValue="0" />
                             <f:selectItem itemLabel="No" itemValue="1" />
-                        </p:selectOneRadio>
+                        </p:selectOneButton>
 
                         
                         <p:outputLabel value="Como recibir notifiaciones : " />
                         <p:selectOneMenu id="TipoNotificaciones" value="#{configurarNotificaciones.notificacion}" >
                             <f:selectItems value="#{configurarNotificaciones.listaNotif}" var="n" itemLabel="#{ntfcn}" itemValue="#{ntfcn}"/>
                         </p:selectOneMenu>
- 
-                        <p:commandButton value="Guardar configuración" process="@form" update="confNotificaciones" action="#{configurarNotificaciones.tratarInformacion()}"/>
+                       
+                        <p:commandButton value="Guardar configuración" process="@form" update="confNotificaciones" actionListener="#{configurarNotificaciones.tratarInformacion()}"/>
                         <!-- Para que salga el boton debajo pongo esta línea -->
                         <p:button outcome="index.xhtml" value="Cancelar"/>
                     </p:panelGrid>
