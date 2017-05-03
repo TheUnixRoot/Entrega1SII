@@ -106,6 +106,7 @@ public class SignupBean {
     public String submit() {
         List<Usuario> list = persistencia.getListaUsuarios();
         usuario.setId((long)list.size());
+        usuario.setBorrado(false);
         list.add(usuario);
         try {
             persistencia.setListaUsuarios(list);
