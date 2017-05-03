@@ -8,6 +8,9 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="Layout.xhtml">
+        <ui:define name="pageName">
+            Login
+        </ui:define>
         <ui:define name="navBarName">
             <ui:param name="nombrePagina" value="Login" />
         </ui:define>
@@ -16,14 +19,15 @@
                 <c:when test="${controlAutorizacion.usuario == null}" >
                     <section id="cuerpo">
                         <h:form id="login">
-                            <p:outputLabel value="Login" style="font-size: large"/>
+                            <p:outputLabel value="Login" style="font-size: large;font-weight: bold; margin-bottom: 10pt"/>
+                            <p:growl id="mensaje" autoUpdate="true" />
                             <p:panelGrid columns="2" layout="grid">
                                 <p:outputLabel value="Email: " />
                                 <p:inputText value="#{login.email}"/>
                                 <p:outputLabel value="Contraseña: " />
                                 <p:password id="contrasenia" value="#{login.contrasenia}" />
                             </p:panelGrid>    
-                            <p:commandButton value="Aceptar" action="#{login.autenticar()}"/>   
+                            <p:commandButton value="Aceptar" action="#{login.autenticar()}" update="login"/>   
                             <!-- ¿Boton cancelar? -->
                         </h:form>
                     </section>
@@ -31,7 +35,8 @@
                 <c:otherwise>
                     <p:outputLabel value="Sesion ya iniciada" />
                     <h:form>
-                        <p:commandButton value="Logout" action="#{controlAutorizacion.logout()}" />
+                        <p:growl id="growlmensaje" autoUpdate="true" />
+                        <p:commandButton value="Logout" action="#{controlAutorizacion.logout()}" update="growlmensaje"/>
                     </h:form>
                 </c:otherwise>
             </c:choose>

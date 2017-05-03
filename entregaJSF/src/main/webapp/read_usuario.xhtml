@@ -7,6 +7,9 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="Layout.xhtml">
+        <ui:define name="pageName">
+            Información del ususario
+        </ui:define>
         <ui:define name="navBarName">
             <ui:param name="nombrePagina" value="Información del ususario" />
         </ui:define>
@@ -17,7 +20,11 @@
                         <p:layout fullPage="false">
                             <p:layoutUnit position="west" closable="false" collapsible="false" resizable="false">
                                 <h:form>
-                                    <p:commandButton icon="#{mod_usuariosBean.usr.multimedia}" action="null"/>
+                                    <p:commandButton action="null">
+                                        <p:graphicImage value="#{mod_usuariosBean.generar()}">
+                                            <f:param name="id" value="#{mod_usuariosBean.usr.id}"/>
+                                        </p:graphicImage>
+                                    </p:commandButton>
                                 </h:form>
                             </p:layoutUnit>
                             <p:layoutUnit position="center" closable="false" collapsible="false" resizable="false">
@@ -31,7 +38,7 @@
                                     <p:outputLabel value="Teléfono" style="font-size: large" />
                                     <p:outputLabel value="#{mod_usuariosBean.usr.telefono}" style="font-size: large" />
                                 </p:panelGrid>
-                            </p:layoutUnit>>
+                            </p:layoutUnit>
                         </p:layout>
                     </article>
                 </section>

@@ -5,13 +5,15 @@
  */
 package grupoj.entregajsf.backingBeans;
 
+import grupoj.entregajsf.dropbox.DropboxController;
+import grupoj.entregajsf.dropbox.DropboxControllerException;
 import grupoj.prentrega1.Anuncio;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.ByteArrayInputStream;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -30,39 +32,50 @@ public class Crud_anunciosBean {
 
     @Inject
     private PersistenceMock persistencia;
-    private Iterable<Anuncio> anuncios;
-    /**
-     * Creates a new instance of Crud_anunciosBean
-     */
-    @PostConstruct
-    public void init() {
-        anuncios = persistencia.getListaAnuncios();
-        System.out.println(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
-    }
-
-    public Iterable<Anuncio> getAnuncios() {
-        return anuncios;
-    }
-
-    public void setAnuncios(Iterable<Anuncio> anuncios) {
-        this.anuncios = anuncios;
-    }
     
-    public StreamedContent getImage(Anuncio adv) {
-        StreamedContent result = null;
-        try (FileInputStream fstr = new FileInputStream(genPath(adv.getMultimedia()))) {
-            result = new DefaultStreamedContent(fstr, "image/png");
-        } catch(FileNotFoundException fe) {
-        } catch (IOException ex) {
+    public List<Anuncio> getAnuncios() {
+        return persistencia.getListaAnuncios();
+    }
+
+    public void setAnuncios(List<Anuncio> anuncios) {
+        try {
+            this.persistencia.setListaAnuncios(anuncios);
+        } catch (InterruptedException ex) {
             Logger.getLogger(Crud_anunciosBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return result;
     }
     
-    public String genPath(String path) {
-        String newPath = FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath() + "/resources/" + path;
-        System.out.println(newPath);
-        return newPath;
+    public String viajar() {
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        
+        return "edit_anuncio.xhtml?id=" + params.get("id");
     }
+    
+    public StreamedContent generar(Anuncio adv) {
+        return new DefaultStreamedContent(new ByteArrayInputStream(adv.getMultimedia()));
+    }
+    
+    public String publicar() {
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        Anuncio anun = new Anuncio();
+        anun.setId(Long.parseLong(params.get("id")));
+        List<Anuncio> lista = persistencia.getListaAnuncios();
+        int idx = lista.indexOf(anun);
+        anun = lista.get(idx);
+        System.out.println(anun.getId());
+        for(Anuncio a : lista) {
+            if (a.getLugar().equals(anun.getLugar())) {
+                a.setOnline(false);
+            }
+        }
+        anun.setOnline(true);
+        lista.set(idx, anun);
+        try {
+            persistencia.setListaAnuncios(lista);
+        } catch (InterruptedException ex) {
+            System.err.println("Error al publicar el anuncio " + ex.getMessage());
+        }
+        return null;
+    }
+    
 }

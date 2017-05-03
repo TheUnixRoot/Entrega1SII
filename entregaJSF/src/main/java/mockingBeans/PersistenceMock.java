@@ -5,30 +5,31 @@
  */
 package mockingBeans;
 
+import grupoj.entregajsf.dropbox.DropboxController;
+import grupoj.entregajsf.dropbox.DropboxControllerException;
 import grupoj.prentrega1.*;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
+import java.util.concurrent.Semaphore;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.enterprise.context.ApplicationScoped;
 
 /**
  *
  * @author juanp
  */
 @Named(value = "persistenceMock")
-@SessionScoped
+@ApplicationScoped
 public class PersistenceMock implements Serializable {
     
     private List<Usuario> listaUsuarios;
 
 
-
-    //private List<Mensaje> listaMensajes;
     private Formulario formulario;
-
     
 
 
@@ -45,12 +46,18 @@ public class PersistenceMock implements Serializable {
         listaMensajes.add(msg);
     }*/
 
-
     private List<Evento> listaEventos;
     private List<Lugar> listaLugares;
     private List<Tag> listaTags;
     private List<Anuncio> listaAnuncios;
 
+    
+    private Semaphore mutexUsuarios;
+    private Semaphore mutexEventos;
+    private Semaphore mutexLugares;
+    private Semaphore mutexTags;
+    private Semaphore mutexAnuncios;
+    
     
     /**
      * Creates a new instance of PersistenceMock
@@ -83,7 +90,7 @@ public class PersistenceMock implements Serializable {
         usr.setPassword("usuario");
         usr.setBorrado(false);
         usr.setNombre("normalito");
-        usr.setMultimedia("none");
+        usr.setMultimedia("/usuario.jpeg");
         usr.setForm(formulario);
 
         //usr.setForm(this.formulario);
@@ -100,7 +107,7 @@ public class PersistenceMock implements Serializable {
         per.setPassword("periodista");
         per.setBorrado(false);
         per.setNombre("periodisto");
-        per.setMultimedia("none");
+        per.setMultimedia(null);
         listaUsuarios.add(per);
         
         Administrador adm = new Administrador();
@@ -113,8 +120,7 @@ public class PersistenceMock implements Serializable {
         adm.setPassword("administrador");
         adm.setBorrado(false);
         adm.setNombre("administradorcito");
-        adm.setMultimedia("none");
-        //adm.setRecibirMensaje(listaMensajes);
+        adm.setMultimedia(null);
         listaUsuarios.add(adm);
         
         Geolocalizacion geo = new Geolocalizacion();
@@ -158,22 +164,89 @@ public class PersistenceMock implements Serializable {
         listaEventos.add(ev);*/
         
         Anuncio adv = new Anuncio();
-        
+        adv.setId(10L);
+        adv.setOnline(true);
+        adv.setLugar("top");
+        adv.setEmpresa("Aliexpress");
         adv.setAdmin(adm);
         adv.setFecha_public(new Date());
         adv.setDias_contratados(100);
-        adv.setMultimedia("media/adverts/patata.png");
+        try {
+            adv.setMultimedia(
+                    DropboxController.downloadFile("/amazon.png"));
+        } catch (DropboxControllerException ex) {
+            System.err.println("Error al acceder al recurso en linea " + ex.getMessage());
+        }
         listaAnuncios.add(adv);
         
-        System.out.println(FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath());
+        Anuncio adv2 = new Anuncio();
+        adv2.setId(11L);
+        adv2.setOnline(true);
+        adv2.setLugar("bot");
+        adv2.setEmpresa("Aliexpress");
+        adv2.setAdmin(adm);
+        adv2.setFecha_public(new Date());
+        adv2.setDias_contratados(100);
+        try {
+            adv2.setMultimedia(
+                    DropboxController.downloadFile("/imagen1.png"));
+        } catch (DropboxControllerException ex) {
+            System.err.println("Error al acceder al recurso en linea " + ex.getMessage());
+        }
+        
+        listaAnuncios.add(adv2);
+        
+        Anuncio adv3 = new Anuncio();
+        adv3.setId(13L);
+        adv3.setOnline(true);
+        adv3.setLugar("self");
+        adv3.setEmpresa("SUR");
+        adv3.setAdmin(adm);
+        adv3.setFecha_public(new Date());
+        adv3.setDias_contratados(100);
+        try {
+            adv3.setMultimedia(
+                    DropboxController.downloadFile("/default.jpg"));
+        } catch (DropboxControllerException ex) {
+            ex.printStackTrace();
+            System.err.println("Error al acceder al recurso en linea " + ex.getMessage());
+        }
+        listaAnuncios.add(adv3);
+        
+        Anuncio adv4 = new Anuncio();
+        adv4.setId(14L);
+        adv4.setOnline(false);
+        adv4.setLugar("top");
+        adv4.setEmpresa("Razer");
+        adv4.setAdmin(adm);
+        adv4.setFecha_public(new Date());
+        adv4.setDias_contratados(100);
+        try {
+            adv4.setMultimedia(
+                    DropboxController.downloadFile("/Razer1.jpg"));
+        } catch (DropboxControllerException ex) {
+            System.err.println("Error al acceder al recurso en linea " + ex.getMessage());
+        }
+        listaAnuncios.add(adv4);
+        
+        
+        mutexUsuarios = new Semaphore(1);
+        mutexEventos = new Semaphore(1);
+        mutexLugares = new Semaphore(1);
+        mutexTags = new Semaphore(1);
+        mutexAnuncios = new Semaphore(1);
+        
+        System.out.println("Persistencia creada en Singleton");
     }
 
     public List<Usuario> getListaUsuarios() {
         return listaUsuarios;
     }
 
-    public void setListaUsuarios(List<Usuario> listaUsuarios) {
+    public void setListaUsuarios(List<Usuario> listaUsuarios) throws InterruptedException {
+        mutexUsuarios.acquire();
         this.listaUsuarios = listaUsuarios;
+        mutexUsuarios.release();
     }
 
     public List<Evento> getListaEventos() {
@@ -184,47 +257,31 @@ public class PersistenceMock implements Serializable {
         return listaAnuncios;
     }
 
-    public void setListaAnuncios(List<Anuncio> listaAnuncios) {
+    public void setListaAnuncios(List<Anuncio> listaAnuncios) throws InterruptedException {
+        mutexAnuncios.acquire();
         this.listaAnuncios = listaAnuncios;
+        mutexAnuncios.release();
     }
 
     public List<Lugar> getListaLugares() {
         return listaLugares;
     }
 
-    public void setListaLugares(List<Lugar> listaLugares) {
+    public void setListaLugares(List<Lugar> listaLugares) throws InterruptedException {
+        mutexLugares.acquire();
         this.listaLugares = listaLugares;
+        mutexLugares.release();
     }
 
     public List<Tag> getListaTags() {
         return listaTags;
     }
 
-    public void setListaTags(List<Tag> listaTags) {
+    public void setListaTags(List<Tag> listaTags) throws InterruptedException {
+        mutexTags.acquire();
         this.listaTags = listaTags;
+        mutexTags.release();
     }
     
-    /*public Formulario getFormulario() {
-        return formulario;
-    }
-
-    public void setFormulario(Formulario formulario) {
-        this.formulario = formulario;
-    }*/
-    
-
-    /*
-
-    
-    /*public List<Mensaje> getListaMensajes() {
->>>>>>> formularioGustos_Jesus
-        return listaMensajes;
-    }
-
-    public void setListaMensajes(List<Mensaje> listaMensajes) {
-        this.listaMensajes = listaMensajes;
-    }
-    public void addMessage(Mensaje msg){
-        listaMensajes.add(msg);
-    }*/
 }
+

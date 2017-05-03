@@ -9,7 +9,7 @@
     <ui:composition template="Layout.xhtml">
         <ui:define name="cuerpo">
         <section id="cuerpo">
-        <h:form>    
+            <h:form id="formulario">    
             <p:panelGrid id="panel" columns="2" layout="grid">
                 <h3>Contactar con el administrador</h3>
                 <table id="tabla">
@@ -24,17 +24,12 @@
                         
                     </tr>
                     <tr>
-                        <p:commandButton value="Enviar" oncomplete="PF('dlg').show()" action="#{contactoAdminBean.crearMensaje()}"/>
+                        <p:commandButton value="Enviar" action="#{contactoAdminBean.crearMensaje()}" update="formulario"/>
                         <h:outputText id="display" />
                     </tr>
                 </table>
+                <p:growl id="growl" autoUpdate="true"/>
             </p:panelGrid>
-            
-            <p:dialog header="Mensaje enviado correctamente" modal="true" showEffect="clip" widgetVar="dlg" resizable="false">
-                <div align="center">
-                    <p:commandButton value="Aceptar" action="#{contactoAdminBean.goIndex()}"/>
-                </div>
-            </p:dialog>
         </h:form>
         </section>
         </ui:define>

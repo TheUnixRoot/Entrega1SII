@@ -7,6 +7,12 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="Layout.xhtml">
+        <ui:define name="pageName">
+            Configurar Perfil
+        </ui:define>
+        <ui:define name="navBarName">
+            <ui:param name="nombrePagina" value="Configurar Perfil" />
+        </ui:define>
         <ui:define name="cuerpo">
             <section id="cuerpo">
                 <h:form>
@@ -18,19 +24,32 @@
 
                         <p:outputLabel value="Nombre:" for="nombre" />
                         <p:autoComplete id="nombre" value="#{configurarPerfil.nombre}" completeMethod="#{configurarPerfil.nombre}" />
-
+                        
                         <p:outputLabel value="Apellidos:" for="apellidos" />
                         <p:autoComplete id="apellidos" value="#{configurarPerfil.apellidos}" completeMethod="#{configurarPerfil.apellidos}" />
 
                         <p:outputLabel value="Email:" for="email" />
-                        <p:autoComplete id="email" value="#{configurarPerfil.email}" completeMethod="#{configurarPerfil.email}" />
-
+                        <p:inputText id="email" value="#{configurarPerfil.email}" style="font-size: small"
+                                        required="true" validatorMessage="Email no reconocido"
+                                        requiredMessage="Se debe introducir un email"> 
+                            <f:validateRegex pattern="([a-zA-Z0-9]|[._-])+@[a-zA-Z0-9]+\.(com|es|org|co\.uk|net)" />
+                            <p:ajax update="memail" />
+                        </p:inputText>
+                        <h:message for="email" id="memail" style="font-size: large;color: red" />
+                        <p:outputLabel/>
                         <p:outputLabel value="Contraseña:" for="contrasenia" />
                         <p:autoComplete id="contrasenia" value="#{configurarPerfil.contrasenia}" completeMethod="#{configurarPerfil.contrasenia}" />
-
-                        <p:outputLabel value="Telefono:" for="telefono" />
-                        <p:autoComplete id="telefono" value="#{configurarPerfil.telefono}" completeMethod="#{configurarPerfil.telefono}" />
-
+                        
+                        <p:outputLabel value="Teléfono:" for="telefono" />
+                        <p:inputText id="telefono" value="#{configurarPerfil.telefono}" style="font-size: small"
+                                        required="true" validatorMessage="Teléfono no válido"
+                                        requiredMessage="Se debe introducir un teléfono"> 
+                            <f:validateRegex pattern="([0-9]{9})" />
+                            <p:ajax update="telef" />
+                        </p:inputText>
+                        <h:message for="telefono" id="telef" style="font-size: large;color: red" />
+                        <p:outputLabel/>
+                            
                         <p:outputLabel for="fechaNacimiento" value="Fecha de nacimiento:" />
                         <p:calendar id="fechaNacimiento" value="#{configurarPerfil.fechaNacimiento}" showOn="button" />    
 
@@ -38,17 +57,11 @@
                         <f:param name="productId" value="formularioGustos.xhtml" />
                         </p:link>
 
-
-
                         <h:commandButton value="Guardar" action="#{configurarPerfil.configurar()}"/>  
 
-
                     </p:panelGrid>    
-
                 </h:form>  
-
             </section>
         </ui:define>
     </ui:composition>
-    
 </html>

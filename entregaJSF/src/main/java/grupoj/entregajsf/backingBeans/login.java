@@ -76,11 +76,13 @@ public class login {
         if(encontrado){
             return "index.xhtml";
         }
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario/contraseña incorrectos", "Usuario/contraseña incorrectos"));
-         
-        return null;
+        FacesContext.getCurrentInstance()
+            .addMessage("login:mensaje", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario/contraseña incorrectos", "Usuario/contraseña incorrectos"));
+        this.setContrasenia(null);
+        return "login.xhtml";
     }
     
     
     
 }
+
