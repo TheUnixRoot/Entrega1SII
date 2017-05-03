@@ -184,7 +184,12 @@ public class PersistenceMock implements Serializable {
 
         listaEventos.add(e2);
         
+        Notificacion ne = new Notificacion();
+        ne.setId(System.currentTimeMillis());
+        ne.setContenido("Holi");
         
+        adm.setNotificaciones(new ArrayList<Notificacion>());
+        adm.getNotificaciones().add(ne);
         
         
        /* Geolocalizacion geo1 = new Geolocalizacion();
