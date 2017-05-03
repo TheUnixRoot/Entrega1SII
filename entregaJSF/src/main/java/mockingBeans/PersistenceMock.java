@@ -34,6 +34,7 @@ public class PersistenceMock implements Serializable {
     private List<Evento> listaEventos;
     private List<Lugar> listaLugares;
     private List<Tag> listaTags;
+    private List<Tag> listaTags2;
     private List<Anuncio> listaAnuncios;
 
     
@@ -54,6 +55,7 @@ public class PersistenceMock implements Serializable {
         listaAnuncios = new ArrayList<>();
         listaLugares = new ArrayList<>();
         listaTags = new ArrayList<>();
+        listaTags2 = new ArrayList<>();
         
         Tag tag1 = new Tag();
         tag1.setId(1L);
@@ -64,6 +66,33 @@ public class PersistenceMock implements Serializable {
         tag2.setId(2L);
         tag2.setTexto("Teatro");
         listaTags.add(tag2);
+        
+        Tag tag3 = new Tag();
+        tag3.setId(3L);
+        tag3.setTexto("Arte");
+        listaTags.add(tag3);
+        
+        Tag tag4 = new Tag();
+        tag3.setId(4L);
+        tag3.setTexto("Ópera");
+        listaTags.add(tag4);
+        
+        Tag tag5 = new Tag();
+        tag3.setId(5L);
+        tag3.setTexto("Cine");
+        listaTags.add(tag5);
+        
+        Tag tag6 = new Tag();
+        tag3.setId(6L);
+        tag3.setTexto("Deportes");
+        listaTags.add(tag6);
+       
+        
+        
+        
+        listaTags2.add(tag1);
+        listaTags2.add(tag3);
+        
         
         formulario = new Formulario();
         formulario.setForm_tags(listaTags);
@@ -114,6 +143,15 @@ public class PersistenceMock implements Serializable {
         geo.setLugar(lug);
         lug.setGeolocalizacion(geo);
         
+        Lugar lug2 = new Lugar();
+        Geolocalizacion geo2 = new Geolocalizacion();
+        geo2.setDireccion("Nombre de la calle");
+        lug2.setNombre("Recinto ferial");
+        lug2.setBorrado(false);
+        geo2.setLugar(lug2);
+        lug.setGeolocalizacion(geo2);
+        
+        
         Evento e = new Evento();
         e.setNombre("Feria Málaga");
         e.setBorrado(false);
@@ -129,6 +167,25 @@ public class PersistenceMock implements Serializable {
         e.setFecha_fin(new Date());
 
         listaEventos.add(e);
+        
+        Evento e2 = new Evento();
+        e2.setNombre("Concierto de alguien");
+        e2.setBorrado(false);
+        e2.setValidado(true);
+        e2.setDescripcion("Concierto de alguien muy muy famoso");
+        e2.setPrecio(50);
+        e2.setDonde_comprar("www.antequera.com");
+        e2.setTagged_by(listaTags2);
+        e2.setOcurre_in(lug2);
+        e2.setId(25L);
+        e2.setFecha_inicio(new Date());
+
+        e2.setFecha_fin(new Date());
+
+        listaEventos.add(e2);
+        
+        
+        
         
        /* Geolocalizacion geo1 = new Geolocalizacion();
         Lugar lug1 = new Lugar();
