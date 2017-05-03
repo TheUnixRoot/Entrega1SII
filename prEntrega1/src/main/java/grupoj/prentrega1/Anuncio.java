@@ -33,7 +33,6 @@ public class Anuncio implements Serializable {
     @JoinColumn(name = "admin_fk", nullable = false)
     private Administrador admin;
     
-    private String dimensiones;
     private String empresa;
     private boolean online;
     @Column(nullable = false)
@@ -71,14 +70,6 @@ public class Anuncio implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getDimensiones() {
-        return dimensiones;
-    }
-
-    public void setDimensiones(String dimensiones) {
-        this.dimensiones = dimensiones;
     }
 
     public String getEmpresa() {

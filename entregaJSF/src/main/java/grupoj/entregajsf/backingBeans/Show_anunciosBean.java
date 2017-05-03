@@ -43,9 +43,8 @@ public class Show_anunciosBean {
         if(!find) {
             System.out.println("NO encuentra anuncio en top");
             return null;
-        }
-        
-        return new DefaultStreamedContent(new ByteArrayInputStream(adv.getMultimedia()));
+        } else 
+            return new DefaultStreamedContent(new ByteArrayInputStream(adv.getMultimedia()));
     }
     
     public StreamedContent getBottom() {
@@ -59,9 +58,8 @@ public class Show_anunciosBean {
         }
         if(!find) {
             return null;
-        }
-        
-        return new DefaultStreamedContent(new ByteArrayInputStream(adv.getMultimedia()));
+        } else
+            return new DefaultStreamedContent(new ByteArrayInputStream(adv.getMultimedia()));
     }
     
     public StreamedContent getSelf() {
@@ -75,8 +73,7 @@ public class Show_anunciosBean {
         }
         if(!find) {
             return null;
-        }
-        
-        return new DefaultStreamedContent(new ByteArrayInputStream(adv.getMultimedia()));
+        } else 
+            return new DefaultStreamedContent(new ByteArrayInputStream(adv.getMultimedia()));
     }
 }
