@@ -8,7 +8,9 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="Layout.xhtml">
         <ui:define name="navBarName">
+
             <ui:param name="nombrePagina" value="Eliminar Lugar" />
+
         </ui:define>
         <ui:define name="cuerpo">
             
@@ -19,11 +21,8 @@
                             </p:layoutUnit>
                             <p:layoutUnit position="center" closable="false" collapsible="false" resizable="false">
                                 <p:panelGrid columns="2">
-<<<<<<< HEAD
                          <p:outputLabel value="¿Esta seguro de que quiere eliminar el Lugar?" style="font-size: large" />
-=======
-                         <p:outputLabel value="¿Esta seguro de que quiere eliminar el usuario?" style="font-size: large" />
->>>>>>> master
+
                          <h:form>
                             <p:inputText value="#{eliminarLugar.adv.id}" style="font-size: large;"  />
                             <p:selectOneRadio id="console" value="#{eliminarLugar.valor}">

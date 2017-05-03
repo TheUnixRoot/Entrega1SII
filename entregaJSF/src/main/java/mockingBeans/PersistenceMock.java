@@ -124,7 +124,8 @@ public class PersistenceMock implements Serializable {
         e.setTagged_by(listaTags);
         e.setOcurre_in(lug);
         e.setId(25L);
-        e.setFecha(new Date());
+        e.setFecha_inicio(new Date());
+        e.setFecha_fin(new Date());
         listaEventos.add(e);
         
        /* Geolocalizacion geo1 = new Geolocalizacion();

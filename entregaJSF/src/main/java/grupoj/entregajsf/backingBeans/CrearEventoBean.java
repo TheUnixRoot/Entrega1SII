@@ -36,7 +36,8 @@ public class CrearEventoBean {
     private List<Lugar> lugares;
     private List<Evento> eventos;
     private String nombre;
-    private Date fecha;
+    private Date fecha_inicio;
+    private Date fecha_fin;
     private Date hora;
     private boolean validado;
     private String descripcion;
@@ -66,12 +67,13 @@ public class CrearEventoBean {
       else{
       
       Evento e=new Evento();
-      fecha.setHours(hora.getHours());
-      fecha.setMinutes(hora.getMinutes());
+      fecha_inicio.setHours(hora.getHours());
+      fecha_inicio.setMinutes(hora.getMinutes());
       e.setNombre(nombre);
       e.setPrecio(precio);
       e.setDonde_comprar(donde_comprar);
-      e.setFecha(fecha);
+      e.setFecha_inicio(fecha_inicio);
+      e.setFecha_fin(fecha_fin);
       e.setDescripcion(descripcion);
       e.setOcurre_in(buscarLugar(ocurre_in));
       e.setBorrado(false);
@@ -92,13 +94,23 @@ public class CrearEventoBean {
         this.nombre = nombre;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public Date getFecha_inicio() {
+        return fecha_inicio;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFecha_inicio(Date fecha_inicio) {
+        this.fecha_inicio = fecha_inicio;
     }
+
+    public Date getFecha_fin() {
+        return fecha_fin;
+    }
+
+    public void setFecha_fin(Date fecha_fin) {
+        this.fecha_fin = fecha_fin;
+    }
+
+    
 
     public boolean isValidado() {
         return validado;
