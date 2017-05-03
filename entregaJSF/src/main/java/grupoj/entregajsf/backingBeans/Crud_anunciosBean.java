@@ -32,7 +32,6 @@ public class Crud_anunciosBean {
 
     @Inject
     private PersistenceMock persistencia;
-    private Iterator<Anuncio> it;
     
     public List<Anuncio> getAnuncios() {
         return persistencia.getListaAnuncios();
@@ -52,30 +51,31 @@ public class Crud_anunciosBean {
         return "edit_anuncio.xhtml?id=" + params.get("id");
     }
     
-    public StreamedContent generar() {
-        StreamedContent con = null;
-        try {
-            if(it == null) {
-                it = persistencia.getListaAnuncios().iterator();
-            } else if (it.hasNext()) {
-                String mul = it.next().getMultimedia();
-                if (mul == null) mul = "/default.jpg";
-                con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile(mul))); 
-            }
-        } catch (DropboxControllerException dbex) {
-            try {
-                con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile("/default.jpg")));
-            } catch (DropboxControllerException ex) {
-                Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (IndexOutOfBoundsException ie) {
-            Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ie);
-        }
-        return con;
+    public StreamedContent generar(Anuncio adv) {
+        return new DefaultStreamedContent(new ByteArrayInputStream(adv.getMultimedia()));
     }
     
-    public void publicar() {
-        
+    public String publicar() {
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        Anuncio anun = new Anuncio();
+        anun.setId(Long.parseLong(params.get("id")));
+        List<Anuncio> lista = persistencia.getListaAnuncios();
+        int idx = lista.indexOf(anun);
+        anun = lista.get(idx);
+        System.out.println(anun.getId());
+        for(Anuncio a : lista) {
+            if (a.getLugar().equals(anun.getLugar())) {
+                a.setOnline(false);
+            }
+        }
+        anun.setOnline(true);
+        lista.set(idx, anun);
+        try {
+            persistencia.setListaAnuncios(lista);
+        } catch (InterruptedException ex) {
+            System.err.println("Error al publicar el anuncio " + ex.getMessage());
+        }
+        return null;
     }
     
 }

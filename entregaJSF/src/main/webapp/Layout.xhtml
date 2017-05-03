@@ -20,53 +20,22 @@
             <p:layoutUnit position="north" closable="false" collapsible="false" resizable="false" >
             
                 <header>
-                    <h:form id="formBusqueda">
-                        <p:inputText id="textoABuscar"/>
-                        <p:watermark for="textoABuscar" value="Buscar eventos" id="watermarkForTextoABuscar"/> 
-                        <p:button id="botonBuscar" style="display: none"/>
+                    <p:panelGrid columns="2" >
+                        <p:graphicImage id="corporative" value="#{show_anunciosBean.self}" height="100"/>
+                        <p:graphicImage id="topbanner" value="#{show_anunciosBean.top}" height="100"/>
+                    </p:panelGrid>
+                    <h:form>
+                        <p:menubar>
+                            <p:menuitem value="Index" action="index.xhtml" />
+                            <p:menuitem value="Login" action="login.xhtml" rendered="${controlAutorizacion.usuario == null}" />
+                            <p:menuitem value="Logout" action="login.xhtml" rendered="${controlAutorizacion.usuario != null}" />
+                            <p:menuitem value="SignUp" action="sign_up.xhtml"/>
+                            <p:menuitem value="Patata" action="#"/>
+                        </p:menubar>
                     </h:form>
-                <div name="imagenCabecera" id="divImagen">
-                    <h:button image="" outcome="index.xhtml"/> 
-                </div>
-                <!-- Boton de inciar sesion/notificacion -->
-                <div id="divInitSesion">
 
-                </div>
-                <bnu:navBar fluid="true" sticky="true" >
-                    <bnu:navbarLinks>
-                        <bnu:navLink value="Index" href="index.xhtml"/>
-
-                        <bnu:navLink value="Login" href="login.xhtml" rendered="${controlAutorizacion.usuario == null}"/>
-                        <bnu:navLink value="Logout" href="login.xhtml" rendered="${controlAutorizacion.usuario != null}"/>
-                       
-                        <bnu:navLink value="SignUp" href="sign_up.xhtml"/>
-                        <bnu:navLink value="patata" href="#"/>
-                    </bnu:navbarLinks>
-                </bnu:navBar>
-                <nav name="enlacesNegro" id="navNegro">
-                    <ul>
-                        <!-- Elementos de la lista negra de arriba -->
-                        <ui:repeat value="#{navBlack.items}" var="it">
-                            <li>
-                                <h:link value="#{it.nombre}" outcome="#{it.enlace}"/>
-                            </li>
-                        </ui:repeat>
-                    </ul>
-                </nav>
-                <nav name="enlacesRojo" id="navRojo">
-                    <ul>
-                        <!-- Elementos de la lista roja de arriba -->
-                        <ui:repeat value="#{navRed.items}" var="it">
-                            <li>
-                                <h:link value="#{it.nombre}" outcome="#{it.enlace}"/>
-                            </li>
-                        </ui:repeat>
-                    </ul>
-                </nav>
-                <div name="anuncioArribaTocho" id="divAnunAT">
-
-                </div>
-            </header>
+                
+                </header>
             
             </p:layoutUnit>
 
@@ -81,14 +50,16 @@
                                 <p:menuitem value="Gestion de anuncios" action="gestion_anuncios.xhtml" rendered="${controlAutorizacion.administrador}"/>
                                 <p:menuitem value="Configuración de notificaciones" action="configurarNotificaciones.xhtml" rendered="${controlAutorizacion.administrador}"/>
                                 <p:menuitem value="Busqueda" action="buscarEvento.xhtml"/>
+                                <p:menuitem value="Contactar con administrador" action="contactoAdmin.xhtml"/>
+                                <p:menuitem value="Enviar notificaciones" action="enviarNotificaciones.xhtml" rendered="${controlAutorizacion.periodista}"/>
 
                             </p:submenu>
                         </p:menu>
                     </h:form>
                     
 
-                    <div name="anuncioAbajoIzquierda" id="divAnunAI">
-
+                    <div name="anuncioAbajoIzquierda" id="divAnunAI" style="margin-top: 10pt">
+                        <p:graphicImage id="bottombanner" value="#{show_anunciosBean.bottom}" width="180"/>
                     </div>
                 </aside>
             

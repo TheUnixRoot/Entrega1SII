@@ -68,33 +68,7 @@ public class Mod_anuncioBean {
         this.adv = adv;
     }
     
-   public StreamedContent generar() {
-        StreamedContent con = null;
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        try {
-            Anuncio aa = new Anuncio();
-            aa.setId(Long.parseLong(params.get("id")));
-            String mul = persistencia
-                    .getListaUsuarios()
-                    .get(persistencia
-                            .getListaUsuarios()
-                            .indexOf(aa)
-                    )
-                    .getMultimedia();
-            if (mul == null) mul = "/default.jpg";
-            con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile(mul))); 
-            
-        } catch (DropboxControllerException dbex) {
-            try {
-                con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile("/default.jpg")));
-            } catch (DropboxControllerException ex) {
-                Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (ArrayIndexOutOfBoundsException ie) {
-            System.err.println(ie.getMessage() + " id usuario recibido " + params.get("id"));
-        } catch (NumberFormatException ne) {
-            System.err.println("Error al convertir la id del parametro " + params.get("id") + " excep: " + ne.getMessage());
-        }
-        return con;
+   public StreamedContent generar(Anuncio adv) {
+        return new DefaultStreamedContent(new ByteArrayInputStream(adv.getMultimedia()));
     }
 }

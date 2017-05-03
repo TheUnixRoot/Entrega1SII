@@ -19,11 +19,16 @@
                             </p:layoutUnit>
                             <p:layoutUnit position="center" closable="false" collapsible="false" resizable="false">
                                 <p:panelGrid columns="1">
-                                    
+                                    <h:form>
+                                        <p:commandButton value="#{verEvento.evento.interesados_at.size}" id="nonAjax" actionListener="#{verEvento.meInteresa()}" ajax="false" update="true" />
+                                    </h:form>
                                     <p:outputLabel value="Nombre" style="font-size: large" />
                                     <p:outputLabel value="#{verEvento.evento.nombre}" style="font-size: small" />
                                     <p:outputLabel value="Fecha" style="font-size: large" />
                                     <p:outputLabel value="#{verEvento.evento.fecha.toString}" style="font-size: small" />
+                                    <!--<p:outputLabel value="{verEvento.evento.fecha1.toString - verEvento.evento.fecha2.toString}" style="font-size: small" />-->
+                                    
+
                                     <p:outputLabel value="Lugar" style="font-size: large" />
                                     <p:outputLabel value="#{verEvento.evento.ocurre_in.nombre}" style="font-size: small" />
                                     <p:outputLabel value="Descripcion" style="font-size: large" />

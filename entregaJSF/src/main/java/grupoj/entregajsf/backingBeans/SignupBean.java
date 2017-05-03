@@ -6,6 +6,10 @@
 package grupoj.entregajsf.backingBeans;
 
 import grupoj.prentrega1.Usuario;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -27,9 +31,6 @@ public class SignupBean {
     @Inject
     PersistenceMock persistencia;
     Usuario usuario;
-    String pass1;
-    String pass2;
-    String email;
     
     /**
      * Creates a new instance of SignupBean
@@ -54,50 +55,64 @@ public class SignupBean {
         this.usuario = usuario;
     }
 
-    public String getPass1() {
-        return pass1;
+    public String getPass() {
+        return usuario.getPassword();
     }
 
-    public void setPass1(String pass1) {
-        this.pass1 = pass1;
+    public void setPass(String pass) {
+        this.usuario.setPassword(pass);
     }
 
-    public String getPass2() {
-        return pass2;
+    public String getNombre() {
+        return usuario.getNombre();
     }
 
-    public void setPass2(String pass2) {
-        this.pass2 = pass2;
+    public void setNombre(String nombre) {
+        this.usuario.setNombre(nombre);
+    }
+    
+    public String getApellidos() {
+        return usuario.getApellidos();
     }
 
+    public void setApellidos(String apellidos) {
+        this.usuario.setApellidos(apellidos);
+    }
+    
     public String getEmail() {
-        return email;
+        return usuario.getEmail();
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.usuario.setEmail(email);
     }
     
-    public void validatePassword(ComponentSystemEvent event) {
+    public String getTelefono() {
+        return usuario.getTelefono();
+    }
 
-	  FacesContext fc = FacesContext.getCurrentInstance();
-
-	  UIComponent components = event.getComponent();
-
-	  if (pass1.isEmpty() || pass2.isEmpty()) {
-		return;
-	  }
-
-	  if (!pass1.equals(pass2)) {
-
-		FacesMessage msg = new FacesMessage("Password must match confirm password");
-		msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-                UIInput uiInputPassword = (UIInput) components.findComponent("password");
-	  	fc.addMessage(uiInputPassword.getClientId(), msg);
-		fc.renderResponse();
-
-	  }
-
+    public void setTelefono(String telefono) {
+        this.usuario.setTelefono(telefono);
     }
     
+    public Date getFechaNacimiento() {
+        return usuario.getFechaNacimiento();
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.usuario.setFechaNacimiento(fechaNacimiento);
+    }
+    
+    public String submit() {
+        List<Usuario> list = persistencia.getListaUsuarios();
+        usuario.setId((long)list.size());
+        list.add(usuario);
+        try {
+            persistencia.setListaUsuarios(list);
+        } catch (InterruptedException ex) {
+            System.err.println("Error al insertar usuario en persistencia");
+        }
+        
+        return "index.xhtml";
+    }
 }

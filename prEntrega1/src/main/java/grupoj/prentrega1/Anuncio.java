@@ -33,24 +33,29 @@ public class Anuncio implements Serializable {
     @JoinColumn(name = "admin_fk", nullable = false)
     private Administrador admin;
     
-    private String dimensiones;
     private String empresa;
-    private int prioridad;
+    private boolean online;
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fecha_public;
     @Column(nullable = false)
     private int dias_contratados;
     @Column(nullable = false)
-    private String multimedia;
+    private byte[] multimedia;
+    private String lugar;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    
-    
-    
+    public String getLugar() {
+        return lugar;
+    }
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
+    }
+
     public Administrador getAdmin() {
         return admin;
     }
@@ -67,14 +72,6 @@ public class Anuncio implements Serializable {
         this.id = id;
     }
 
-    public String getDimensiones() {
-        return dimensiones;
-    }
-
-    public void setDimensiones(String dimensiones) {
-        this.dimensiones = dimensiones;
-    }
-
     public String getEmpresa() {
         return empresa;
     }
@@ -83,14 +80,14 @@ public class Anuncio implements Serializable {
         this.empresa = empresa;
     }
 
-    public int getPrioridad() {
-        return prioridad;
+    public boolean isOnline() {
+        return online;
     }
 
-    public void setPrioridad(int prioridad) {
-        this.prioridad = prioridad;
+    public void setOnline(boolean online) {
+        this.online = online;
     }
-
+    
     public Date getFecha_public() {
         return fecha_public;
     }
@@ -107,11 +104,11 @@ public class Anuncio implements Serializable {
         this.dias_contratados = dias_contratados;
     }
 
-    public String getMultimedia() {
+    public byte[] getMultimedia() {
         return multimedia;
     }
 
-    public void setMultimedia(String multimedia) {
+    public void setMultimedia(byte[] multimedia) {
         this.multimedia = multimedia;
     }
     

@@ -20,9 +20,9 @@
             <p:selectManyCheckbox id="grid" value="#{formularioGustosBean.selectedGustos}" layout="responsive" columns="2">
                 <f:selectItems value="#{formularioGustosBean.gustos}" var="gusto" itemLabel="#{gusto}" itemValue="#{gusto}" />
             </p:selectManyCheckbox>
-
-            <p:commandButton value="Enviar" update="display" oncomplete="PF('dlg').show()" icon="ui-icon-check" action="#{formularioGustosBean.saveGustos()}" />
-
+            <p:commandButton value="Enviar" update="display" oncomplete="PF('dlg').show()" icon="ui-icon-check" action="#{formularioGustosBean.saveGustos()}" >
+                <f:param id="id" value="#{controlAutorizacion.getUsuario().getId()}"/>
+            </p:commandButton>
             <p:dialog header="Datos enviados correctamente" modal="true" showEffect="clip" widgetVar="dlg" resizable="false">
                 <p:outputPanel id="display">
                     <p:dataList value="#{formularioGustosBean.selectedGustos}" var="gusto">
@@ -39,3 +39,4 @@
         </ui:define>
     </ui:composition>
 </html>
+

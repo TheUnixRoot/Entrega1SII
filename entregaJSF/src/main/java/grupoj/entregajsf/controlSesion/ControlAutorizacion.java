@@ -12,6 +12,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.concurrent.Semaphore;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 /**
@@ -41,10 +42,10 @@ public class ControlAutorizacion implements Serializable {
         mutex.acquire();
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.getExternalContext().invalidateSession();
-        
+        ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sesion cerrada con exito", "Sesion cerrada con exito"));
         usuario = null;
         mutex.release();
-        return "login.xhtml";
+        return "index.xhtml";
     }
 
     /**
