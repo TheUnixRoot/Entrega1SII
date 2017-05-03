@@ -70,11 +70,7 @@ public class EliminarLugar {
     
     public String eliminarLugar() throws InterruptedException{
     
-     if(valor.equals("si")){
      
-     }else{
-     
-     }
     return "gestionar_Lugar.xhtml";
     }
     

@@ -70,7 +70,7 @@ public class CrearLugarBean {
       l.setFotos(fotos);
       Geolocalizacion g = new Geolocalizacion();
       g.setDireccion(direccion);
-      //g.setCiudad(ciudad);
+      g.setCiudad(ciudad);
       l.setGeolocalizacion(g);
       lugares.add(l);
       persistencia.setListaLugares(lugares);

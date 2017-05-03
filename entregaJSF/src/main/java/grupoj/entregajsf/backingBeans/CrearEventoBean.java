@@ -17,6 +17,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -46,7 +47,9 @@ public class CrearEventoBean {
     private boolean borrado;
     private String ocurre_in;
     private Usuario subido_by;
+    private String borrad;
     private UIComponent enviar;
+    UploadedFile file;
     
     public CrearEventoBean() {
         persistencia = new PersistenceMock();
@@ -77,9 +80,11 @@ public class CrearEventoBean {
       e.setDescripcion(descripcion);
       e.setOcurre_in(buscarLugar(ocurre_in));
       e.setBorrado(false);
+      e.setMultimedia(file.getContents());
       //e.setSubido_by(subido_by);
       //e.setValidado(validado);
       eventos.add(e);
+      
       persistencia.setListaEventos(eventos);
       return "gestion_evento.xhtml";
       }
@@ -176,7 +181,15 @@ public class CrearEventoBean {
         this.lugares = lugares;
     }
 
+    public UploadedFile getFile() {
+        return file;
+    }
 
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    
 
 
 
@@ -210,6 +223,14 @@ public class CrearEventoBean {
 
     public void setEnviar(UIComponent enviar) {
         this.enviar = enviar;
+    }
+
+    public String getBorrad() {
+        return borrad;
+    }
+
+    public void setBorrad(String borrad) {
+        this.borrad = borrad;
     }
 
     
