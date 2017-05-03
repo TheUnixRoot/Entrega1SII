@@ -44,6 +44,7 @@ public class enviarNotificacionesBean {
     private List<String> fechas;
     
     private List<Evento> listaCoincidencias;
+    private String selectedEventoS;
     private Evento selectedEvento;
     
     private List<Usuario> selectedUsuarios;
@@ -83,6 +84,26 @@ public class enviarNotificacionesBean {
       
     }
 
+    public String getSelectedEventoS() {
+        return selectedEventoS;
+    }
+
+    public void setSelectedEventoS(String selectedEventoS) {
+        this.selectedEventoS = selectedEventoS;
+    }
+    
+    
+
+    public Evento getSelectedEvento() {
+        return selectedEvento;
+    }
+
+    public void setSelectedEvento(Evento selectedEvento) {
+        this.selectedEvento = selectedEvento;
+    }
+
+    
+    
     public String getNotificacionPersonalizada() {
         return notificacionPersonalizada;
     }
@@ -302,12 +323,13 @@ public class enviarNotificacionesBean {
     
     public void enviaNotificacion(int n){
         
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        /*Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String s =  params.get("evento");
         System.out.println(s);
-        Long l = Long.parseLong(s);
+        Long l = Long.parseLong(s);*/
+        System.out.println(selectedEventoS);
         for(Evento e : listaCoincidencias){
-            if(e.getId().equals(l)){
+            if(e.getNombre().equals(selectedEventoS)){
                 this.selectedEvento=e;
             }
         }
@@ -328,7 +350,7 @@ public class enviarNotificacionesBean {
     
     public String editarNotificacion(){
       
-         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        /* Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
          String s =  params.get("evento2");
         
          Long l = Long.parseLong(s);
@@ -336,8 +358,8 @@ public class enviarNotificacionesBean {
              if(e.getId().equals(l)){
                  this.selectedEvento=e;
              }
-         }
-        return "editarNotificacion.xhtml?evento="+s;
+         }*/
+        return "editarNotificacion.xhtml";
     }
     
     public String volver(){
