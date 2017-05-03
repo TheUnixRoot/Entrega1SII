@@ -16,26 +16,28 @@
                 <!-- falta validar, quien sube evento-->
                 <h:form id="crearLugar">
                     
+                    <p:panelGrid columns="1" layout="grid" >
+                                        <p:growl id="messages" showDetail="true" />
+                                        <p:fileUpload skinSimple="true" mode="simple" value="#{crearLugarBean.file}"/>
+                                    </p:panelGrid>
+                    
                     <p:panelGrid  columns="2" layout="grid">
                         
                         <p:outputLabel id="nombre" value="Nombre:"/> 
-                        <p:inputText value="#{crearLugarBean.nombre}"/>
+                        <p:inputText value="#{crearLugarBean.nombre}" required="true" requiredMessage="El campo no puede estar vacio"/>
                               
                        
                         <p:outputLabel id="ciudad" value="Ciudad:"/> 
-                        <p:inputText value="#{crearLugarBean.ciudad}"/>
+                        <p:inputText value="#{crearLugarBean.ciudad}" required="true" requiredMessage="El campo no puede estar vacio"/>
                         
                         <p:outputLabel id="geolocalizacion" value="Direccion:"/> 
-                        <p:inputText value="#{crearLugarBean.direccion}"/>
-                        
+                        <p:inputText value="#{crearLugarBean.direccion}" required="true" requiredMessage="El campo no puede estar vacio"/>
                         
                     
-                        <p:outputLabel value="Fotos:"/>
-                        <p:inputText id="fotos" value="#{crearLugarBean.fotos}"/>
                         
                         
                         <p:outputLabel value="Descripcion:"/>
-                        <p:inputTextarea id="descripcion" value="#{crearLugarBean.descripcion}"/>
+                        <p:inputTextarea id="descripcion" value="#{crearLugarBean.descripcion}" required="true" requiredMessage="El campo no puede estar vacio"/>
                         
                         
                         

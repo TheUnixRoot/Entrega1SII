@@ -26,37 +26,37 @@
                         
                         
                         <p:outputLabel id="nombre" value="Nombre:"/> 
-                        <p:inputText value="#{crearEventoBean.nombre}"/>
+                        <p:inputText value="#{crearEventoBean.nombre}" required="true" requiredMessage="El campo no puede estar vacio"/>
                         
                         
                         <p:outputLabel value="Precio:"/>
-                        <p:inputNumber id="precio" value="#{crearEventoBean.precio}" />
+                        <p:inputNumber id="precio" value="#{crearEventoBean.precio}" required="true" requiredMessage="El campo no puede estar vacio"/>
                         
                         
                         <p:outputLabel value="Donde comprar entradas:" />
-                        <p:inputText id="url" value="#{crearEventoBean.donde_comprar}">
+                        <p:inputText id="url" value="#{crearEventoBean.donde_comprar}" required="true" requiredMessage="El campo no puede estar vacio">
                             
                         </p:inputText>
                         
                         
                         <p:outputLabel value="Lugar:"/>
-                        <p:selectOneMenu id="lugar" value="#{crearEventoBean.ocurre_in}" >
+                        <p:selectOneMenu id="lugar" value="#{crearEventoBean.ocurre_in}" required="true" requiredMessage="El campo no puede estar vacio">
                             <f:selectItems  value="#{crearEventoBean.lugares}"  var="lgr" itemLabel="#{lgr.nombre}" itemValue="#{lgr.nombre}" />
                         </p:selectOneMenu>
                        
                        
                         <p:outputLabel value="Descripcion:"/>
-                        <p:inputTextarea id="descripcion" value="#{crearEventoBean.descripcion}"/>
+                        <p:inputTextarea id="descripcion" value="#{crearEventoBean.descripcion}" required="true" requiredMessage="El campo no puede estar vacio"/>
                        
                         
                         <p:outputLabel value="fecha inicio:"/>
-                        <p:calendar  mode="inline" id="fechai" value="#{crearEventoBean.fecha_inicio}"/>
+                        <p:calendar  mode="inline" id="fechai" value="#{crearEventoBean.fecha_inicio}" required="true" requiredMessage="El campo no puede estar vacio"/>
                         
                         <p:outputLabel value="fecha fin:"/>
                         <p:calendar  mode="inline" id="fechaf" value="#{crearEventoBean.fecha_fin}"/>
                         
                         <p:outputLabel  value="Hora :" />
-                        <p:calendar id="hora" value="#{crearEventoBean.hora}" pattern="HH:mm" timeOnly="true"  />
+                        <p:calendar id="hora" value="#{crearEventoBean.hora}" pattern="HH:mm" timeOnly="true" required="true" requiredMessage="El campo no puede estar vacio"  />
                        
 
                      

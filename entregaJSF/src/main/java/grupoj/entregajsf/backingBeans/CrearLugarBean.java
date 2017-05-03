@@ -6,9 +6,11 @@
  * and open the template in the editor.
  */
 package grupoj.entregajsf.backingBeans;
+import grupoj.entregajsf.controlSesion.ControlAutorizacion;
 import grupoj.prentrega1.Geolocalizacion;
 import grupoj.prentrega1.Lugar;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -16,6 +18,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -40,12 +43,12 @@ public class CrearLugarBean {
     private String fotos;
     private String direccion;
     private String ciudad;
-    
+    UploadedFile file;
 
     private UIComponent enviar;
-    
-    public CrearLugarBean() {
-        persistencia = new PersistenceMock();
+    @PostConstruct
+    public void init() {
+      
         lugares = persistencia.getListaLugares();
 
        
@@ -67,11 +70,17 @@ public class CrearLugarBean {
       l.setNombre(nombre);
       l.setDescripcion(descripcion);
       l.setBorrado(false);
-      l.setFotos(fotos);
+      
       Geolocalizacion g = new Geolocalizacion();
       g.setDireccion(direccion);
       g.setCiudad(ciudad);
       l.setGeolocalizacion(g);
+      
+      if(file == null){
+      l.setFotos(new byte[1]);
+      }else{
+      l.setFotos(file.getContents());
+      }
       lugares.add(l);
       persistencia.setListaLugares(lugares);
 
@@ -105,13 +114,15 @@ public class CrearLugarBean {
         this.borrado = borrado;
     }
 
-    public String getFotos() {
-        return fotos;
+    public UploadedFile getFile() {
+        return file;
     }
 
-    public void setFotos(String fotos) {
-        this.fotos = fotos;
+    public void setFile(UploadedFile file) {
+        this.file = file;
     }
+
+    
 
     public String getDireccion() {
         return direccion;
@@ -123,6 +134,14 @@ public class CrearLugarBean {
 
     public Iterable<Lugar> getLugares() {
         return lugares;
+    }
+
+    public String getFotos() {
+        return fotos;
+    }
+
+    public void setFotos(String fotos) {
+        this.fotos = fotos;
     }
 
 

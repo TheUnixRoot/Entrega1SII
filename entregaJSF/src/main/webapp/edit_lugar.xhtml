@@ -32,13 +32,15 @@
                             <p:layoutUnit position="center" closable="false" collapsible="false" resizable="false">
                                 <h:form>
                                     <p:panelGrid columns="1">
-                                        <p:inputText value="#{mod_LugarBean.adv.id}" style="font-size: large; display: none"  />
+                                        
                                         <p:outputLabel value="Nombre" style="font-size: large" />
                                         <p:inputText value="#{mod_LugarBean.adv.nombre}" style="font-size: large" />
                                         <p:outputLabel value="Descripcion" style="font-size: large" />
                                         <p:inputText value="#{mod_LugarBean.adv.descripcion}" style="font-size: large" />
                                         <p:outputLabel value="Direccion:" style="font-size: large" />
                                         <p:inputText value="#{mod_LugarBean.adv.geolocalizacion.direccion}" style="font-size: large" />
+                                        <p:outputLabel value="Ciudad:" style="font-size: large" />
+                                        <p:inputText value="#{mod_LugarBean.adv.geolocalizacion.ciudad}" style="font-size: large" />
                                          
                                         <p:commandButton  value="Enviar" action="#{mod_LugarBean.modificarEvento()}">
                                             <f:param name="id" value="#{mod_LugarBean.ids}"/>
