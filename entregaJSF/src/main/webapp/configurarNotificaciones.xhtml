@@ -12,11 +12,11 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="Layout.xhtml">
-        <ui:define name="Configurar notificaciones">
-            Agenda Diario SUR
+        <ui:define name="pageName">
+            Configurar notificaciones
         </ui:define>
         <ui:define name="navBarName">
-            <ui:param name="Configurar notificaciones" value="Agenda Diario SUR" />
+            <ui:param name="nombrePagina" value="Configurar notificaciones" />
         </ui:define>
         <ui:define name="cuerpo">
         <section id="cuerpo">
@@ -26,23 +26,23 @@ and open the template in the editor.
                     <p:panelGrid columns="2" layout="grid">
                         <p:outputLabel value="Activar notifiaciones : " />
                         <p:selectOneRadio id="Notificaciones" value="#{configurarNotificaciones.notificacionesActivas}">
-                            <f:selectItem itemLabel="Si" itemValue="true" />
-                            <f:selectItem itemLabel="No" itemValue="false" />
+                            <f:selectItem itemLabel="Si" itemValue="#{configurarNotificaciones.activa()}" />
+                            <f:selectItem itemLabel="No" itemValue="#{configurarNotificaciones.notActiva()}" />
                         </p:selectOneRadio>
 
                         
                         <p:outputLabel value="Como recibir notifiaciones : " />
-                        <p:selectOneMenu id="TipoNotificaciones" value="" style="width:125px">
-                            <f:selectItems value="#{configurarNotificaciones.listaNotif}" var="Cadena" itemLabel="#{Cadena}"/>
+                        <p:selectOneMenu id="TipoNotificaciones" value="#{configurarNotificaciones.tipoNotUsuario}" >
+                            <f:selectItems value="#{configurarNotificaciones.listaNotif}" var="n" itemLabel="#{ntfcn}" itemValue="#{ntfcn}"/>
                         </p:selectOneMenu>
  
-                        <p:commandButton value="Guardar configuración" update="confNotificaciones" action="#{configurarNotificaciones.tratarInformacion()}"/>
-                        
+                        <p:commandButton value="Guardar configuración" update="confNotificaciones" actionListener="#{configurarNotificaciones.tratarInformacion}"/>
+                        <!-- Para que salga el boton debajo pongo esta línea -->
+                        <p:button outcome="index.xhtml" value="Cancelar"/>
                     </p:panelGrid>
-                    
-                    
 
                 </h:form>
+                
             </article>
         </section>
         </ui:define>

@@ -100,9 +100,8 @@ public class configurarNotificaciones {
                 
             case Ambos: 
                 ListaNotif.add("Ambos");
-                break;
-            
-                
+                break;  
+              
         }
     }
     
@@ -124,30 +123,36 @@ public class configurarNotificaciones {
         if (tipoNotUsuario != TipoNotificacion.Ambos) {
             insertaLista(TipoNotificacion.Ambos);
         }
+        
     }
     
-    public String tratarInformacion() {
-        
-        if (this.tipoNotUsuario != this.tipoNotUsuAnterior) {
+    public String tratarInformacion() throws InterruptedException {
+        if (!this.notificacionesActivas) {
+            this.usuLogueado.setTipoNotificacionesRecibir(TipoNotificacion.Desactivado);
+        } else if (this.tipoNotUsuario != this.tipoNotUsuAnterior) {
             this.usuLogueado.setTipoNotificacionesRecibir(tipoNotUsuario);
-            
+        }
+        
+        if (!usuLogueado.equals(ctrAut.getUsuario())) {
             // Actualizar información del usuario en la BBDD
             List<Usuario> listaUsu = this.persistencia.getListaUsuarios();
-            int i = 0;
-            boolean esta = false;
-            while (i < listaUsu.size() || !esta) {
-                if (usuLogueado.equals(listaUsu.get(i))) {
-                    esta = true;
-                }
-                i ++;
-            }
-            
-            if (i < listaUsu.size()) {
-                listaUsu.remove(i);
-                listaUsu.add(usuLogueado);
-            }
-        }
+            Usuario usuPrima = usuLogueado;
+            usuPrima.setTipoNotificacionesRecibir(tipoNotUsuario);
+            listaUsu.set(listaUsu.indexOf(usuLogueado), usuPrima);
+            this.persistencia.setListaUsuarios(listaUsu);
+        } 
         
         return null;
     }
+    
+    public String notActiva() {
+        this.tipoNotUsuario = TipoNotificacion.Desactivado;
+        return "false";
+    }
+    
+    public String activa() {
+        this.tipoNotUsuario = TipoNotificacion.Ambos;
+        return "true";
+    }
+    
 }
