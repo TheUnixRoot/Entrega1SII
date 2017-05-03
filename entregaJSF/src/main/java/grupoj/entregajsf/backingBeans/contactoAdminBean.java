@@ -5,24 +5,20 @@
  */
 package grupoj.entregajsf.backingBeans;
 
+import grupoj.entregajsf.controlSesion.ControlAutorizacion;
 import grupoj.prentrega1.Administrador;
 import javax.inject.Named;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import grupoj.prentrega1.Mensaje;
 import grupoj.prentrega1.Usuario;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import mockingBeans.PersistenceMock;
 
 /**
  *
  * @author JesusAlberto
  */
-@RequestScoped
+
 @Named(value = "contactoAdminBean")
 public class contactoAdminBean {
 
@@ -33,13 +29,15 @@ public class contactoAdminBean {
     private Usuario user ;
     private List<Usuario> listUsers;
     private List<Administrador> admins;
+    private ControlAutorizacion control;
     /**
      * Creates a new instance of contactoAdminBean
      */
     public contactoAdminBean() {
         persistencia = new PersistenceMock();
         listUsers = persistencia.getListaUsuarios();
-        user = listUsers.get(0);
+        control = new ControlAutorizacion();
+        user = control.getUsuario();
         message = new Mensaje();
         admins = new ArrayList();
         for(Usuario u : listUsers){
@@ -49,24 +47,6 @@ public class contactoAdminBean {
         }
     }
     
-   /* @PostConstruct
-    public void init() {
-        Map<String, String> req = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        long id = Long.parseLong(req.get("id"));
-        //this.setEditar(Boolean.getBoolean(req.get("edit")));
-        //System.out.println(editar);
-        Usuario uuu = new Usuario();
-        uuu.setId(id);
-        System.out.println(id);
-        if ( this.persistencia.getListaUsuarios().contains(uuu) ) 
-            this.user = this.persistencia.getListaUsuarios()
-                    .get(
-                            this.persistencia.getListaUsuarios().indexOf(uuu)
-                    );
-        else
-            this.user = null;
-        uuu = null;
-    }*/
 
     public Mensaje getMessage() {
         return message;
@@ -113,12 +93,7 @@ public class contactoAdminBean {
             user.setMsg_send(listaMensajes);
         }
         user.getMsg_send().add(message);
-        System.out.println(message.getTexto());
-        /*persistencia.addMessage(message);    
-        String msg = persistencia.getListaMensajes().get(0).getTexto();
-        System.out.println(msg);
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));*/
+       
     }
  
       public String goIndex(){
