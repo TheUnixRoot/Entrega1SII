@@ -21,28 +21,39 @@
                             <h:form id="formu" enctype="multipart/form-data">
                                 <p:panelGrid id="panel" columns="1" layout="grid" >
                                     <p:growl id="messages" showDetail="true" />
-                                    <p:graphicImage value="#{mod_anunciosBean.multimedia}" />
-
+                                    
                                     <p:fileUpload skinSimple="true" mode="simple" value="#{mod_anunciosBean.multimedia2}"/>
                                 </p:panelGrid>
                                 <p:panelGrid columns="1">
                                     <p:outputLabel value="Empresa" style="font-size: large" />
-                                    <p:inputText value="#{mod_anunciosBean.empresa}" style="font-size: large" />
+                                    <p:inputText value="#{mod_anunciosBean.empresa()}" style="font-size: large" >
+                                        <f:param name="id" value="#{adv.id}"/>
+                                    </p:inputText>
                                     <p:outputLabel value="Fecha publicacion" style="font-size: large" />
-                                    <p:calendar value="#{mod_anunciosBean.fecha_public}" style="font-size: large" />
+                                    <p:calendar value="#{mod_anunciosBean.fecha_public}" style="font-size: large" >
+                                        <f:param name="id" value="#{adv.id}"/>
+                                    </p:calendar>
                                     <p:outputLabel value="Días contratados" style="font-size: large" />
-                                    <p:inputText value="#{mod_anunciosBean.dias_contratados}" style="font-size: large" />
+                                    <p:inputText value="#{mod_anunciosBean.dias_contratados}" style="font-size: large" >
+                                        <f:param name="id" value="#{adv.id}"/>
+                                    </p:inputText>
                                     <p:outputLabel value="Online" style="font-size: large" />
                                     <p:selectBooleanButton onLabel="Sí" offLabel="No" value="#{mod_anunciosBean.online}" 
                                                            onIcon="ui-icon-check" offIcon="ui-icon-close" 
-                                                           style="font-size: large" />
+                                                           style="font-size: large" >
+                                        <f:param name="id" value="#{adv.id}"/>
+                                    </p:selectBooleanButton>
 
                                     <p:outputLabel value="Lugar" style="font-size: large" />
                                     <p:selectBooleanButton onLabel="Arriba" offLabel="Abajo" value="#{mod_anunciosBean.lugar}" 
                                                            onIcon="fa-arrow-up" offIcon="fa-arrow-left" 
-                                                           style="font-size: large" />
+                                                           style="font-size: large" >
+                                        <f:param name="id" value="#{adv.id}"/>
+                                    </p:selectBooleanButton>
                                     <p:commandButton value="Actualizar anuncio" action="#{mod_anunciosBean.grabar()}"
-                                                     update="corporative topbanner bottombanner" ajax="false"/>
+                                                     update="corporative topbanner bottombanner" ajax="false">
+                                        <f:param name="id" value="#{adv.id}"/>
+                                    </p:commandButton>
                                 </p:panelGrid>
                             </h:form>
                         </p:layoutUnit>

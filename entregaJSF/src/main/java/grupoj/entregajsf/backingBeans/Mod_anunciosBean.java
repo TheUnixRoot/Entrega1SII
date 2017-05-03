@@ -7,15 +7,15 @@ package grupoj.entregajsf.backingBeans;
 
 import grupoj.prentrega1.Anuncio;
 import java.io.ByteArrayInputStream;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
 import org.primefaces.model.DefaultStreamedContent;
@@ -28,70 +28,96 @@ import org.primefaces.model.UploadedFile;
  */
 @Named(value = "mod_anunciosBean")
 @ViewScoped
-public class Mod_anunciosBean {
+public class Mod_anunciosBean implements Serializable{
 
     @Inject
     PersistenceMock persistencia;
+    List<Anuncio> lista;
     Anuncio adv;
     UploadedFile file;
+    StreamedContent mul;
     
     /**
      * Creates a new instance of New_anuncioBean
      */
+    
+    public Mod_anunciosBean () {
+    }
+    
     @PostConstruct
     public void init() {
         Map<String, String> mapa = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         adv = new Anuncio();
         adv.setId(Long.parseLong(mapa.get("id")));
-        System.out.println(mapa.get("id"));
-        adv = persistencia.getListaAnuncios().get(
-            persistencia.getListaAnuncios().indexOf(adv));
+        lista = persistencia.getListaAnuncios();
     }
     
     public long getId() {
+        adv = lista.get(
+                lista.indexOf(adv));
         return this.adv.getId();
     }
     
     public void setId(long id) {
+        adv = lista.get(
+                lista.indexOf(adv));
         this.adv.setId(id);
     }
     
     public String getEmpresa() {
+        adv = lista.get(
+                lista.indexOf(adv));
         return this.adv.getEmpresa();
     }
     
     public void setEmpresa(String empresa) {
+        adv = lista.get(
+                lista.indexOf(adv));
         this.adv.setEmpresa(empresa);
     }
     
     public Date getFecha_public() {
+        adv = lista.get(
+                lista.indexOf(adv));
         return this.adv.getFecha_public();
     }
     
     public void setFecha_public(Date fecha_publicacion) {
+        adv = lista.get(
+                lista.indexOf(adv));
         this.adv.setFecha_public(fecha_publicacion);
     }
     
     public int getDias_contratados() {
+        adv = lista.get(
+                lista.indexOf(adv));
         return this.adv.getDias_contratados();
     }
     
     public void setDias_contratados(int dias_contratados) {
+        adv = lista.get(
+                lista.indexOf(adv));
         this.adv.setDias_contratados(dias_contratados);
     }
     
     public boolean isLugar() {
+        adv = lista.get(
+                lista.indexOf(adv));
         if (this.adv.getLugar() == null)
             return false;
         return this.adv.getLugar().equals("top");
     }
     
     public void setLugar(boolean lugar) {
+        adv = lista.get(
+                lista.indexOf(adv));
         String res = lugar ? "top":"bot";
         this.adv.setLugar(res);
     }
     
     public StreamedContent getMultimedia() {
+        adv = lista.get(
+                lista.indexOf(adv));
         return new DefaultStreamedContent(new ByteArrayInputStream(adv.getMultimedia()));
     }
     
@@ -104,20 +130,25 @@ public class Mod_anunciosBean {
     }
     
     public void setMultimedia2(UploadedFile multimedia) {
+        adv = lista.get(
+                lista.indexOf(adv));
         adv.setMultimedia(multimedia.getContents());
         this.file = multimedia;
     }
     
     public boolean isOnline() {
+        adv = lista.get(
+                lista.indexOf(adv));
         return this.adv.isOnline();
     }
     
     public void setOnline(boolean online) {
+        adv = lista.get(
+                lista.indexOf(adv));
         this.adv.setOnline(online);
     }
     
     public String grabar() {
-        List<Anuncio> lista = persistencia.getListaAnuncios();
         
         if(adv.isOnline()) {
             for(Anuncio a:lista) {
