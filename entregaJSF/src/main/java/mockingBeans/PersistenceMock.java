@@ -104,7 +104,12 @@ public class PersistenceMock implements Serializable {
         usr.setPassword("usuario");
         usr.setBorrado(false);
         usr.setNombre("normalito");
-        usr.setMultimedia("/usuario.jpeg");
+        try {
+            usr.setMultimedia(
+                    DropboxController.downloadFile("/usuario.jpeg"));
+        } catch (DropboxControllerException ex) {
+            System.err.println("Error al acceder al recurso en linea " + ex.getMessage());
+        }
         usr.setForm(formulario);
 
         listaUsuarios.add(usr);
@@ -118,7 +123,12 @@ public class PersistenceMock implements Serializable {
         per.setPassword("periodista");
         per.setBorrado(false);
         per.setNombre("periodisto");
-        per.setMultimedia(null);
+        try {
+            per.setMultimedia(
+                    DropboxController.downloadFile("/peri.jpeg"));
+        } catch (DropboxControllerException ex) {
+            System.err.println("Error al acceder al recurso en linea " + ex.getMessage());
+        }
         listaUsuarios.add(per);
         
         Administrador adm = new Administrador();
@@ -131,7 +141,12 @@ public class PersistenceMock implements Serializable {
         adm.setPassword("administrador");
         adm.setBorrado(false);
         adm.setNombre("administradorcito");
-        adm.setMultimedia(null);
+        try {
+            adm.setMultimedia(
+                    DropboxController.downloadFile("/lisa.png"));
+        } catch (DropboxControllerException ex) {
+            System.err.println("Error al acceder al recurso en linea " + ex.getMessage());
+        }
         listaUsuarios.add(adm);
         
         Geolocalizacion geo = new Geolocalizacion();

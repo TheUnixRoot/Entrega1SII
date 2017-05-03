@@ -50,7 +50,7 @@ public class Usuario implements Serializable {
     @Column( name = "nombre", nullable = false)
     private String nombre;
     private String apellidos;
-    private String multimedia;
+    private byte[] multimedia;
     private String telefono;
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
@@ -222,11 +222,11 @@ public class Usuario implements Serializable {
         this.apellidos = apellidos;
     }
 
-    public String getMultimedia() {
+    public byte[] getMultimedia() {
         return multimedia;
     }
 
-    public void setMultimedia(String multimedia) {
+    public void setMultimedia(byte[] multimedia) {
         this.multimedia = multimedia;
     }
 

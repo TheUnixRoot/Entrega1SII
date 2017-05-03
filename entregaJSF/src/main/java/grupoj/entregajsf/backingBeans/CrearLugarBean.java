@@ -40,7 +40,7 @@ public class CrearLugarBean {
     private String nombre;
     private String descripcion;
     private boolean borrado;
-    private String fotos;
+    private byte[] fotos;
     private String direccion;
     private String ciudad;
     UploadedFile file;
@@ -136,11 +136,11 @@ public class CrearLugarBean {
         return lugares;
     }
 
-    public String getFotos() {
+    public byte[] getFotos() {
         return fotos;
     }
 
-    public void setFotos(String fotos) {
+    public void setFotos(byte[] fotos) {
         this.fotos = fotos;
     }
 

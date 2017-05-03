@@ -42,15 +42,8 @@ public class DownloaderFotoBean implements Serializable{
             if(it == null) {
                 it = persistencia.getListaUsuarios().iterator();
             } else if (it.hasNext()) {
-                String mul = it.next().getMultimedia();
-                if (mul == null) mul = "/default.jpg";
-                con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile(mul))); 
-            }
-        } catch (DropboxControllerException dbex) {
-            try {
-                con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile("/default.jpg")));
-            } catch (DropboxControllerException ex) {
-                Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ex);
+                byte[] mul = it.next().getMultimedia();
+                con = new DefaultStreamedContent(new ByteArrayInputStream(mul)); 
             }
         } catch (IndexOutOfBoundsException ie) {
             Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ie);

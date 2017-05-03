@@ -47,6 +47,57 @@
                                         </p:commandButton>
                                     </h:form>
                                 </p:panelGrid>
+                                <h:form id="añadirAEvento">                
+
+                                    <p:panelGrid columns="2" layout="grid">
+                                        <p:inputTextarea id="Comentario" placeholder="Añade tu comentario sobre el evento..." value="#{aniadirAEvento.comEvento}" cols="100" rows="6" />
+
+                                        <h:outputText value=" " />
+                                        <h:outputText value="Valoración del evento: " />
+                                        <p:rating id="Valoracion" value="#{aniadirAEvento.valEvento}"/>
+
+                                        <h:outputText value="Seleccionar imagen del evento para subir: " />
+                                        <p:growl id="imgEvento" showDetail="true" />
+
+                                        <p:row>
+                                            <p:column colspan="2">
+                                                <p:fileUpload skinSimple="true" mode="simple" value="#{aniadirAEvento.fEvento}"/>
+                                            </p:column>
+                                        </p:row>
+
+                                        <h:outputText value=" " />
+                                        <h:outputText value=" " />
+
+                                        <p:commandButton value="Comentar y valorar evento"  update="añadirAEvento" action="#{aniadirAEvento.añadirComentarioEvento()}" ajax="false" onclick="this.Valoracion.value = ''" />
+
+                                    </p:panelGrid>
+                                </h:form>
+
+                                <h:form id="añadirALugar">                
+
+                                    <p:panelGrid columns="2" layout="grid">
+                                        <p:inputTextarea id="Comentario" placeholder="Añade tu comentario sobre el lugar..." value="#{aniadirAEvento.comLugar}" autoResize="true" cols="100" rows="6" />
+                                        <h:outputText value=" " />
+                                        <h:outputText value="Valoración del lugar: " />
+                                        <p:rating id="Valoracion" value="#{aniadirAEvento.valLugar}"/>
+
+                                        <h:outputText value="Seleccionar imagen del lugar para subir: " />
+                                        <p:growl id="imgLugar" showDetail="true" />
+
+                                        <p:row>
+                                            <p:column colspan="2">
+                                                <p:fileUpload skinSimple="true" mode="simple" value="#{aniadirAEvento.fLugar}"/>
+                                            </p:column>
+                                        </p:row>
+
+                                        <h:outputText value=" " />
+                                        <h:outputText value=" " />
+
+                                        <p:commandButton value="Comentar y valorar lugar"  update="añadirALugar" action="#{aniadirAEvento.añadirComentarioLugar()}" ajax="false" />
+
+                                    </p:panelGrid>
+                                </h:form>
+
                             </p:layoutUnit>
                         </p:layout>
                     </article>

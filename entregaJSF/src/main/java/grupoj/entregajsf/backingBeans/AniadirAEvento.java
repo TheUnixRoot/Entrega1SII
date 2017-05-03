@@ -15,8 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.inject.Inject;
+import mockingBeans.PersistenceMock;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -28,6 +30,8 @@ import org.primefaces.model.UploadedFile;
 public class AniadirAEvento {
     @Inject
     private ControlAutorizacion ctrAut;
+    @Inject 
+    private PersistenceMock persistencia;
     
     // En las clases ya los tengo
     private Evento eve;
@@ -42,6 +46,18 @@ public class AniadirAEvento {
     private UploadedFile fLugar;
     private List<Valoracion_lug> listLug;
 
+    @PostConstruct
+    public void init() {
+        eve = new Evento();
+        String ide = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
+        if(ide != null) {
+            eve.setId(Long.parseLong(ide));
+            eve = persistencia.getListaEventos()
+                    .get(
+                    persistencia.getListaEventos().indexOf(eve));
+        }
+    }
+    
     public Integer getValEvento() {
         return valEvento;
     }
@@ -92,7 +108,6 @@ public class AniadirAEvento {
 
     
     public String añadirComentarioEvento() {
-        eve = new Evento(); // Lo cojo de la página que ya tiene uno
         Usuario usu = this.ctrAut.getUsuario(); // Usuario logueado
         
         listEve = eve.getValoraciones_sobre();
@@ -132,7 +147,7 @@ public class AniadirAEvento {
     }
     
     public String añadirComentarioLugar() {
-        lug = new Lugar(); // Lo cojo de la página que ya tiene uno
+        lug = eve.getOcurre_in(); // Lo cojo de la página que ya tiene uno
         Usuario usu = this.ctrAut.getUsuario(); // Usuario logueado
         
         listLug = lug.getValoraciones_sobre();

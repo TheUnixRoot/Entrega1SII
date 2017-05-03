@@ -33,7 +33,7 @@ public class Lugar implements Serializable {
     @Column(nullable = false)
     private boolean borrado;
     private String descripcion;
-    private String fotos;
+    private byte[] fotos;
     
     // Relacion ocurre Bidireccional Evento <-> Lugar
     @OneToMany(mappedBy = "ocurre_in")
@@ -123,11 +123,11 @@ public class Lugar implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public String getFotos() {
+    public byte[] getFotos() {
         return fotos;
     }
 
-    public void setFotos(String fotos) {
+    public void setFotos(byte[] fotos) {
         this.fotos = fotos;
     }
     

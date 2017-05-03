@@ -55,13 +55,12 @@ public class Crud_usuariosBean implements Serializable{
     
     public StreamedContent generar(Usuario usu) {
         StreamedContent con = null;
-        String mul = usu.getMultimedia();
-        mul = mul == null? "/default.jpg" : mul;
-        System.out.println(mul);
+        byte[] mul = usu.getMultimedia();
+        if(mul == null) {
+            return null;
+        }
         try {
-            con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile(usu.getMultimedia()))); 
-        } catch (DropboxControllerException dbex) {
-            System.err.println(dbex.getMessage() + " id usuario recibido " + usu.getId() + " DropboxException");
+            con = new DefaultStreamedContent(new ByteArrayInputStream(usu.getMultimedia())); 
         } catch (ArrayIndexOutOfBoundsException ie) {
             System.err.println(ie.getMessage() + " id usuario recibido " + usu.getId());
         } catch (NumberFormatException ne) {

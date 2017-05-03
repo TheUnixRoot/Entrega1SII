@@ -98,22 +98,15 @@ public class Mod_usuariosBean implements Serializable {
         try {
             Usuario uu = new Usuario();
             uu.setId(Long.parseLong(params.get("id")));
-            String mul = persistencia
+            byte[] mul = persistencia
                     .getListaUsuarios()
                     .get(persistencia
                             .getListaUsuarios()
                             .indexOf(uu)
                     )
                     .getMultimedia();
-            if (mul == null) mul = "/default.jpg";
-            con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile(mul))); 
+            con = new DefaultStreamedContent(new ByteArrayInputStream(mul)); 
             
-        } catch (DropboxControllerException dbex) {
-            try {
-                con = new DefaultStreamedContent(new ByteArrayInputStream(DropboxController.downloadFile("/default.jpg")));
-            } catch (DropboxControllerException ex) {
-                Logger.getLogger(Crud_usuariosBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
         } catch (ArrayIndexOutOfBoundsException ie) {
             System.err.println(ie.getMessage() + " id usuario recibido " + params.get("id"));
         } catch (NumberFormatException ne) {

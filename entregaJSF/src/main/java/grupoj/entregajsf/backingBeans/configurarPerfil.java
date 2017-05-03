@@ -31,7 +31,7 @@ public class configurarPerfil{
     @Inject
     private PersistenceMock persistencia;
     private List<Usuario> listaUsuario;
-    private String foto;
+    private byte[] foto;
     private Usuario usuario;
     private String nombre;
     private String apellidos;
@@ -58,11 +58,11 @@ public class configurarPerfil{
                 
     }
 
-    public String getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
     
