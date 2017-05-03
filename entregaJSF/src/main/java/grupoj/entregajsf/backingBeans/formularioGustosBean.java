@@ -5,6 +5,7 @@
  */
 package grupoj.entregajsf.backingBeans;
 
+import grupoj.entregajsf.controlSesion.ControlAutorizacion;
 import grupoj.prentrega1.Formulario;
 import grupoj.prentrega1.Tag;
 import grupoj.prentrega1.Usuario;
@@ -12,8 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
 
 
@@ -31,6 +34,9 @@ public class formularioGustosBean {
     private Usuario user;
     private List<Tag> tags;
     private Formulario formulario;
+    
+    @Inject
+    private ControlAutorizacion control;
 
     public formularioGustosBean() {
         
@@ -62,20 +68,10 @@ public class formularioGustosBean {
     }
     
     public void saveGustos(){       
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         
-        //this.setId(Long.parseLong(params.get("id")));
-        Usuario uuu = new Usuario();
-        uuu.setId(Long.parseLong(params.get("id")));
-        System.out.println(Long.parseLong(params.get("id")));
+        this.user = control.getUsuario();
         
-         if ( this.persistencia.getListaUsuarios().contains(uuu) ) {
-             this.user = this.persistencia.getListaUsuarios().get(this.persistencia.getListaUsuarios().indexOf(uuu));
-         }else{
-              this.user = null;
-         }
-           
-        uuu = null;
+         System.out.println(user.getNombre());
         
         List<Tag> l = new ArrayList<>();
         this.formulario = new Formulario();
@@ -95,6 +91,8 @@ public class formularioGustosBean {
        
         this.formulario.setForm_tags(l);
         this.user.setForm(this.formulario);
+        FacesContext.getCurrentInstance()
+            .addMessage("login:growlmensaje", new FacesMessage(FacesMessage.SEVERITY_INFO, "Datos enviados correctamente", "Datos enviados correctamente"));
         
     }
     

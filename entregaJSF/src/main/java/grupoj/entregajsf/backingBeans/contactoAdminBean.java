@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
 
 /**
@@ -26,7 +27,7 @@ import mockingBeans.PersistenceMock;
 @RequestScoped
 @Named(value = "contactoAdminBean")
 public class contactoAdminBean {
-
+    //@Inject
     private PersistenceMock persistencia;
     private Mensaje message;
     private String texto;
@@ -34,22 +35,28 @@ public class contactoAdminBean {
     private Usuario user ;
     private List<Usuario> listUsers;
     private List<Administrador> admins;
+    @Inject
     private ControlAutorizacion control;
     /**
      * Creates a new instance of contactoAdminBean
      */
-    public contactoAdminBean() {
+    @PostConstruct
+    public void init() {
         persistencia = new PersistenceMock();
         listUsers = persistencia.getListaUsuarios();
-        control = new ControlAutorizacion();
         user = control.getUsuario();
+        
+        System.out.println(user.getNombre());
+        
         message = new Mensaje();
         admins = new ArrayList();
+        
         for(Usuario u : listUsers){
             if(u instanceof Administrador){
                 admins.add((Administrador) u);
             }
         }
+       
     }
   
     public Mensaje getMessage() {
