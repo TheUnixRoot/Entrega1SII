@@ -5,7 +5,7 @@
  */
 package grupoj.entregajsf.backingBeans;
 
-import grupoj.prentrega1.Lugar;
+import grupoj.prentrega1.Evento;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -18,13 +18,13 @@ import mockingBeans.PersistenceMock;
  *
  * @author migue
  */
-@Named(value = "mod_LugarBean")
+@Named(value = "mod_eventoBean")
 @RequestScoped
-public class Mod_LugarBean {
+public class Mod_eventoBean {
 
     @Inject
     PersistenceMock persistencia;
-    private Lugar adv;
+    private Evento adv;
     private Long ids;
 
     public Long getIds() {
@@ -39,20 +39,20 @@ public class Mod_LugarBean {
     
     @PostConstruct
     public void init() {
-        Lugar add = new Lugar();
+        Evento add = new Evento();
         add.setId(Long.parseLong(
                 FacesContext.getCurrentInstance()
                         .getExternalContext()
                 .getRequestParameterMap().get("id")
         ));
         adv = persistencia
-                .getListaLugares()
+                .getListaEventos()
                 .get(
                 persistencia
-                .getListaLugares()
+                .getListaEventos()
                 .indexOf(add)
                 );
-        System.out.println("holaaaaaaaaaaa "+adv.getDescripcion());
+        
     }
     
 
@@ -64,22 +64,20 @@ public class Mod_LugarBean {
         this.persistencia = persistencia;
     }
 
-    public Lugar getAdv() {
+    public Evento getAdv() {
         return adv;
     }
 
-    public void setAdv(Lugar adv) {
+    public void setAdv(Evento adv) {
         this.adv = adv;
     }
     
     
     public String modificarEvento(){
         
+       
         
-        
-        
-        
-        return "gestion_lugar.xhtml";
+        return "gestion_evento.xhtml";
     
     }
 }
