@@ -9,10 +9,12 @@ import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import grupoj.prentrega1.Evento;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
@@ -28,7 +30,7 @@ public class PdfCreator {
     
     private static Font catFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
     private static Font redFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL, BaseColor.RED);
-    private static Font subFont = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD);
+    private static Font subFont = new Font(Font.FontFamily.HELVETICA, 16, Font.NORMAL);
     private static Font smallBold = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
 
     private ByteArrayOutputStream baosPdf;
@@ -53,7 +55,8 @@ public class PdfCreator {
         evento.add(new Paragraph(" "));
         evento.add(new Paragraph(ev.getDescripcion(), subFont));
         evento.add(new Paragraph(" "));
-        evento.add(new Paragraph(new SimpleDateFormat("dd/MM/yyyy-HH:mm").format(ev.getFecha_inicio()), subFont));
+        evento.add(new Paragraph("Fecha de inicio: " + new SimpleDateFormat("dd/MM/yyyy-HH:mm").format(ev.getFecha_inicio()), subFont));
+        evento.add(new Paragraph("Fecha de fin:" + new SimpleDateFormat("dd/MM/yyyy-HH:mm").format(ev.getFecha_fin()), subFont));
         evento.add(new Paragraph(" "));
         evento.add(new Paragraph(ev.getDonde_comprar(), smallBold));
         evento.add(new Paragraph(" "));
