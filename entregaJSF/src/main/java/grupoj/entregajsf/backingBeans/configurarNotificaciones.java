@@ -30,18 +30,35 @@ public class configurarNotificaciones {
     private PersistenceMock persistencia;
     @Inject
     private ControlAutorizacion ctrAut;
-    private boolean notificacionesActivas;
+    private String notificacionesActivas;
     private Usuario usuLogueado;    // Recoger el usuario que se está logueado
     private TipoNotificacion tipoNotUsuario;
-    private TipoNotificacion tipoNotUsuAnterior;
-    private List<String> ListaNotif;
+    private String notificacion;
+    private List<String> listaNotif;
 
-    public boolean isNotificacionesActivas() {
+    public String getNotificacion() {
+        return notificacion;
+    }
+
+    public void setNotificacion(String notificacion) {
+        this.notificacion = notificacion;
+    }
+    
+    public String getNotificacionesActivas() {
         return notificacionesActivas;
     }
 
-    public void setNotificacionesActivas(boolean notificacionesActivas) {
+    public void setNotificacionesActivas(String notificacionesActivas) {
         this.notificacionesActivas = notificacionesActivas;
+        System.out.println("Ha cambiado: "+this.notificacionesActivas);
+    }
+
+    public Usuario getUsuLogueado() {
+        return usuLogueado;
+    }
+
+    public void setUsuLogueado(Usuario usuLogueado) {
+        this.usuLogueado = usuLogueado;
     }
 
     public TipoNotificacion getTipoNotUsuario() {
@@ -53,53 +70,34 @@ public class configurarNotificaciones {
     }
 
     public List<String> getListaNotif() {
-        return ListaNotif;
+        return listaNotif;
     }
 
-    public void setListaNotif(List<String> ListaNotif) {
-        this.ListaNotif = ListaNotif;
+    public void setListaNotif(List<String> listaNotif) {
+        this.listaNotif = listaNotif;
     }
-
-    public Usuario getUsuLogueado() {
-        return usuLogueado;
-    }
-
-    public void setUsuLogueado(Usuario usuLogueado) {
-        this.usuLogueado = usuLogueado;
-    }
-
-    public TipoNotificacion getTipoNotUsuAnterior() {
-        return tipoNotUsuAnterior;
-    }
-
-    public void setTipoNotUsuAnterior(TipoNotificacion tipoNotUsuAnterior) {
-        this.tipoNotUsuAnterior = tipoNotUsuAnterior;
-    }
-    
     
     @PostConstruct
     public void init() {
         usuLogueado = ctrAut.getUsuario(); // Usuario que se ha logueado, ahora esta el de persistencia.
         tipoNotUsuario = usuLogueado.getTipoNotificacionesRecibir();
-        tipoNotUsuAnterior = tipoNotUsuario; // Para compararlo si hace modificaciones.
-        System.out.println(tipoNotUsuario.toString());
-        ListaNotif = new ArrayList<>();
-        notificacionesActivas = true;
+        
+        listaNotif = new ArrayList<>();
         rellenaLista();
     }
 
     private void insertaLista(TipoNotificacion n) {
         switch(n) {
             case Email: 
-                ListaNotif.add("Email");
+                listaNotif.add("Email");
                 break;
                 
             case Cuenta: 
-                ListaNotif.add("Cuenta");
+                listaNotif.add("Cuenta");
                 break; 
                 
             case Ambos: 
-                ListaNotif.add("Ambos");
+                listaNotif.add("Ambos");
                 break;  
               
         }
@@ -108,7 +106,9 @@ public class configurarNotificaciones {
     private void rellenaLista () {
         
         if (tipoNotUsuario == TipoNotificacion.Desactivado) {
-            notificacionesActivas = false;
+            notificacionesActivas = "1";
+        } else {
+            notificacionesActivas = "0";
         }
         
         insertaLista(tipoNotUsuario);
@@ -127,32 +127,39 @@ public class configurarNotificaciones {
     }
     
     public String tratarInformacion() throws InterruptedException {
-        if (!this.notificacionesActivas) {
-            this.usuLogueado.setTipoNotificacionesRecibir(TipoNotificacion.Desactivado);
-        } else if (this.tipoNotUsuario != this.tipoNotUsuAnterior) {
-            this.usuLogueado.setTipoNotificacionesRecibir(tipoNotUsuario);
+        if (notificacion == null) {
+            notificacion = "Desactivado";
         }
-        
-        if (!usuLogueado.equals(ctrAut.getUsuario())) {
-            // Actualizar información del usuario en la BBDD
-            List<Usuario> listaUsu = this.persistencia.getListaUsuarios();
-            Usuario usuPrima = usuLogueado;
-            usuPrima.setTipoNotificacionesRecibir(tipoNotUsuario);
-            listaUsu.set(listaUsu.indexOf(usuLogueado), usuPrima);
-            this.persistencia.setListaUsuarios(listaUsu);
+        switch (notificacion) {
+            case "Email":
+                tipoNotUsuario = TipoNotificacion.Email;
+                break;
+            case "Cuenta":
+                tipoNotUsuario = TipoNotificacion.Cuenta;
+                break;
+            case "Ambos":
+                tipoNotUsuario = TipoNotificacion.Ambos;
+                break;
+            default: 
+                break;
+        }
+
+        System.out.println("Esta activa: "+notificacionesActivas);
+        if (notificacionesActivas.equals("1")) {
+            this.tipoNotUsuario = TipoNotificacion.Desactivado;
         } 
         
+        if (this.tipoNotUsuario != usuLogueado.getTipoNotificacionesRecibir()) {
+            Usuario usuPrima = usuLogueado;
+            usuPrima.setTipoNotificacionesRecibir(tipoNotUsuario);
+            List<Usuario> listaUsu = this.persistencia.getListaUsuarios();
+            listaUsu.remove(usuLogueado);
+            listaUsu.add(usuPrima);
+            this.persistencia.setListaUsuarios(listaUsu);
+            ctrAut.setUsuario(usuPrima);
+        }
+        
         return null;
-    }
-    
-    public String notActiva() {
-        this.tipoNotUsuario = TipoNotificacion.Desactivado;
-        return "false";
-    }
-    
-    public String activa() {
-        this.tipoNotUsuario = TipoNotificacion.Ambos;
-        return "true";
     }
     
 }
