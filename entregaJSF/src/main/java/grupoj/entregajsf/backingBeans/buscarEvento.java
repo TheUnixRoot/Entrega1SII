@@ -165,7 +165,11 @@ public class buscarEvento {
                 coincide = false;
                 
                     if(f1 && f2){
-                        if(e.getFecha().after(fecha1)&&e.getFecha().before(fecha2)){
+                        if( (e.getFecha_inicio().after(fecha1) && e.getFecha_fin().after(fecha2)) ||
+                                (e.getFecha_inicio().after(fecha1) && e.getFecha_fin().before(fecha2)) ||
+                                (e.getFecha_inicio().before(fecha1) && e.getFecha_fin().before(fecha2)) ||
+                                (e.getFecha_inicio().before(fecha1) && e.getFecha_fin().before(fecha2))
+                                ){
                            coincide=true;
                         }
                     }else{

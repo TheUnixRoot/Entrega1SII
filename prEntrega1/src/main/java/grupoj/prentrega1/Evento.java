@@ -37,7 +37,10 @@ public class Evento implements Serializable {
     private String nombre;
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date fecha;
+    private Date fecha_inicio;
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date fecha_fin;
     @Column(nullable = false)
     private boolean borrado;
     @Column(nullable = false)
@@ -45,6 +48,7 @@ public class Evento implements Serializable {
     private String descripcion;
     private double precio;
     private String donde_comprar;
+    private byte[] multimedia;
     
     // Relacion incluye Bidireccional Tag <-> Evento
     @ManyToMany
@@ -106,12 +110,28 @@ public class Evento implements Serializable {
         this.nombre = nombre;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public Date getFecha_inicio() {
+        return fecha_inicio;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFecha_inicio(Date fecha_inicio) {
+        this.fecha_inicio = fecha_inicio;
+    }
+
+    public Date getFecha_fin() {
+        return fecha_fin;
+    }
+
+    public void setFecha_fin(Date fecha_fin) {
+        this.fecha_fin = fecha_fin;
+    }
+
+    public byte[] getMultimedia() {
+        return multimedia;
+    }
+
+    public void setMultimedia(byte[] multimedia) {
+        this.multimedia = multimedia;
     }
 
     public boolean isBorrado() {

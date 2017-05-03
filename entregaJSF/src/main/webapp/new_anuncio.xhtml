@@ -17,31 +17,30 @@
                 <section id="cuerpo">
                     <article id="k">
                         <p:layout fullPage="false">
-                            <p:layoutUnit position="west" closable="false" collapsible="false" resizable="false">
+                            <p:layoutUnit position="center" closable="false" collapsible="false" resizable="false">
                                 <h:form enctype="multipart/form-data">
                                     <p:panelGrid columns="1" layout="grid" >
                                         <p:growl id="messages" showDetail="true" />
-                                        <p:fileUpload value="null" mode="simple" skinSimple="true"/>
-                                        <p:commandButton value="Submit" ajax="false" 
-                                                         actionListener="null" disabled="true" />
+                                        <p:fileUpload skinSimple="true" mode="simple" value="#{new_anuncioBean.multimedia}"/>
                                     </p:panelGrid>
-                                </h:form>
-                            </p:layoutUnit>
-                            <p:layoutUnit position="center" closable="false" collapsible="false" resizable="false">
-                                <h:form>
                                     <p:panelGrid columns="1">
                                         <p:outputLabel value="Empresa" style="font-size: large" />
-                                        <p:inputText value="#{new_anuncioBean.adv.empresa}" style="font-size: large" />
+                                        <p:inputText value="#{new_anuncioBean.empresa}" style="font-size: large" />
                                         <p:outputLabel value="Fecha publicacion" style="font-size: large" />
-                                        <p:inputText value="#{new_anuncioBean.adv.fecha_public}" style="font-size: large" />
+                                        <p:calendar value="#{new_anuncioBean.fecha_public}" style="font-size: large" />
                                         <p:outputLabel value="Días contratados" style="font-size: large" />
-                                        <p:inputText value="#{new_anuncioBean.adv.dias_contratados}" style="font-size: large" />
-                                        <p:outputLabel value="Prioridad" style="font-size: large" />
-                                        <p:inputText value="#{new_anuncioBean.adv.prioridad}" style="font-size: large" />
+                                        <p:inputText value="#{new_anuncioBean.dias_contratados}" style="font-size: large" />
+                                        <p:outputLabel value="Online" style="font-size: large" />
+                                        <p:selectBooleanButton onLabel="Sí" offLabel="No" value="#{new_anuncioBean.online}" 
+                                                               onIcon="ui-icon-check" offIcon="ui-icon-close" 
+                                                               style="font-size: large" />
 
                                         <p:outputLabel value="Lugar" style="font-size: large" />
-                                    <!--    <p:inputText value="{mod_anuncioBean.adv.lugar}" style="font-size: large" />-->
-
+                                        <p:selectBooleanButton onLabel="Arriba" offLabel="Abajo" value="#{new_anuncioBean.lugar}" 
+                                                               onIcon="fa-arrow-up" offIcon="fa-arrow-left" 
+                                                               style="font-size: large" />
+                                        <p:commandButton value="Subir anuncio" action="#{new_anuncioBean.grabar()}"
+                                                         update="corporative topbanner bottombanner" ajax="false"/>
                                     </p:panelGrid>
                                 </h:form>
                             </p:layoutUnit>

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="Layout.xhtml">
+        <ui:define name="navBarName">
+            <ui:param name="nombrePagina" value="Enviar notificaciones" />
+        </ui:define>
+        <ui:define name="cuerpo">
+        <section id="cuerpo">
+        <h:form>    
+            
+            <h3>Enviar notificaciones</h3>
+            <!--panel con un checkbox para buscar eventos segun criterios
+            de los enventos otengo los megusta y los tags y de los tags los formularios
+            de hay obtengo los usuarios relacionados con el evento y les asocio una notificacion
+            -->
+
+            <h3>Filtrar por fecha</h3>
+            <p:selectManyCheckbox id="fecha" value="#{enviarNotificacionesBean.selectedFecha}" layout="responsive" columns="1">
+                <f:selectItems value="#{enviarNotificacionesBean.fechas}" var="fecha" itemLabel="#{fecha}" itemValue="#{fecha}" />
+            </p:selectManyCheckbox>
+
+            <h3>Filtrar por tag</h3>
+            <p:selectManyCheckbox id="tag" value="#{enviarNotificacionesBean.selectedGustos}" layout="responsive" columns="2">
+                <f:selectItems value="#{enviarNotificacionesBean.gustos}" var="gusto" itemLabel="#{gusto}" itemValue="#{gusto}" />
+            </p:selectManyCheckbox>
+
+            <p:separator />
+
+            <p:commandButton value="Buscar" update="display"  icon="ui-icon-check" action="#{enviarNotificacionesBean.filtrar()}"/>
+
+            <p:dialog header="Values" modal="true" showEffect="clip" widgetVar="dlg" resizable="false">
+                <p:outputPanel id="display">
+                        
+                    <p:dataList value="#{enviarNotificacionesBean.selectedFecha}" var="fecha">
+                        <f:facet name="header">
+                            Grid
+                        </f:facet>
+                            #{fecha}
+                    </p:dataList>
+                    <p:dataList value="#{enviarNotificacionesBean.selectedGustos}" var="gusto">
+                        <f:facet name="header">
+                            Grid
+                        </f:facet>
+                            #{gusto}
+                    </p:dataList>
+                </p:outputPanel>   
+            </p:dialog>
+        </h:form>
+        </section>
+        </ui:define>
+    </ui:composition>
+</html>

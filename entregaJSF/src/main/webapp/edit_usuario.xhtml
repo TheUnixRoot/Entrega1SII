@@ -16,33 +16,26 @@
         <ui:define name="cuerpo">
             <c:if test="#{controlAutorizacion.administrador}" >
                 <section id="cuerpo">
-                    <article id="#{mod_usuariosBean.usr.nombre}">
-                        <p:layout fullPage="false">
-                            <p:layoutUnit position="west" closable="false" collapsible="false" resizable="false">
-                                <h:form>
-                                    <p:commandButton action="null">
-                                        <p:graphicImage value="#{mod_usuariosBean.generar()}">
-                                            <f:param name="id" value="#{mod_usuariosBean.usr.id}"/>
-                                        </p:graphicImage>
-                                    </p:commandButton>
-                                </h:form>
-                            </p:layoutUnit>
-                            <p:layoutUnit position="center" closable="false" collapsible="false" resizable="false">
-                                <h:form>
-                                    <p:panelGrid columns="1">
-                                        <p:outputLabel value="Nombre" style="font-size: large" />
-                                        <p:inputText value="#{mod_usuariosBean.usr.nombre}" style="font-size: large" />
-                                        <p:outputLabel value="Apellidos" style="font-size: large" />
-                                        <p:inputText value="#{mod_usuariosBean.usr.apellidos}" style="font-size: large" />
-                                        <p:outputLabel value="Email" style="font-size: large" />
-                                        <p:inputText value="#{mod_usuariosBean.usr.email}" style="font-size: large" />
-                                        <p:outputLabel value="Teléfono" style="font-size: large" />
-                                        <p:inputText value="#{mod_usuariosBean.usr.telefono}" style="font-size: large" />
-                                    </p:panelGrid>
-                                </h:form>
-                            </p:layoutUnit>
-                        </p:layout>
-                    </article>
+                    <p:layout fullPage="false">
+                        <p:layoutUnit position="center" closable="false" collapsible="false" resizable="false">
+                            <h:form>
+                                <p:panelGrid columns="1">
+                                    <p:graphicImage width="150" value="#{mod_usuariosBean.generar()}">
+                                        <f:param name="id" value="#{mod_usuariosBean.usr.id}"/>
+                                    </p:graphicImage>
+                                    <p:outputLabel value="Nombre" style="font-size: large" />
+                                    <p:inputText value="#{mod_usuariosBean.usr.nombre}" style="font-size: large" />
+                                    <p:outputLabel value="Apellidos" style="font-size: large" />
+                                    <p:inputText value="#{mod_usuariosBean.usr.apellidos}" style="font-size: large" />
+                                    <p:outputLabel value="Email" style="font-size: large" />
+                                    <p:inputText value="#{mod_usuariosBean.usr.email}" style="font-size: large" />
+                                    <p:outputLabel value="Teléfono" style="font-size: large" />
+                                    <p:inputText value="#{mod_usuariosBean.usr.telefono}" style="font-size: large" />
+                                    <p:selectBooleanButton onLabel="Borrado" offLabel="Activado" value="#{mod_usuariosBean.usr.borrado}" />
+                                </p:panelGrid>
+                            </h:form>
+                        </p:layoutUnit>
+                    </p:layout>
                 </section>
             </c:if>
             <c:if test="#{!controlAutorizacion.administrador}" >
