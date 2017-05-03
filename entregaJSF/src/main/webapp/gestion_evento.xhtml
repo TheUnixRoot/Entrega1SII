@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="Layout.xhtml">
+        <ui:define name="pageName">
+            Gestion de Evento
+        </ui:define>
+        <ui:define name="navBarName">
+            <ui:param name="nombrePagina" value="Gestion de Eventos" />
+        </ui:define>
+        <ui:define name="cuerpo">
+            
+                <section id="cuerpo">
+                    <article>
+                        <h:form>
+                            <p:commandButton  value="Añadir Evento" action="crearEvento.xhtml"/>
+                        </h:form>
+                    </article>
+                    <h:form>
+                        <p:dataGrid columns="1" layout="grid" value="#{verEventoBean.listaEventos}" var="ev">
+                            
+                            
+                            <p:panelGrid columns="2" layout="grid">
+                                <p:outputLabel value="Nombre:" style="font-size: large" />
+                                <p:outputLabel value="#{ev.nombre}" style="font-size: large" />
+                                <p:outputLabel value="Fecha:" style="font-size: large" />
+                                <p:outputLabel value="#{ev.fecha}" style="font-size: large" />
+                                <p:outputLabel value="lugar:" style="font-size: large" />
+                                 <p:outputLabel value="#{ev.ocurre_in.nombre}" style="font-size: large" />
+                                <p:commandLink value="Ver Evento" style="color:red" action="#{verEventoBean.viajarv()}">
+                                    <f:param name="id" value="#{ev.id}"/>
+                                </p:commandLink>
+                                <c:if test="${controlAutorizacion.periodista}" >
+                                <p:commandLink value="Editar Evento" style="color:red" action="#{verEventoBean.viajar()}">
+                                    <f:param name="id" value="#{ev.id}"/>
+                                </p:commandLink>
+                                 
+                                <p:commandLink value="eliminar Evento" style="color:red" action="#{verLugarBean.viajarE()}">
+                                    <f:param name="id" value="#{ev.id}"/>
+                                </p:commandLink>
+                                    </c:if>
+                                
+                            </p:panelGrid>
+                        </p:dataGrid>
+                    </h:form>
+                    
+                </section>
+            
+            <c:if test="${!controlAutorizacion.administrador}">
+                <p:outputLabel value="403 Forbidden"/>
+            </c:if>
+        </ui:define>
+    </ui:composition>
+</html>

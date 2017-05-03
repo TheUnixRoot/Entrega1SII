@@ -179,6 +179,14 @@ public class PersistenceMock implements Serializable {
         return listaEventos;
     }
 
+    public void setListaEventos(List<Evento> listaEventos) throws InterruptedException {
+        mutexEventos.acquire();
+        this.listaEventos = listaEventos;
+        mutexEventos.release();
+    }
+
+    
+    
     public List<Anuncio> getListaAnuncios() {
         return listaAnuncios;
     }
