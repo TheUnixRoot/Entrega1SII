@@ -189,10 +189,17 @@ public class enviarNotificacionesBean {
                         c.setTime(hoy); 
                         int day = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
                         //System.out.println(day);
-                        c.setTime(e.getFecha()); 
-                        int day2 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+                        c.setTime(e.getFecha_inicio());
+                        int init = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+                        
+                        c.setTime(e.getFecha_fin());
+                        int end = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+                      
+                        //int duracion = end-init;
+                        
+                       
                         //System.out.println(day);
-                        if(day == day2){
+                        if(day >=init || day <=end){
                             listaCoincidencias.add(e);
                             this.vacio=false;
                             System.out.println(e+"papas7");
@@ -208,14 +215,16 @@ public class enviarNotificacionesBean {
                         System.out.println(c.getTime());
                         
                         //Calendar c2 = Calendar.getInstance(); 
-                        c.setTime(e.getFecha()); 
-                        int day2 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
-                        System.out.println(c.getTime());
+                        c.setTime(e.getFecha_inicio());
+                        int init = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+                        
+                        c.setTime(e.getFecha_fin());
+                        int end = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
                         
                         /*System.out.println(mañana);
                         System.out.println(day);
                         System.out.println(day2);*/
-                        if(day == day2){
+                        if(day >=init || day <=end){
                             listaCoincidencias.add(e);
                             this.vacio=false;
                             System.out.println(e+"papas8");
@@ -236,12 +245,15 @@ public class enviarNotificacionesBean {
                         int day2 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH)+7;
                         
                         //c.setTime(e.getFecha()); 
-                        int day3 = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
-                        System.out.println(day);
-                        System.out.println(day2);
-                        System.out.println(day3);
+                        c.setTime(e.getFecha_inicio());
+                        int init = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+                        
+                        c.setTime(e.getFecha_fin());
+                        int end = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+                        
+                        
 
-                        if(day3 >= day && day3 <= day2){
+                        if((day>=init&&day<=end) || (day2>=init&&day2<=end)){
                             listaCoincidencias.add(e);
                             this.vacio=false;
                             System.out.println(e+"papas9");

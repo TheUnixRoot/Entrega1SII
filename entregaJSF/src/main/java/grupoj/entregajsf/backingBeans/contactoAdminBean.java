@@ -106,11 +106,8 @@ public class contactoAdminBean {
         System.out.println(message.getTexto());
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.addMessage("formulario:panel:growl", new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje enviado correctamente", "Mensaje enviado correctamente"));
-        return null;
-     }
- 
-      public String goIndex(){
         return "index.xhtml";
-    }
+     }
+
  
 }

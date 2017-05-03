@@ -53,7 +53,7 @@ public class PdfCreator {
         evento.add(new Paragraph(" "));
         evento.add(new Paragraph(ev.getDescripcion(), subFont));
         evento.add(new Paragraph(" "));
-        evento.add(new Paragraph(new SimpleDateFormat("dd/MM/yyyy-HH:mm").format(ev.getFecha()), subFont));
+        evento.add(new Paragraph(new SimpleDateFormat("dd/MM/yyyy-HH:mm").format(ev.getFecha_inicio()), subFont));
         evento.add(new Paragraph(" "));
         evento.add(new Paragraph(ev.getDonde_comprar(), smallBold));
         evento.add(new Paragraph(" "));

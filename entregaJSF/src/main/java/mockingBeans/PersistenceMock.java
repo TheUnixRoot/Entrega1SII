@@ -142,7 +142,10 @@ public class PersistenceMock implements Serializable {
         e.setTagged_by(listaTags);
         e.setOcurre_in(lug);
         e.setId(25L);
-        e.setFecha(new Date());
+        e.setFecha_inicio(new Date());
+
+        e.setFecha_fin(new Date());
+
         listaEventos.add(e);
         
        /* Geolocalizacion geo1 = new Geolocalizacion();
@@ -179,6 +182,7 @@ public class PersistenceMock implements Serializable {
         }
         listaAnuncios.add(adv);
         
+
         Anuncio adv2 = new Anuncio();
         adv2.setId(11L);
         adv2.setOnline(true);
@@ -228,6 +232,19 @@ public class PersistenceMock implements Serializable {
             System.err.println("Error al acceder al recurso en linea " + ex.getMessage());
         }
         listaAnuncios.add(adv4);
+
+        Lugar lugar1 = new Lugar();
+        lugar1.setId(1L);
+        lugar1.setNombre("plazuela");
+        lugar1.setDescripcion("Un sitio muy chu-chuli");
+        listaLugares.add(lugar1);
+        
+        Lugar lugar2 = new Lugar();
+        lugar2.setId(2L);
+        lugar2.setNombre("campo futbol");
+        lugar2.setDescripcion("estadio grande");
+        listaLugares.add(lugar2);
+
         
         
         mutexUsuarios = new Semaphore(1);
@@ -253,6 +270,14 @@ public class PersistenceMock implements Serializable {
         return listaEventos;
     }
 
+    public void setListaEventos(List<Evento> listaEventos) throws InterruptedException {
+        mutexEventos.acquire();
+        this.listaEventos = listaEventos;
+        mutexEventos.release();
+    }
+
+    
+    
     public List<Anuncio> getListaAnuncios() {
         return listaAnuncios;
     }
