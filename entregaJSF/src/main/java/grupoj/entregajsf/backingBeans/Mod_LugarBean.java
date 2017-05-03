@@ -52,7 +52,7 @@ public class Mod_LugarBean {
                 .getListaLugares()
                 .indexOf(add)
                 );
-        System.out.println("holaaaaaaaaaaa "+adv.getDescripcion());
+        
     }
     
 

@@ -61,6 +61,7 @@ public class buscarEvento {
        fecha2 = null;
        precio1 = 0;
        precio2 = 0;
+       listaEventos = persistencia.getListaEventos();
     }
 
     public String[] getSelectedTipoEvento() {
@@ -131,38 +132,74 @@ public class buscarEvento {
         this.listaCoincidencias = listaCoincidencias;
     }
     
+    public boolean esTag(String lugar){
+        boolean esTag = false;
+        List<Tag> listaTags = persistencia.getListaTags();
+        for(Tag t : listaTags){
+            if(t.getTexto().equals(lugar)){
+                esTag = true;
+            }
+        }
+        return esTag;
+    }
+    
     public String buscar(){
         listaEventos = persistencia.getListaEventos();
         boolean coincide = false;
         
         
         if(this.getSelectedTipoEvento() != null) tip=true;     
-        if(this.getSelectedLugares() != null) lug=true;
+        if(this.getSelectedLugares() != null && getSelectedLugares().length > 0 && this.esTag(getSelectedLugares()[0])) {
+            lug=true;
+        }
         if(fecha1!=null) f1=true;
         if(fecha2!=null) f2=true;
         if(precio2 !=0) p2=true;
         
         for(Evento e : listaEventos){
+            System.out.println("entro1");
+            System.out.println("entro2");
+            System.out.println("entro3");
+            System.out.println("entro4");
             coincide = false;
             if(tip){
                 if(e.getTagged_by() != null && !e.getTagged_by().isEmpty()){
-                    for(String s : selectedTipoEvento){     
+                    for(String s : selectedTipoEvento){
                         for(Tag t : e.getTagged_by()){
-                            if(t.getTexto().equals(s)){
+                            if(t!=null && t.getTexto() != null && t.getTexto().equalsIgnoreCase(s)){
                                 coincide = true;
                                 
                             }
                         }
                     }
                 }else{
+                    
                     coincide=true;
                 }
                 
             }else{
+                
                 coincide=true;
             }
             if(coincide){
                 coincide = false;
+                if(lug){
+                    
+                    for(String s : selectedLugares){               
+                        if(e.getOcurre_in().getNombre().equals(s)){
+                            coincide = true;
+                            
+                        }
+                    }
+                }else{
+                    coincide=true;
+                    
+                    
+                }
+                
+                if(coincide){
+                    coincide=false;
+                
                 
                     if(f1 && f2){
                         if( (e.getFecha_inicio().after(fecha1) && e.getFecha_fin().after(fecha2)) ||
@@ -185,6 +222,7 @@ public class buscarEvento {
                         }
                     }
                 }
+            }
             }
         
         

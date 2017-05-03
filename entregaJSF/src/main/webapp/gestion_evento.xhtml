@@ -29,8 +29,10 @@
                             <p:panelGrid columns="2" layout="grid">
                                 <p:outputLabel value="Nombre:" style="font-size: large" />
                                 <p:outputLabel value="#{ev.nombre}" style="font-size: large" />
-                                <p:outputLabel value="Fecha:" style="font-size: large" />
-                                <p:outputLabel value="#{ev.fecha}" style="font-size: large" />
+                                <p:outputLabel value="Fecha inicio:" style="font-size: large" />
+                                <p:outputLabel value="#{ev.fecha_inicio}" style="font-size: large" />
+                                <p:outputLabel value="Fecha fin:" style="font-size: large" />
+                                <p:outputLabel value="#{ev.fecha_fin}" style="font-size: large" />
                                 <p:outputLabel value="lugar:" style="font-size: large" />
                                  <p:outputLabel value="#{ev.ocurre_in.nombre}" style="font-size: large" />
                                 <p:commandLink value="Ver Evento" style="color:red" action="#{verEventoBean.viajarv()}">

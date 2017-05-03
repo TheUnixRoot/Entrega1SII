@@ -16,24 +16,31 @@
                 <!-- falta validar, quien sube evento-->
                 <h:form id="crearEvento">
                     
+                    <p:panelGrid columns="1" layout="grid" >
+                                        <p:growl id="messages" showDetail="true" />
+                                        <p:fileUpload skinSimple="true" mode="simple" value="#{crearEventoBean.file}"/>
+                                    </p:panelGrid>
+                    
                     <p:panelGrid  columns="2" layout="grid">
                         
+                        
+                        
                         <p:outputLabel id="nombre" value="Nombre:"/> 
-                        <p:inputText value="#{proponerEventoBean.nombre}"/>
+                        <p:inputText value="#{crearEventoBean.nombre}"/>
                         
                         
                         <p:outputLabel value="Precio:"/>
-                        <p:inputNumber id="precio" value="#{proponerEventoBean.precio}" />
+                        <p:inputNumber id="precio" value="#{crearEventoBean.precio}" />
                         
                         
                         <p:outputLabel value="Donde comprar entradas:" />
-                        <p:inputText id="url" value="#{proponerEventoBean.donde_comprar}">
+                        <p:inputText id="url" value="#{crearEventoBean.donde_comprar}">
                             
                         </p:inputText>
                         
                         
                         <p:outputLabel value="Lugar:"/>
-                        <p:selectOneMenu id="lugar" value="#{proponerEventoBean.ocurre_in}" >
+                        <p:selectOneMenu id="lugar" value="#{crearEventoBean.ocurre_in}" >
                             <f:selectItems  value="#{crearEventoBean.lugares}"  var="lgr" itemLabel="#{lgr.nombre}" itemValue="#{lgr.nombre}" />
                         </p:selectOneMenu>
                        
@@ -51,10 +58,15 @@
                         <p:outputLabel  value="Hora :" />
                         <p:calendar id="hora" value="#{crearEventoBean.hora}" pattern="HH:mm" timeOnly="true"  />
                        
+                        <c:if test="${controlAutorizacion.administrador}">
+                           
+                           
+                        </c:if>
+                
                         
       
                      
-                        <p:commandButton value="Enviar" action="#{crearEventoBean.insertarEvento()}"/>
+                        <p:commandButton value="Enviar" ajax="false" action="#{crearEventoBean.insertarEvento()}"/>
                         
                     </p:panelGrid>
                     </h:form>
