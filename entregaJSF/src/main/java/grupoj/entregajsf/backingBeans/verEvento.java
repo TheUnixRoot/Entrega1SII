@@ -9,6 +9,7 @@ package grupoj.entregajsf.backingBeans;
 import grupoj.entregajsf.controlSesion.ControlAutorizacion;
 import grupoj.prentrega1.Evento;
 import grupoj.prentrega1.Usuario;
+import java.io.ByteArrayInputStream;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
@@ -16,6 +17,8 @@ import javax.enterprise.context.Dependent;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import mockingBeans.PersistenceMock;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -80,6 +83,14 @@ public class verEvento {
 
     public void setId(long id) {
         this.id = id;
+    }
+    
+    public StreamedContent getMultimedia() {
+        return new DefaultStreamedContent(new ByteArrayInputStream(evento.getMultimedia()));
+    }
+    
+    public void setMultimedia(StreamedContent mult){
+        
     }
     
     public String meInteresa(){

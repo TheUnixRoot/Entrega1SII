@@ -19,9 +19,9 @@
                             </p:layoutUnit>
                             <p:layoutUnit position="center" closable="false" collapsible="false" resizable="false">
                                 <p:panelGrid columns="1">
-                                    <h:form>
-                                        <p:commandButton value="#{verEvento.evento.interesados_at.size}" id="nonAjax" actionListener="#{verEvento.meInteresa()}" ajax="false" update="true" />
-                                    </h:form>
+                                    <p:graphicImage width="150" value="#{verEvento.multimedia}">
+                                        <f:param name="id" value="#{verEvento.id}"/>
+                                    </p:graphicImage>
                                     <p:outputLabel value="Nombre" style="font-size: large" />
                                     <p:outputLabel value="#{verEvento.evento.nombre}" style="font-size: small" />
                                     <p:outputLabel value="Fecha" style="font-size: large" />
@@ -39,8 +39,8 @@
                                     <p:commandLink id="nonAjax" actionListener="#{verEvento.evento.donde_comprar}" ajax="false">
                                         <h:outputText value="#{verEvento.evento.donde_comprar}" style="font-size: small"/>
                                     </p:commandLink>
+                                        <p:commandButton value="#{verEvento.evento.interesados_at.size}" id="nonAjax" actionListener="#{verEvento.meInteresa()}" ajax="false" update="true" />
                                     </h:form>
-                                    
                                 </p:panelGrid>
                             </p:layoutUnit>>
                         </p:layout>
